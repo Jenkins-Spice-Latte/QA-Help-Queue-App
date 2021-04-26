@@ -53,6 +53,30 @@ module "TEST_PRIVATE_SUBNET" {
   }
 }
 
+# ^ resources needed for private subnet (test server)
+module "NAT_GATEWAY" {
+  source = "./NAT_GATEWAY"
+  allocation_id = module.EIP_NGW.id
+  subnet_id = module.EKS_PUBLIC_SUBNET_A.id
+  nat_gateway_depends_on = [module.EKS_PUBLIC_SUBNET_A]
+  name_tag = "hq_eks_nat"
+}
+
+module "PRIVATE_RT" {
+  source = "./RT"
+  vpc_id = module.VPC.vpc_id
+  gateway_id = module.NAT_GATEWAY.id
+  route_cidr_block = "0.0.0.0/0"
+  name_tag = "hq_private_rt"
+}
+
+module "PRIVATE_RT_ASSOCIATION" {
+  source = "./RT_A"
+  route_table_id = module.PRIVATE_RT.id
+  subnet_id = module.TEST_PRIVATE_SUBNET.id
+  name_tag = "hq_test_server_rt_association"
+}
+
 # ^ deployment resources (eks)
 module "EKS_PUBLIC_SUBNET_A" {
   source = "./SUBNET"
@@ -86,21 +110,4 @@ module "EIP_NGW" {
   source = "./EIP"
   eip_depends_on = module.INTERNET_GATEWAY
   name_tag = "hq_eip_for_nat_gateway"
-}
-
-# ^ resources needed for private subnet
-module "NAT_GATEWAY" {
-  source = "./NAT_GATEWAY"
-  allocation_id = module.EIP_NGW.id
-  subnet_id = module.EKS_PUBLIC_SUBNET_A.id
-  nat_gateway_depends_on = [module.EKS_PUBLIC_SUBNET_A]
-  name_tag = "hq_eks_nat"
-}
-
-module "PRIVATE_RT" {
-  source = "./RT"
-  vpc_id = module.VPC.vpc_id
-  gateway_id = module.NAT_GATEWAY.id
-  route_cidr_block = "0.0.0.0/0"
-  name_tag = "hq_private_rt"
 }
