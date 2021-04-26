@@ -38,7 +38,6 @@ module "PUBLIC_RT_ASSOCIATION" {
   source = "./RT_A"
   subnet_id = module.PUBLIC_SUBNET.id
   route_table_id = module.PUBLIC_RT.id
-  name_tag = "hq_public_rt_association"
 }
 
 # ^ CI resources
@@ -74,7 +73,6 @@ module "PRIVATE_RT_ASSOCIATION" {
   source = "./RT_A"
   route_table_id = module.PRIVATE_RT.id
   subnet_id = module.TEST_PRIVATE_SUBNET.id
-  name_tag = "hq_test_server_rt_association"
 }
 
 # ^ deployment resources (eks)
