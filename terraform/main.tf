@@ -18,6 +18,30 @@ module "INTERNET_GATEWAY" {
   name_tag = "hq_internet_gateway"
 }
 
+module "PUBLIC_RT" {
+  source = "./RT"
+
+  vpc_id = module.VPC.vpc_id
+  gateway_id = module.INTERNET_GATEWAY.id
+  route_cidr_block = "0.0.0.0/0"
+
+  name_tag = "hq_public_rt"
+}
+
+# ^ CI resources
+module "TEST_PRIVATE_SUBNET" {
+  source = "./SUBNET"
+
+  vpc_id                  = module.VPC.vpc_id
+  availability_zone       = "eu-west-2a"
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "hq_test_private_subnet"
+  }
+}
+
 # ^ deployment resources (eks)
 module "EKS_PUBLIC_SUBNET_A" {
   source = "./SUBNET"
@@ -57,6 +81,7 @@ module "EIP_NGW" {
   name_tag = "hq_eip_for_nat_gateway"
 }
 
+# ^ resources needed for private subnet
 module "NAT_GATEWAY" {
   source = "./NAT_GATEWAY"
 
@@ -67,16 +92,12 @@ module "NAT_GATEWAY" {
   name_tag = "hq_eks_nat"
 }
 
-# ^ CI resources
-module "TEST_PRIVATE_SUBNET" {
-  source = "./SUBNET"
+module "PRIVATE_RT" {
+  source = "./RT"
 
-  vpc_id                  = module.VPC.vpc_id
-  availability_zone       = "eu-west-2a"
-  cidr_block              = "10.0.1.0/24"
-  map_public_ip_on_launch = false
+  vpc_id = module.VPC.vpc_id
+  gateway_id = module.NAT_GATEWAY.id
+  route_cidr_block = "0.0.0.0/0"
 
-  tags = {
-    Name = "hq_test_private_subnet"
-  }
+  name_tag = "hq_private_rt"
 }
