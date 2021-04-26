@@ -16,7 +16,6 @@ variable "availability_zone" {
   description = "The AZ for the subnet."
 }
 
-variable "name_tag" {
-  description = "Name tag to assign to the resource"
-  type        = string
+variable "tags" {
+  description = "Tags to assign to the resource as an object."
 }
