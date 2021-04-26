@@ -2,10 +2,12 @@
 
 variable "vpc" {
   description = "Boolean if the EIP is in a VPC or not."
+  default = null
 }
 
 variable "instance" {
   description = "EC2 instance ID."
+  default = null
 }
 
 variable "eip_depends_on" {

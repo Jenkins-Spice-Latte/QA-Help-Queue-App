@@ -55,8 +55,6 @@ module "EIP_NGW" {
   eip_depends_on = module.INTERNET_GATEWAY
 
   name_tag = "hq_eip_for_nat_gateway"
-  instance = ""
-  vpc = null
 }
 
 module "NAT_GATEWAY" {
@@ -64,9 +62,9 @@ module "NAT_GATEWAY" {
 
   allocation_id = module.EIP_NGW.id
   subnet_id = module.EKS_PUBLIC_SUBNET_A.id
+  nat_gateway_depends_on = [module.EKS_PUBLIC_SUBNET_A]
 
   name_tag = "hq_eks_nat"
-  nat_gateway_depends_on = module.EKS_PUBLIC_SUBNET_A
 }
 
 # ^ CI resources
