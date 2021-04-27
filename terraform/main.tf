@@ -142,16 +142,6 @@ module "JENKINS_EIP_ASSOC" {
   instance_id = module.INSTANCE_JENKINS.id
 }
 
-module "INSTANCE_TEST" {
-  source = "./INSTANCE"
-  ami = var.ec2_ami
-  instance_type = var.ec2_instance_type
-  key_name = module.MAJOR_KEY.key_pair_id
-  subnet_id = module.TEST_PRIVATE_SUBNET.id
-  volume_size = 8
-  vpc_security_group_ids = module.SSH_SG_PRIVATE.id
-  name_tag = "Testing VM"
-}
 
 # ^ private resources - testVM, RDSs
 module "TEST_PRIVATE_SUBNET" {
@@ -192,6 +182,17 @@ module "RDS_SUBNET_GROUP" {
   name       = "rds_subnet_group"
   subnet_ids = [module.RDS_PRIVATE_SUBNET_B.id, module.RDS_PRIVATE_SUBNET_A.id]
   name_tag   = "rds_subnet_group"
+}
+
+module "INSTANCE_TEST" {
+  source = "./INSTANCE"
+  ami = var.ec2_ami
+  instance_type = var.ec2_instance_type
+  key_name = module.MAJOR_KEY.key_pair_id
+  subnet_id = module.TEST_PRIVATE_SUBNET.id
+  volume_size = 8
+  vpc_security_group_ids = module.SSH_SG_PRIVATE.id
+  name_tag = "Testing VM"
 }
 
 # ^ resources needed for private subnet (test server)
