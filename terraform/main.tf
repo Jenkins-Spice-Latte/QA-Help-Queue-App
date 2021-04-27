@@ -3,7 +3,7 @@
 # ^ general
 module "VPC" {
   source               = "./VPC"
-  cidr_block           = "10.0.0.0/16"
+  cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
   enable_dns_support   = true
   name_tag             = "hq_vpc"
@@ -54,6 +54,73 @@ module "NAT_GATEWAY_MAIN" {
   name_tag               = "hq_nat_main"
 }
 
+module "SSH_SG_PUBLIC" {
+  source = "./SG"
+  description = "Allow SSH Jenkins VM"
+  vpc_id = module.VPC.vpc_id
+  name_tag = "SSH-SG"
+}
+
+module "ALLOW_SSH_PUBLIC_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = ["0.0.0.0/0"]
+  type = "ingress"
+  from_port = 22
+  to_port = 22
+  protocol = "tcp"
+  security_group_id = module.SSH_SG_PUBLIC.id
+  name_tag = "Allow SSH"
+}
+
+module "SSH_SG_PRIVATE" {
+  source = "./SG"
+  description = "Allow SSH Access to VM"
+  vpc_id = module.VPC.vpc_id
+  name_tag = "SSH-SG"
+}
+
+module "ALLOW_SSH_PRIVATE_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = [var.vpc_cidr_block]
+  type = "ingress"
+  from_port = 22
+  to_port = 22
+  protocol = "tcp"
+  security_group_id = module.SSH_SG_PRIVATE.id
+  name_tag = "Allow SSH"
+}
+
+# * EGRESS RULES
+
+module "MAJOR_KEY" {
+  source = "./KEY_PAIR"
+  key_name = var.key_name
+  public_key_path = var.public_key_path
+  name_tag = "major_key"
+}
+
+module "INSTANCE_JENKINS" {
+  source = "./INSTANCE"
+  ami = var.ec2_ami
+  instance_type = var.ec2_instance_type
+  subnet_id = module.PUBLIC_SUBNET.id
+  volume_size = 8
+  vpc_security_group_ids = module.SSH_SG_PUBLIC.id
+  key_name = module.MAJOR_KEY.key_pair_id
+  name_tag = "Jenkins VM"
+}
+
+module "INSTANCE_TEST" {
+  source = "./INSTANCE"
+  ami = var.ec2_ami
+  instance_type = var.ec2_instance_type
+  key_name = module.MAJOR_KEY.key_pair_id
+  subnet_id = module.TEST_PRIVATE_SUBNET.id
+  volume_size = 8
+  vpc_security_group_ids = module.SSH_SG_PRIVATE.id
+  name_tag = "Testing VM"
+}
+
 # ^ private resources - testVM, RDSs
 module "TEST_PRIVATE_SUBNET" {
   source                  = "./SUBNET"
@@ -92,7 +159,7 @@ module "RDS_SUBNET_GROUP" {
   source     = "./SUBNET_GROUP"
   name       = "rds_subnet_group"
   subnet_ids = [module.RDS_PRIVATE_SUBNET_B.id, module.RDS_PRIVATE_SUBNET_A.id]
-  name_tag   = ""
+  name_tag   = "rds_subnet_group"
 }
 
 # ^ resources needed for private subnet (test server)
@@ -110,6 +177,9 @@ module "PRIVATE_RT_ASSOCIATION" {
   route_table_id = module.PRIVATE_RT.id
   subnet_id      = module.TEST_PRIVATE_SUBNET.id
 }
+
+
+
 
 # ^ deployment resources (eks)
 module "EKS_PUBLIC_SUBNET_A" {
@@ -147,11 +217,28 @@ module "EKS_ROLES_POLICIES" {
 
 module "EKS_CLUSTER" {
   source = "./EKS_CLUSTER"
-  name = ""
-  role_arn = ""
-  subnet_ids = ""
+  name = "eks_cluster"
+  role_arn = module.EKS_ROLES_POLICIES.cluster_arn
+  subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
   endpoint_public_access = true
   endpoint_private_access = true
-  name_tag = ""
-  eks_cluster_depends_on = ""
+  eks_cluster_depends_on = module.EKS_ROLES_POLICIES
+  name_tag = "eks_cluster"
 }
+
+module "EKS_NODE_GROUP" {
+  source = "./EKS_NODE_GROUP"
+  node_group_name = "eks_nodes"
+  ami_type = "AL2_x86_64"
+  instance_type = var.ec2_instance_type
+  cluster_name = module.EKS_CLUSTER.cluster_name
+  node_role_arn = module.EKS_ROLES_POLICIES.nodes_arn
+  subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
+  desired_size = 2
+  max_size = 4
+  min_size = 2
+  eks_node_group_depends_on = module.EKS_ROLES_POLICIES
+  name_tag = "eks_node_group"
+}
+
+
