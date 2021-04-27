@@ -93,12 +93,12 @@ module "ALLOW_SSH_PRIVATE_SG_RULE" {
 # * EGRESS RULES
 # * static ip for jnkins
 
-module "MAJOR_KEY" {
-  source = "./KEY_PAIR"
-  key_name = var.key_name
-  public_key_path = var.public_key_path
-  name_tag = "major_key"
-}
+#module "MAJOR_KEY" {
+#  source = "./KEY_PAIR"
+#  key_name = var.key_name
+#  public_key_path = var.public_key_path
+#  name_tag = "major_key"
+#}
 
 module "INSTANCE_JENKINS" {
   source = "./INSTANCE"
