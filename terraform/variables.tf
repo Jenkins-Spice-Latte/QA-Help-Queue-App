@@ -7,7 +7,7 @@ variable "aws_region" {
 }
 
 # ^ instance info
-variable "ec2_ami_id" {
+variable "ec2_ami" {
   description = "Ubuntu 20.04 in London region."
   default     = "ami-096cb92bb3580c759"
 }
