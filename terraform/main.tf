@@ -56,12 +56,12 @@ module "NAT_GATEWAY_MAIN" {
 
 module "SSH_SG_PUBLIC" {
   source = "./SG"
-  description = "Allow SSH Jenkins VM"
+  description = "Allow SSH"
   vpc_id = module.VPC.vpc_id
   name_tag = "SSH-SG"
 }
 
-module "SSH_PUBLIC_SG_RULE" {
+module "SSH_ING_PUBLIC_SG_RULE" {
   source = "./SG_RULE"
   cidr_blocks = ["0.0.0.0/0"]
   type = "ingress"
@@ -72,6 +72,17 @@ module "SSH_PUBLIC_SG_RULE" {
   name_tag = "Allow SSH from public"
 }
 
+module "ALL_EG_PUBLIC_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = ["0.0.0.0/0"]
+  type = "egress"
+  from_port = 0
+  to_port = 65535
+  protocol = "all"
+  security_group_id = module.SSH_SG_PUBLIC.id
+  name_tag = "Allow SSH to public"
+}
+
 module "SSH_SG_PRIVATE" {
   source = "./SG"
   description = "Allow SSH Access to VM"
@@ -79,7 +90,7 @@ module "SSH_SG_PRIVATE" {
   name_tag = "SSH-SG"
 }
 
-module "SSH_PRIVATE_SG_RULE" {
+module "SSH_ING_PRIVATE_SG_RULE" {
   source = "./SG_RULE"
   cidr_blocks = [var.vpc_cidr_block]
   type = "ingress"
@@ -90,7 +101,17 @@ module "SSH_PRIVATE_SG_RULE" {
   name_tag = "Allow SSH from private"
 }
 
-# * EGRESS RULES
+module "ALL_EG_PRIVATE_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = ["0.0.0.0/0"]
+  type = "egress"
+  from_port = 0
+  to_port = 65535
+  protocol = "all"
+  security_group_id = module.SSH_SG_PRIVATE.id
+  name_tag = "Allow SSH from private"
+}
+
 # * static ip for jnkins
 
 module "MAJOR_KEY" {
