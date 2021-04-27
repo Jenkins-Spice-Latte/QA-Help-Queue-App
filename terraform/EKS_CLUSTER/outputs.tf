@@ -8,3 +8,7 @@ output "certificate_authority_data" {
 }
 # need to oyutput the kubeconfig file for the jenkins user so it can connect
 #(or i could make the jenkins user the admin?)
+
+output "cluster_name" {
+  value = aws_eks_cluster.eks_cluster.name
+}
