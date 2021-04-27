@@ -40,7 +40,21 @@ module "PUBLIC_RT_ASSOCIATION" {
   route_table_id = module.PUBLIC_RT.id
 }
 
-# ^ CI resources
+module "EIP_NGW" {
+  source         = "./EIP"
+  eip_depends_on = module.INTERNET_GATEWAY
+  name_tag       = "hq_eip_for_nat_gateway"
+}
+
+module "NAT_GATEWAY_MAIN" {
+  source                 = "./NAT_GATEWAY"
+  allocation_id          = module.EIP_NGW.id
+  subnet_id              = module.PUBLIC_SUBNET.id
+  nat_gateway_depends_on = [module.PUBLIC_SUBNET]
+  name_tag               = "hq_nat_main"
+}
+
+# ^ private resources - testVM, RDSs
 module "TEST_PRIVATE_SUBNET" {
   source                  = "./SUBNET"
   vpc_id                  = module.VPC.vpc_id
@@ -52,19 +66,41 @@ module "TEST_PRIVATE_SUBNET" {
   }
 }
 
-# ^ resources needed for private subnet (test server)
-module "NAT_GATEWAY" {
-  source                 = "./NAT_GATEWAY"
-  allocation_id          = module.EIP_NGW.id
-  subnet_id              = module.EKS_PUBLIC_SUBNET_A.id
-  nat_gateway_depends_on = [module.EKS_PUBLIC_SUBNET_A]
-  name_tag               = "hq_eks_nat"
+module "RDS_PRIVATE_SUBNET_A" {
+  source                  = "./SUBNET"
+  vpc_id                  = module.VPC.vpc_id
+  availability_zone       = "eu-west-2a"
+  cidr_block              = "10.0.33.0/24"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "hq_test_private_subnet_a"
+  }
 }
+
+module "RDS_PRIVATE_SUBNET_B" {
+  source                  = "./SUBNET"
+  vpc_id                  = module.VPC.vpc_id
+  availability_zone       = "eu-west-2b"
+  cidr_block              = "10.0.55.0/24"
+  map_public_ip_on_launch = false
+  tags = {
+    Name = "hq_rds_private_subnet_b"
+  }
+}
+
+module "RDS_SUBNET_GROUP" {
+  source     = "./SUBNET_GROUP"
+  name       = "rds_subnet_group"
+  subnet_ids = [module.RDS_PRIVATE_SUBNET_B.id, module.RDS_PRIVATE_SUBNET_A.id]
+  name_tag   = ""
+}
+
+# ^ resources needed for private subnet (test server)
 
 module "PRIVATE_RT" {
   source           = "./RT"
   vpc_id           = module.VPC.vpc_id
-  gateway_id       = module.NAT_GATEWAY.id
+  gateway_id       = module.NAT_GATEWAY_MAIN.id
   route_cidr_block = "0.0.0.0/0"
   name_tag         = "hq_private_rt"
 }
@@ -104,8 +140,3 @@ module "EKS_PUBLIC_SUBNET_B" {
   }
 }
 
-module "EIP_NGW" {
-  source         = "./EIP"
-  eip_depends_on = module.INTERNET_GATEWAY
-  name_tag       = "hq_eip_for_nat_gateway"
-}
