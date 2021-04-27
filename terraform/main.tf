@@ -140,3 +140,8 @@ module "EKS_PUBLIC_SUBNET_B" {
   }
 }
 
+# Roles and policies for eks cluster and eks node group
+module "EKS_ROLES_POLICIES" {
+  source = "./POLICIES"
+}
+
