@@ -22,7 +22,7 @@ module "PUBLIC_SUBNET" {
   cidr_block              = "10.0.2.0/24"
   map_public_ip_on_launch = true
   tags = {
-    Name = "general_public_subnet"
+    Name = "hq_general_public_subnet"
   }
 }
 
@@ -58,7 +58,7 @@ module "SSH_SG_PUBLIC" {
   source = "./SG"
   description = "Allow SSH"
   vpc_id = module.VPC.vpc_id
-  name_tag = "SSH-SG"
+  name_tag = "hq_ssh_sg"
 }
 
 module "SSH_ING_PUBLIC_SG_RULE" {
@@ -69,7 +69,7 @@ module "SSH_ING_PUBLIC_SG_RULE" {
   to_port = 22
   protocol = "tcp"
   security_group_id = module.SSH_SG_PUBLIC.id
-  name_tag = "Allow SSH from public"
+  name_tag = "hq_allow_ssh_from_public"
 }
 
 module "ALL_EG_PUBLIC_SG_RULE" {
@@ -80,14 +80,14 @@ module "ALL_EG_PUBLIC_SG_RULE" {
   to_port = 65535
   protocol = "all"
   security_group_id = module.SSH_SG_PUBLIC.id
-  name_tag = "Allow SSH to public"
+  name_tag = "hq_allow_ssh_to_public"
 }
 
 module "SSH_SG_PRIVATE" {
   source = "./SG"
   description = "Allow SSH Access to VM"
   vpc_id = module.VPC.vpc_id
-  name_tag = "SSH-SG"
+  name_tag = "hq_ssh_sg"
 }
 
 module "SSH_ING_PRIVATE_SG_RULE" {
@@ -98,7 +98,7 @@ module "SSH_ING_PRIVATE_SG_RULE" {
   to_port = 22
   protocol = "tcp"
   security_group_id = module.SSH_SG_PRIVATE.id
-  name_tag = "Allow SSH from private"
+  name_tag = "hq_allow_ssh_from_private"
 }
 
 module "ALL_EG_PRIVATE_SG_RULE" {
@@ -109,10 +109,8 @@ module "ALL_EG_PRIVATE_SG_RULE" {
   to_port = 65535
   protocol = "all"
   security_group_id = module.SSH_SG_PRIVATE.id
-  name_tag = "Allow SSH from private"
+  name_tag = "hq_all_eg_private_sg_rule"
 }
-
-# * static ip for jnkins
 
 module "MAJOR_KEY" {
   source = "./KEY_PAIR"
@@ -130,6 +128,18 @@ module "INSTANCE_JENKINS" {
   vpc_security_group_ids = module.SSH_SG_PUBLIC.id
   key_name = module.MAJOR_KEY.key_pair_id
   name_tag = "Jenkins VM"
+}
+
+module "JENKINS_EIP" {
+  source = "./EIP"
+  eip_depends_on = module.INTERNET_GATEWAY
+  name_tag = "hq_jenkins_eip"
+}
+
+module "JENKINS_EIP_ASSOC" {
+  source = "./EIP_ASSOCIATION"
+  eip_allocation_id = module.JENKINS_EIP.id
+  instance_id = module.INSTANCE_JENKINS.id
 }
 
 module "INSTANCE_TEST" {
