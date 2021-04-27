@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qa.helpQueue.exception.TicketNotFoundException;
 import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.persistance.repository.hqRepository;
 
@@ -30,12 +31,12 @@ public class HelpQueueService {
 	}
 	
 	public Tickets readById(Long ticketId) {
-		Tickets ticketById = this.repo.findById(ticketId).orElseThrow();
+		Tickets ticketById = this.repo.findById(ticketId).orElseThrow(TicketNotFoundException::new);
 		return ticketById;
 	}
 	
 	public Tickets update(Long ticketId, Tickets ticket) {
-		Tickets ticketToUpdate = this.repo.findById(ticketId).orElseThrow();
+		Tickets ticketToUpdate = this.repo.findById(ticketId).orElseThrow(TicketNotFoundException::new);
 
 		ticketToUpdate.setAuthor(ticket.getAuthor());
 		ticketToUpdate.setDescription(ticket.getDescription());
@@ -46,7 +47,7 @@ public class HelpQueueService {
 		return this.repo.save(ticketToUpdate);
 	}
 	
-	public boolean delete(Long ticketId) {
+	public boolean delete(Long ticketId) throws TicketNotFoundException {
 		this.repo.deleteById(ticketId);
 		return !this.repo.existsById(ticketId);
 	}
