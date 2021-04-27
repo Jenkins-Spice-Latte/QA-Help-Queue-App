@@ -164,7 +164,6 @@ module "RDS_SUBNET_GROUP" {
 }
 
 # ^ resources needed for private subnet (test server)
-
 module "PRIVATE_RT" {
   source           = "./RT"
   vpc_id           = module.VPC.vpc_id
@@ -178,9 +177,6 @@ module "PRIVATE_RT_ASSOCIATION" {
   route_table_id = module.PRIVATE_RT.id
   subnet_id      = module.TEST_PRIVATE_SUBNET.id
 }
-
-
-
 
 # ^ deployment resources (eks)
 module "EKS_PUBLIC_SUBNET_A" {
@@ -211,6 +207,18 @@ module "EKS_PUBLIC_SUBNET_B" {
   }
 }
 
+module "EKS_RT_ASSOCIATION_A" {
+  source         = "./RT_A"
+  subnet_id      = module.EKS_PUBLIC_SUBNET_A.id
+  route_table_id = module.PUBLIC_RT.id
+}
+
+module "EKS_RT_ASSOCIATION_B" {
+  source         = "./RT_A"
+  subnet_id      = module.EKS_PUBLIC_SUBNET_B.id
+  route_table_id = module.PUBLIC_RT.id
+}
+
 # Roles and policies for eks cluster and eks node group
 module "EKS_ROLES_POLICIES" {
   source = "./POLICIES"
@@ -228,16 +236,6 @@ module "EKS_CLUSTER" {
   name_tag = "eks_cluster"
 }
 
-/* for EKS CLUSTER
- depends_on = [
-    aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
-  ]
-}
-*/
-
-
-
 module "EKS_NODE_GROUP" {
   source = "./EKS_NODE_GROUP"
   node_group_name = "eks_nodes"
@@ -254,12 +252,3 @@ module "EKS_NODE_GROUP" {
   depends_on_c = module.EKS_ROLES_POLICIES.ng_policy_attachment_c
   name_tag = "eks_node_group"
 }
-
-/* for EKS Node gorup
-depends_on = [
-    aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
-  ]
-}
-*/
