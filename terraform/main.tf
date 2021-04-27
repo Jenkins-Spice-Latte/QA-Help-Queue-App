@@ -61,7 +61,7 @@ module "SSH_SG_PUBLIC" {
   name_tag = "SSH-SG"
 }
 
-module "ALLOW_SSH_PUBLIC_SG_RULE" {
+module "SSH_PUBLIC_SG_RULE" {
   source = "./SG_RULE"
   cidr_blocks = ["0.0.0.0/0"]
   type = "ingress"
@@ -69,7 +69,7 @@ module "ALLOW_SSH_PUBLIC_SG_RULE" {
   to_port = 22
   protocol = "tcp"
   security_group_id = module.SSH_SG_PUBLIC.id
-  name_tag = "Allow SSH"
+  name_tag = "Allow SSH from public"
 }
 
 module "SSH_SG_PRIVATE" {
@@ -79,7 +79,7 @@ module "SSH_SG_PRIVATE" {
   name_tag = "SSH-SG"
 }
 
-module "ALLOW_SSH_PRIVATE_SG_RULE" {
+module "SSH_PRIVATE_SG_RULE" {
   source = "./SG_RULE"
   cidr_blocks = [var.vpc_cidr_block]
   type = "ingress"
@@ -87,7 +87,7 @@ module "ALLOW_SSH_PRIVATE_SG_RULE" {
   to_port = 22
   protocol = "tcp"
   security_group_id = module.SSH_SG_PRIVATE.id
-  name_tag = "Allow SSH"
+  name_tag = "Allow SSH from private"
 }
 
 # * EGRESS RULES
