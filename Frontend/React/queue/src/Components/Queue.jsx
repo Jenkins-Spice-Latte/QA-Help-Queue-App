@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { BsChevronDown } from "react-icons/bs";
-import { BsChevronUp } from "react-icons/bs";
-import { BsClockFill } from "react-icons/bs";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { FaCheckCircle } from "react-icons/fa";
+import { BsChevronDown, BsChevronUp, BsClockFill } from "react-icons/bs";
+import { FaRegCheckCircle, FaCheckCircle } from "react-icons/fa";
 import { Collapse, Button, CardBody, Card, Modal, ModalHeader, ModalBody, ModalFooter,  Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 
 const Queue = (props) => {
@@ -14,30 +11,65 @@ const Queue = (props) => {
 
   const [modal, setModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isDone, setDone] = useState(false);
+  const [isPriority, setPriority] = useState(1);
+  var btn;
+  var tickBtn;
+  var priorityBtn;
 
   const expand = () => setIsOpen(!isOpen);
 
   const toggle = () => setModal(!modal);
+    if (isOpen) {
+      btn = <BsChevronUp className="contractQueueIc" onClick={expand}/>;
+    } else {
+      btn = <BsChevronDown className="expandQueueIc" onClick={expand}/>;
+    }
+
+    if (isDone) {
+      tickBtn = <FaCheckCircle className="completedIc"/>;
+    } else {
+      tickBtn = <FaRegCheckCircle className="uncompletedIc"/>;
+    }
+
+    if(isPriority == 1){
+      priorityBtn = <BsClockFill className="mostUrgIcQ"/>
+    } else if(isPriority == 2){
+      priorityBtn = <BsClockFill className="secMostUrgIcQ"/>
+    }else if(isPriority == 3){
+      priorityBtn = <BsClockFill className="middleUrgIcQ"/>
+    }else if(isPriority == 4){
+      priorityBtn = <BsClockFill className="secLeastUrgIcQ"/>
+    }else if(isPriority == 5){
+      priorityBtn = <BsClockFill className="leastUrgIcQ"/>
+    }
+
     return (
       <> 
         <p>Queue</p>
         <div className="ticket_div">
-          <p className="ticket_comp">Title </p>
+          <p className="ticket_comp title_comp">Title </p>
           <p className="ticket_comp">Topic </p>
-          <FaCheckCircle className="completedIc"/>
-          <FaRegCheckCircle className="uncompletedIc"/>
-          <BsClockFill className="mostUrgIc"/>
-          <BsChevronDown onClick={expand}/>
-          <BsChevronUp onClick={expand}/>
+          {btn}
+          {tickBtn}
+          {priorityBtn}
+          
           <Collapse isOpen={isOpen}>
-            <Card>
+            <Card id="cueCard">
               <CardBody>
-                <p>Description: Anim pariatur cliche</p>
-                <p>Completed: Anim pariatur cliche</p>
-                <p>Topic: Anim pariatur cliche</p>
-                <p>Urgency: Anim pariatur cliche</p>
-                <Button color="secondary">Mark as done</Button>
-                <Button color="secondary" onClick={toggle}>Update ticket</Button>
+                <p><strong>Topic:</strong> Anim pariatur cliche</p>
+                <br />
+                <p><strong>Description:</strong></p>
+                <p>(Description)</p>
+                <br />
+                <p><strong>Completed:</strong> Anim pariatur cliche</p>
+                <br />
+                <p><strong>Urgency:</strong> Anim pariatur cliche</p>
+                <br />
+                <p><strong>Date created:</strong> Anim pariatur cliche</p>
+                <Button color="secondary" color="success" className="queueBtnBlock">Mark as done</Button>
+                <Button color="secondary" color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
+                <Button color="secondary" color="danger" className="queueBtnBlock">Delete ticket</Button>
                 <div>
                   <Modal isOpen={modal} toggle={toggle} className={className}>
                     <ModalHeader toggle={toggle}>Update ticket</ModalHeader>
@@ -103,7 +135,7 @@ const Queue = (props) => {
                     </ModalFooter>
                   </Modal>
                 </div>
-                <Button color="secondary">Delete ticket</Button>
+
               </CardBody>
             </Card>
           </Collapse>

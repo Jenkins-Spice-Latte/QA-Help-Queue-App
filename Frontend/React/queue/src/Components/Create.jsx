@@ -12,7 +12,7 @@ const Create = (props) => {
   const toggle = () => setModal(!modal);
     return (
       <>
-        <Button color="secondary" onClick={toggle}>Create a ticket</Button>
+        <Button color="success" size="lg" onClick={toggle}>Create a ticket</Button>
       <div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Create a ticket</ModalHeader>

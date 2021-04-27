@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
+import { BsToggleOff,  BsToggleOn} from "react-icons/bs";
+
 
 const Toggle = (props) => {
-  const [cSelected, setCSelected] = useState(["Trainer mode"]);
+  const [modeSelect, setmodeSelect] = useState("Trainee mode");
+  var mode;
+
   const onCheckboxBtnClick = (selected) => {
-    const index = cSelected.indexOf(selected);
-    if (index < 0) {
-      cSelected.push(selected);
-    } else {
-      cSelected.splice(index, 1);
-    }
-    setCSelected([...cSelected]);
+    setmodeSelect(selected);
   }
+
+  if(modeSelect == "Trainee mode"){
+    mode = <Button color="primary" onClick={() => onCheckboxBtnClick("Trainer mode")}><BsToggleOff className="trainerBtn"/> Use trainer mode</Button>
+  } else{
+    mode = <Button color="primary" onClick={() => onCheckboxBtnClick("Trainee mode")}><BsToggleOn className="traineeBtn"/> Use trainee mode</Button>    
+  } 
 
 
     return (
       <> 
-        <Button color="primary" onClick={() => onCheckboxBtnClick("Trainer mode")} active={cSelected.includes("Trainer mode")}>Trainer mode</Button>
-        <p>Selected: {JSON.stringify(cSelected)}</p>
+        {mode}
+        <p>Selected: {JSON.stringify(modeSelect)}</p>
 
       </>
     );
