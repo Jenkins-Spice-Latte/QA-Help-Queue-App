@@ -145,3 +145,13 @@ module "EKS_ROLES_POLICIES" {
   source = "./POLICIES"
 }
 
+module "EKS_CLUSTER" {
+  source = "./EKS_CLUSTER"
+  name = ""
+  role_arn = ""
+  subnet_ids = ""
+  endpoint_public_access = true
+  endpoint_private_access = true
+  name_tag = ""
+  eks_cluster_depends_on = ""
+}
