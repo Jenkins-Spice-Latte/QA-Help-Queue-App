@@ -2,6 +2,55 @@
   text-align: center;
 }
 
+#newestBtn{
+  display: grid;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#oldestBtn{
+  display: grid;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#ascBtn{
+  display: grid;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mostUrgIc{
+  color: crimson;
+}
+
+.secMostUrgIc{
+  color: darkorange;
+}
+
+.middleUrgIc{
+  color: gold;
+}
+
+.secLeastUrgIc{
+  color: greenyellow;
+}
+
+.leastUrgIc{
+  color: darkgreen;
+}
+
+.completedIc{
+  color: green;
+}
+
+.uncompletedIc{
+  color: crimson;
+}
+
 .column_one{
   float: left;
   display: grid;
@@ -12,8 +61,11 @@
   display: grid;
 }
 
+
 .ticket_comp{
   display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .create_ticket_div{
@@ -28,6 +80,7 @@
   margin-top: 20px;
   padding: 30px;
   background-color: red;
+  margin-left: auto;
 }
 
 .sort_div{
