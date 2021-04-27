@@ -14,6 +14,9 @@ public class Tickets {
 	private Long ticketID;
 	
 	@Column
+	private String title;
+		
+	@Column
 	private String author;
 	
 	@Column
@@ -38,6 +41,15 @@ public class Tickets {
 	public void setTicketID(Long ticketID) {
 		this.ticketID = ticketID;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 	public String getAuthor() {
 		return author;

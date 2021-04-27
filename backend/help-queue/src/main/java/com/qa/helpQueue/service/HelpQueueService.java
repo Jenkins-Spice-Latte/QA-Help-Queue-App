@@ -39,6 +39,7 @@ public class HelpQueueService {
 		Tickets ticketToUpdate = this.repo.findById(ticketId).orElseThrow(TicketNotFoundException::new);
 
 		ticketToUpdate.setAuthor(ticket.getAuthor());
+		ticketToUpdate.setTitle(ticket.getTitle());
 		ticketToUpdate.setDescription(ticket.getDescription());
 		ticketToUpdate.setTopic(ticket.getTopic());
 		ticketToUpdate.setUrgency(ticket.getUrgency());
