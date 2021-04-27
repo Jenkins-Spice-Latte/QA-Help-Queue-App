@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+}
+
+.column_one{
+  float: left;
+  display: grid;
+}
+
+.column_two{
+  float: right;
+  display: grid;
+}
+
+.ticket_comp{
+  display: inline-block;
+}
+
+.create_ticket_div{
+  float: left;
+  margin-top: 20px;
+  padding: 30px;
+  background-color: #61dafb;
+}
+
+.toggle_div{
+  float: right;
+  margin-top: 20px;
+  padding: 30px;
+  background-color: red;
+}
+
+.sort_div{
+  float: left;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: aqua;
+}
+
+.filter_div{
+  float: left;
+  margin-top: 100px;
+  padding: 30px;
+  background-color: blue;
+}
+
+.queue_div{
+  float: right;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: beige;
+}
+
+.App-link {
+  color: #61dafb;
+}
