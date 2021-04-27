@@ -91,6 +91,7 @@ module "ALLOW_SSH_PRIVATE_SG_RULE" {
 }
 
 # * EGRESS RULES
+# * static ip for jnkins
 
 module "MAJOR_KEY" {
   source = "./KEY_PAIR"
@@ -222,9 +223,20 @@ module "EKS_CLUSTER" {
   subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
   endpoint_public_access = true
   endpoint_private_access = true
-  eks_cluster_depends_on = module.EKS_ROLES_POLICIES
+  depends_on_a = module.EKS_ROLES_POLICIES.cluster_policy_attachment_a
+  depends_on_b = module.EKS_ROLES_POLICIES.cluster_policy_attachment_b
   name_tag = "eks_cluster"
 }
+
+/* for EKS CLUSTER
+ depends_on = [
+    aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.example-AmazonEKSVPCResourceController,
+  ]
+}
+*/
+
+
 
 module "EKS_NODE_GROUP" {
   source = "./EKS_NODE_GROUP"
@@ -237,8 +249,17 @@ module "EKS_NODE_GROUP" {
   desired_size = 2
   max_size = 4
   min_size = 2
-  eks_node_group_depends_on = module.EKS_ROLES_POLICIES
+  depends_on_a = module.EKS_ROLES_POLICIES.ng_policy_attachment_a
+  depends_on_b = module.EKS_ROLES_POLICIES.ng_policy_attachment_b
+  depends_on_c = module.EKS_ROLES_POLICIES.ng_policy_attachment_c
   name_tag = "eks_node_group"
 }
 
-
+/* for EKS Node gorup
+depends_on = [
+    aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
+  ]
+}
+*/
