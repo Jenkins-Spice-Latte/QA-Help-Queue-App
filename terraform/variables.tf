@@ -28,6 +28,22 @@ variable "aws_secret_key" {
   sensitive   = true
 }
 
+variable "test_db_username" {
+  sensitive = true
+}
+
+variable "test_db_password" {
+  sensitive = true
+}
+
+variable "prod_db_username" {
+  sensitive = true
+}
+
+variable "prod_db_password" {
+  sensitive = true
+}
+
 # ^ other
 variable "vpc_cidr_block" {
   default = "10.0.0.0/16"

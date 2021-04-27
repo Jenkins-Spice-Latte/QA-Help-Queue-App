@@ -40,10 +40,6 @@ variable "skip_final_snapshot" {
   description = "Determines whether a final DB snapshot is created before the DB instance is deleted."
 }
 
-variable "identifier" {
-  description = "The name of the RDS instance."
-}
-
 variable "apply_immediately" {
   description = "Specifies whether any database modifications are applied immediately."
 }

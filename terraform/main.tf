@@ -181,7 +181,68 @@ module "RDS_SUBNET_GROUP" {
   source     = "./SUBNET_GROUP"
   name       = "rds_subnet_group"
   subnet_ids = [module.RDS_PRIVATE_SUBNET_B.id, module.RDS_PRIVATE_SUBNET_A.id]
-  name_tag   = "rds_subnet_group"
+  name_tag   = "hq_rds_subnet_group"
+}
+
+module "RDS_SG_PRIVATE" {
+  source = "./SG"
+  description = "Allow RDS Accesses"
+  vpc_id = module.VPC.vpc_id
+  name_tag = "hq_rds_sg"
+}
+
+module "RDS_ING_PRIVATE_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = [var.vpc_cidr_block]
+  type = "ingress"
+  from_port = 3306
+  to_port = 3306
+  protocol = "all"
+  security_group_id = module.RDS_SG_PRIVATE.id
+  name_tag = "hq_rds_ing_private_sg_rule"
+}
+
+module "RDS_EG_PRIVATE_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = ["0.0.0.0/0"]
+  type = "egress"
+  from_port = 0
+  to_port = 65535
+  protocol = "all"
+  security_group_id = module.RDS_SG_PRIVATE.id
+  name_tag = "hq_rds_eg_private_sg_rule"
+}
+
+module "TEST_RDS" {
+  source = "./DB_INSTANCE"
+  allocated_storage = 10
+  apply_immediately = true
+  db_subnet_group_name = module.RDS_SUBNET_GROUP.subnet_group_name
+  engine = "mysql"
+  engine_version = "5.7"
+  instance_class = "db.t2.micro"
+  name = "testdb"
+  username = var.test_db_username
+  password = var.test_db_password
+  skip_final_snapshot = true
+  vpc_security_group_ids = [module.RDS_SG_PRIVATE.id]
+  name_tag = "hq_test_rds"
+}
+
+module "PROD_RDS" {
+  source = "./DB_INSTANCE"
+  allocated_storage = 10
+  apply_immediately = true
+  db_subnet_group_name = module.RDS_SUBNET_GROUP.subnet_group_name
+  engine = "mysql"
+  engine_version = "5.7"
+  instance_class = "db.t2.micro"
+  name = "proddb"
+  username = var.prod_db_username
+  password = var.prod_db_password
+  skip_final_snapshot = true
+  vpc_security_group_ids = [module.RDS_SG_PRIVATE.id]
+  name_tag = "hq_prod_rds"
 }
 
 module "INSTANCE_TEST" {
