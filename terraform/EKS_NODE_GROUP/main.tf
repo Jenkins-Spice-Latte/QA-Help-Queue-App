@@ -14,7 +14,7 @@ resource "aws_eks_node_group" "eks_node_group" {
     min_size     = var.min_size
   }
 
-  depends_on = [var.eks_node_group_depends_on]
+  depends_on = [var.depends_on_a, var.depends_on_b, var.depends_on_c]
 
   tags = {
     "Name" = var.name_tag

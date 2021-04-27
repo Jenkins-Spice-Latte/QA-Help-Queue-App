@@ -20,7 +20,10 @@ variable "endpoint_public_access" {
   description = "Indicates whether or not the Amazon EKS public API server endpoint is enabled."
 }
 
-variable "eks_cluster_depends_on" {
+variable "depends_on_a" {
+  description = "Usually depends on iam role policies."
+}
+variable "depends_on_b" {
   description = "Usually depends on iam role policies."
 }
 

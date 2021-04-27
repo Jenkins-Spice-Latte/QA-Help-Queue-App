@@ -10,7 +10,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     endpoint_public_access = var.endpoint_private_access
   }
 
-  depends_on = [var.eks_cluster_depends_on]
+  depends_on = [var.depends_on_a, var.depends_on_b]
 
   tags = {
     "Name" = var.name_tag

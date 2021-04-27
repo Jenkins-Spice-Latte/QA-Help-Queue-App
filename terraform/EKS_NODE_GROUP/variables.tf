@@ -36,7 +36,13 @@ variable "min_size" {
   description = "Minimum number of worker nodes."
 }
 
-variable "eks_node_group_depends_on" {
+variable "depends_on_a" {
+  description = "Usually depends on iam role policies."
+}
+variable "depends_on_b" {
+  description = "Usually depends on iam role policies."
+}
+variable "depends_on_c" {
   description = "Usually depends on iam role policies."
 }
 
