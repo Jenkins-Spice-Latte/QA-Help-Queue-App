@@ -43,7 +43,7 @@ public class HelpQueueController {
 		return ResponseEntity.ok(this.service.readAll());
 	}
 	
-	//Read By ID
+	//Read By Id
 	@GetMapping("/read/{ticketId}")
 	public ResponseEntity<Tickets> readById(@PathVariable Long ticketId){
 		Tickets ticketById = this.service.readById(ticketId);
