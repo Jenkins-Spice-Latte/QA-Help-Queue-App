@@ -18,7 +18,7 @@ import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.service.CreateService;
 
 @SpringBootTest
-public class createControllerUnitTest {
+public class CreateControllerUnitTest {
 	
 	@Autowired
 	private CreateController controller;

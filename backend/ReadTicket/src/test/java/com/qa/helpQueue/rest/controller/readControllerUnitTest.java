@@ -18,7 +18,7 @@ import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.service.ReadService;
 
 @SpringBootTest
-public class readControllerUnitTest {
+public class ReadControllerUnitTest {
 
 	@Autowired
 	private ReadController controller;

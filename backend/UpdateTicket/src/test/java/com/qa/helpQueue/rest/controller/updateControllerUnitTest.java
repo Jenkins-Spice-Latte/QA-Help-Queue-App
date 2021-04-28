@@ -18,7 +18,7 @@ import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.service.UpdateService;
 
 @SpringBootTest
-public class updateControllerUnitTest {
+public class UpdateControllerUnitTest {
 
 	
 	@Autowired
