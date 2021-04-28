@@ -50,7 +50,7 @@ variable "vpc_cidr_block" {
 }
 
 variable "key_name" {
-  default = "i_dont_give_a_ssh.pub"
+  default = "i_dont_give_a_ssh"
 }
 variable "public_key_path" {
   default = "~/.ssh/i_dont_give_a_ssh.pub"
