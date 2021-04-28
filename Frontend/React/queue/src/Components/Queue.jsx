@@ -4,10 +4,7 @@ import { FaRegCheckCircle, FaCheckCircle } from "react-icons/fa";
 import { Collapse, Button, CardBody, Card, Modal, ModalHeader, ModalBody, ModalFooter,  Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 
 const Queue = (props) => {
-  const {
-    buttonLabel,
-    className
-  } = props;
+  const {buttonLabel, className} = props;
 
   const [modal, setModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -32,15 +29,15 @@ const Queue = (props) => {
       tickBtn = <FaRegCheckCircle className="uncompletedIc"/>;
     }
 
-    if(isPriority == 1){
+    if(isPriority === 1){
       priorityBtn = <BsClockFill className="mostUrgIcQ"/>
-    } else if(isPriority == 2){
+    } else if(isPriority === 2){
       priorityBtn = <BsClockFill className="secMostUrgIcQ"/>
-    }else if(isPriority == 3){
+    }else if(isPriority === 3){
       priorityBtn = <BsClockFill className="middleUrgIcQ"/>
-    }else if(isPriority == 4){
+    }else if(isPriority === 4){
       priorityBtn = <BsClockFill className="secLeastUrgIcQ"/>
-    }else if(isPriority == 5){
+    }else if(isPriority === 5){
       priorityBtn = <BsClockFill className="leastUrgIcQ"/>
     }
 
@@ -67,9 +64,9 @@ const Queue = (props) => {
                 <p><strong>Urgency:</strong> Anim pariatur cliche</p>
                 <br />
                 <p><strong>Date created:</strong> Anim pariatur cliche</p>
-                <Button color="secondary" color="success" className="queueBtnBlock">Mark as done</Button>
-                <Button color="secondary" color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
-                <Button color="secondary" color="danger" className="queueBtnBlock">Delete ticket</Button>
+                <Button color="success" className="queueBtnBlock">Mark as done</Button>
+                <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
+                <Button color="danger" className="queueBtnBlock">Delete ticket</Button>
                 <div>
                   <Modal isOpen={modal} toggle={toggle} className={className}>
                     <ModalHeader toggle={toggle}>Update ticket</ModalHeader>

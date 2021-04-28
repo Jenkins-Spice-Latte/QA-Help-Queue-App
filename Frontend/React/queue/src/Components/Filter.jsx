@@ -17,11 +17,31 @@ const Filter = (props) => {
             <Input type="checkbox" name="comp" id="comp"/>
             <Label for="comp" check>Completed</Label>
           </FormGroup>
+          <FormGroup check>
+            <Input type="checkbox" name="comp" id="comp"/>
+            <Label for="comp" check>Uncompleted</Label>
+          </FormGroup>
         <br />
         <p>Urgency</p>
           <FormGroup check>
-            <Input type="checkbox" name="urg" id="urg"/>
+            <Input type="checkbox" name="urg" id="urg" value="1"/>
             <Label for="urg" check>Most urgent</Label>
+          </FormGroup>
+          <FormGroup check>
+            <Input type="checkbox" name="urg" id="urg" value="2"/>
+            <Label for="urg" check>Very urgent</Label>
+          </FormGroup>
+          <FormGroup check>
+            <Input type="checkbox" name="urg" id="urg" value="3"/>
+            <Label for="urg" check>Least urgent</Label>
+          </FormGroup>
+          <FormGroup check>
+            <Input type="checkbox" name="urg" id="urg" value="4"/>
+            <Label for="urg" check>Slightly urgent</Label>
+          </FormGroup>
+          <FormGroup check>
+            <Input type="checkbox" name="urg" id="urg" value="5"/>
+            <Label for="urg" check>Least urgent</Label>
           </FormGroup>
         <br />
         <p>Topic</p>
