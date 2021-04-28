@@ -12,7 +12,7 @@ variable "instance" {
 
 variable "eip_depends_on" {
   description = "Usually depends on iam role policies."
-  default = null
+  default     = null
 }
 
 variable "name_tag" {

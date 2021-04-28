@@ -1,7 +1,7 @@
 # eks node group / main
 
 resource "aws_eks_node_group" "eks_node_group" {
-  instance_types   = [var.instance_type]
+  instance_types  = [var.instance_type]
   ami_type        = var.ami_type
   cluster_name    = var.cluster_name
   node_group_name = var.node_group_name

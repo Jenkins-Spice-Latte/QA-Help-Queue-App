@@ -55,89 +55,101 @@ module "NAT_GATEWAY_MAIN" {
 }
 
 module "SSH_SG_PUBLIC" {
-  source = "./SG"
+  source      = "./SG"
   description = "Allow SSH"
-  vpc_id = module.VPC.vpc_id
-  name_tag = "hq_ssh_sg"
+  vpc_id      = module.VPC.vpc_id
+  name_tag    = "hq_ssh_sg"
 }
 
 module "SSH_ING_PUBLIC_SG_RULE" {
-  source = "./SG_RULE"
-  cidr_blocks = ["0.0.0.0/0"]
-  type = "ingress"
-  from_port = 22
-  to_port = 22
-  protocol = "tcp"
+  source            = "./SG_RULE"
+  cidr_blocks       = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
   security_group_id = module.SSH_SG_PUBLIC.id
-  name_tag = "hq_allow_ssh_from_public"
+  name_tag          = "hq_allow_ssh_from_public"
 }
 
 module "JENKINS_ING_PUBLIC_SG_RULE" {
-  source = "./SG_RULE"
-  cidr_blocks = ["0.0.0.0/0"]
-  type = "ingress"
-  from_port = 8080
-  to_port = 8080
-  protocol = "tcp"
+  source            = "./SG_RULE"
+  cidr_blocks       = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
   security_group_id = module.SSH_SG_PUBLIC.id
-  name_tag = "hq_allow_jenkins_from_public"
+  name_tag          = "hq_allow_jenkins_from_public"
 }
 
 module "ALL_EG_PUBLIC_SG_RULE" {
-  source = "./SG_RULE"
-  cidr_blocks = ["0.0.0.0/0"]
-  type = "egress"
-  from_port = 0
-  to_port = 65535
-  protocol = "all"
+  source            = "./SG_RULE"
+  cidr_blocks       = ["0.0.0.0/0"]
+  type              = "egress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "all"
   security_group_id = module.SSH_SG_PUBLIC.id
-  name_tag = "hq_allow_ssh_to_public"
+  name_tag          = "hq_allow_ssh_to_public"
 }
 
 module "SSH_SG_PRIVATE" {
-  source = "./SG"
+  source      = "./SG"
   description = "Allow SSH Access to VM"
-  vpc_id = module.VPC.vpc_id
-  name_tag = "hq_ssh_sg"
+  vpc_id      = module.VPC.vpc_id
+  name_tag    = "hq_ssh_sg"
 }
 
 module "SSH_ING_PRIVATE_SG_RULE" {
-  source = "./SG_RULE"
-  cidr_blocks = [var.vpc_cidr_block]
-  type = "ingress"
-  from_port = 22
-  to_port = 22
-  protocol = "tcp"
+  source            = "./SG_RULE"
+  cidr_blocks       = [var.vpc_cidr_block]
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
   security_group_id = module.SSH_SG_PRIVATE.id
-  name_tag = "hq_allow_ssh_from_private"
+  name_tag          = "hq_allow_ssh_from_private"
 }
 
 module "ALL_EG_PRIVATE_SG_RULE" {
-  source = "./SG_RULE"
-  cidr_blocks = ["0.0.0.0/0"]
-  type = "egress"
-  from_port = 0
-  to_port = 65535
-  protocol = "all"
+  source            = "./SG_RULE"
+  cidr_blocks       = ["0.0.0.0/0"]
+  type              = "egress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "all"
   security_group_id = module.SSH_SG_PRIVATE.id
-  name_tag = "hq_all_eg_private_sg_rule"
+  name_tag          = "hq_all_eg_private_sg_rule"
 }
 
 module "MAJOR_KEY" {
-  source = "./KEY_PAIR"
-  key_name = var.key_name
+  source          = "./KEY_PAIR"
+  key_name        = var.key_name
   public_key_path = var.public_key_path
 }
 
 module "INSTANCE_JENKINS" {
-  source = "./INSTANCE"
-  ami = var.ec2_ami
-  instance_type = var.ec2_instance_type
-  subnet_id = module.PUBLIC_SUBNET.id
-  volume_size = 8
+  source                 = "./INSTANCE"
+  ami                    = var.ec2_ami
+  instance_type          = var.ec2_instance_type
+  subnet_id              = module.PUBLIC_SUBNET.id
+  volume_size            = 8
   vpc_security_group_ids = module.SSH_SG_PUBLIC.id
-  key_name = module.MAJOR_KEY.key_pair_id
-  name_tag = "Jenkins VM"
+  key_name               = module.MAJOR_KEY.key_pair_id
+  name_tag               = "hq_jenkins_vm"
+}
+
+# ^ bastian host for private resources
+module "INSTANCE_BASTION" {
+  source                 = "./INSTANCE"
+  subnet_id              = module.PUBLIC_SUBNET.id
+  vpc_security_group_ids = module.SSH_SG_PUBLIC.id
+  ami                    = var.ec2_ami
+  instance_type          = var.ec2_instance_type
+  key_name               = module.MAJOR_KEY.key_pair_id
+  volume_size            = 8
+  name_tag               = "hq_bastion_vm"
 }
 
 # ^ private resources - testVM
@@ -153,14 +165,14 @@ module "TEST_PRIVATE_SUBNET" {
 }
 
 module "INSTANCE_TEST" {
-  source = "./INSTANCE"
-  ami = var.ec2_ami
-  instance_type = var.ec2_instance_type
-  key_name = module.MAJOR_KEY.key_pair_id
-  subnet_id = module.TEST_PRIVATE_SUBNET.id
-  volume_size = 8
+  source                 = "./INSTANCE"
+  ami                    = var.ec2_ami
+  instance_type          = var.ec2_instance_type
+  key_name               = module.MAJOR_KEY.key_pair_id
+  subnet_id              = module.TEST_PRIVATE_SUBNET.id
+  volume_size            = 8
   vpc_security_group_ids = module.SSH_SG_PRIVATE.id
-  name_tag = "Testing VM"
+  name_tag               = "Testing VM"
 }
 
 # ^ resources needed for private subnet (test server)
