@@ -1,0 +1,16 @@
+
+# jenkins
+- hosts: 35.178.65.213
+  become: yes
+  roles:
+  - common
+  - ci_vm
+
+# test
+- hosts: 3.10.171.127
+  become: yes
+  roles:
+  - common
+  - test_vm
+
+  

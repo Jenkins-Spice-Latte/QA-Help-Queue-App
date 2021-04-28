@@ -1,0 +1,10 @@
+all:
+  hosts:
+    # jenkins
+    35.178.65.213:
+      ansible_ssh_private_key_file: "/home/ubuntu/.ssh/i_dont_give_a_ssh"
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+    # test
+    3.10.171.127:
+      ansible_ssh_private_key_file: "/home/ubuntu/.ssh/i_dont_give_a_ssh"
+      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"

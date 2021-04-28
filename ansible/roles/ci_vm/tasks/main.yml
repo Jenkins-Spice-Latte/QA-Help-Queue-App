@@ -1,0 +1,11 @@
+---
+# tasks file for ci_vm
+
+- name: "install jenkins"
+  script: ../../../install_jenkins.sh
+
+- name: "install aws cli"
+  script: ../../../install_aws_cli.sh
+
+- name: "install kubectl"
+  script: ../../../install_kubectl.sh
