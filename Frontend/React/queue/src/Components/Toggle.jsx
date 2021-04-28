@@ -21,7 +21,6 @@ const Toggle = (props) => {
     return (
       <> 
         {mode}
-        <p>Selected: {JSON.stringify(modeSelect)}</p>
 
       </>
     );

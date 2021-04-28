@@ -11,23 +11,25 @@ function App() {
     <div className="App">
       <header className="App-header">
       </header>
-      <div className="column_one">
-        <div className= "create_ticket_div">  
-          <Create/>
+      <div className="all_columns">
+        <div className="column_one">
+          <div className= "create_ticket_div">  
+            <Create/>
+          </div>
+          <div  className= "sort_div">
+            <Sort/>
+          </div>
+          <div  className= "filter_div">
+            <Filter/>
+          </div>
         </div>
-        <div  className= "sort_div">
-          <Sort/>
-        </div>
-        <div  className= "filter_div">
-          <Filter/>
-        </div>
-      </div>
-      <div className="column_two">
-        <div className= "toggle_div">
-          <Toggle/>
-        </div>
-        <div className= "queue_div">
-          <Queue/>
+        <div className="column_two">
+          <div className= "toggle_div">
+            <Toggle/>
+          </div>
+          <div className= "queue_div">
+            <Queue/>
+          </div>
         </div>
       </div>
     </div>
