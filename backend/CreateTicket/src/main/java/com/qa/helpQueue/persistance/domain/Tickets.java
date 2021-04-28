@@ -34,6 +34,21 @@ public class Tickets {
 	@Column
 	private boolean complete;
 
+	
+	
+	
+	public Tickets(String title, String author, String description, Long time_created, String topic, Long urgency,
+			boolean complete) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.description = description;
+		this.time_created = time_created;
+		this.topic = topic;
+		this.urgency = urgency;
+		this.complete = complete;
+	}
+
 	public Long getTicketID() {
 		return ticketID;
 	}
