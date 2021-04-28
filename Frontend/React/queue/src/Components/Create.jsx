@@ -27,18 +27,22 @@ const Create = (props) => {
             <br />
             <InputGroup>
               <InputGroupAddon addonType="prepend">
-                <InputGroupText>Topic</InputGroupText>
-              </InputGroupAddon>
-               <Input type="text" name="topic" id="topic" placeholder="Enter topic"/>
-            </InputGroup>
-            <br />
-            <InputGroup>
-              <InputGroupAddon addonType="prepend">
                 <InputGroupText>Description</InputGroupText>
               </InputGroupAddon>
                <Input type="textarea" name="description" id="description" placeholder="Enter description" />
             </InputGroup>
             <br />
+          <FormGroup>
+            <Label for="radioLabel">Topic</Label>
+            <div>
+              <CustomInput type="radio" id="exampleCustomRadio1" name="topic" value="Topic1" label="Topic 1" />
+              <CustomInput type="radio" id="exampleCustomRadio2" name="topic" value="Topic2" label="Topic 2" />
+              <CustomInput type="radio" id="exampleCustomRadio3" name="topic" value="Topic3" label="Topic 3" />
+              <CustomInput type="radio" id="exampleCustomRadio4" name="topic" value="Topic4" label="Topic 4" />
+              <CustomInput type="radio" id="exampleCustomRadio5" name="topic" value="Topic5" label="Topic 5" />
+            </div>
+          </FormGroup>
+          <br />
           <FormGroup>
             <Label for="radioLabel">Urgency</Label>
             <div>
@@ -46,7 +50,7 @@ const Create = (props) => {
               <CustomInput type="radio" id="exampleCustomRadio2" name="urgency" value="2" label="Very urgent" />
               <CustomInput type="radio" id="exampleCustomRadio3" name="urgency" value="3" label="Slightly urgent" />
               <CustomInput type="radio" id="exampleCustomRadio4" name="urgency" value="4" label="Less urgent" />
-              <CustomInput type="radio" id="exampleCustomRadio5" name="urgency" value="1" label="Least urgent" />
+              <CustomInput type="radio" id="exampleCustomRadio5" name="urgency" value="5" label="Least urgent" />
             </div>
           </FormGroup>
             <br />
