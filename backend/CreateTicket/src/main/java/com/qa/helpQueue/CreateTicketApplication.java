@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelpQueueApplication {
+public class CreateTicketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelpQueueApplication.class, args);
+		SpringApplication.run(CreateTicketApplication.class, args);
 	}
 
 }
