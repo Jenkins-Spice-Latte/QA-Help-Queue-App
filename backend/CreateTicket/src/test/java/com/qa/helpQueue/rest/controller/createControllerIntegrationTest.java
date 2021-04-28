@@ -47,9 +47,6 @@ public class createControllerIntegrationTest {
 		
 		String mockPost= this.jsonifier.writeValueAsString(TEST_TICKET_1);
 		
-		System.out.println(mockPost);
-		
-		
 		this.mockMvc.perform(post("/create").accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(mockPost))
                 .andExpect(status().isCreated())
