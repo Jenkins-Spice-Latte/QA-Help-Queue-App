@@ -98,12 +98,6 @@ module "T_MANAGER_ALL_EG_PRIVATE_SG_RULE" {
   name_tag = "T_MANAGER_all_eg_private_sg_rule"
 }
 
-module "T_MANAGER_KEY" {
-  source = "./KEY_PAIR"
-  key_name = var.key_name
-  public_key_path = var.public_key_path
-}
-
 module "T_MANAGER_INSTANCE" {
   source = "./INSTANCE"
   ami = var.ec2_ami
@@ -112,7 +106,7 @@ module "T_MANAGER_INSTANCE" {
   volume_size = 8
   vpc_security_group_id_external = module.T_MANAGER_SG.id
   vpc_security_group_id_internal = module.T_MANAGER_SG_PRIVATE.id
-  key_name = module.T_MANAGER_KEY.key_pair_id
+  key_name = var.key_name
 
   name_tag = "T_MANAGER_vm"
 
