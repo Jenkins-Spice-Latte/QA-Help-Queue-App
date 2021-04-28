@@ -5,6 +5,8 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,10 @@ public class CreateServiceUnitTest {
 	private hqRepository repo;
 	
 	private final Tickets TEST_TICKET_1 = new Tickets("Terraform bug", "Sonny", "Not applying correctly", 2452345L, "Terraform", 5L, false);
+	private final Tickets TEST_TICKET_2 = new Tickets("Terraform bug", "Sonny", "Not applying correctly", 2452345L, "Terraform", 5L, false);
+	private final Tickets TEST_TICKET_3 = new Tickets("Terraform bug", "Sonny", "Not applying correctly", 2452345L, "Terraform", 5L, false);
+	
+	private final List<Tickets> TICKETS = List.of(TEST_TICKET_1, TEST_TICKET_2, TEST_TICKET_3);
 	
 	@Test
 	void createTest() throws Exception {
