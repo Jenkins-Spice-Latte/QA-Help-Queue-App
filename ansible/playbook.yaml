@@ -1,16 +1,21 @@
+---
+- name: ReadJsonfile
+  hosts: localhost
+  tasks:
+    - name: Display the JSON file content
+      shell: cat ../terraform/terraform.tfstate
+      register: result
 
-# jenkins
-- hosts: 35.178.65.213
-  become: yes
-  roles:
-  - common
-  - ci_vm
+    - name: save the Json data to a Variable as a Fact
+      set_fact:
+        jsondata: "{{ result.stdout | from_json }}"
 
-# test
-- hosts: 3.10.171.127
-  become: yes
-  roles:
-  - common
-  - test_vm
+    - name: get bastion public ip
+      set_fact:
+        bastion_public_ip: "{{ jsondata | json_query(jmesquery) }}"
+      vars:
+        jmesquery: "outputs.bastion_public_ip.value"
 
-  
+    - name: Debug the values
+      debug:
+        msg: "bastion_public_ip --------->> {{ bastion_public_ip }}"
