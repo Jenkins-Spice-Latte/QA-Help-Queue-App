@@ -102,7 +102,6 @@ module "T_MANAGER_KEY" {
   source = "./KEY_PAIR"
   key_name = var.key_name
   public_key_path = var.public_key_path
-  name_tag = "T_MANAGER_key"
 }
 
 module "T_MANAGER_INSTANCE" {

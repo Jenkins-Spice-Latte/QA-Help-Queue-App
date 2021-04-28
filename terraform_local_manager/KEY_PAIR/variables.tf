@@ -7,8 +7,3 @@ variable "key_name" {
 variable "public_key_path" {
   description = "Path of the public key material."
 }
-
-variable "name_tag" {
-  description = "Name tag to assign to the resource"
-  type        = string
-}
