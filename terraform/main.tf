@@ -116,7 +116,6 @@ module "MAJOR_KEY" {
   source = "./KEY_PAIR"
   key_name = var.key_name
   public_key_path = var.public_key_path
-  name_tag = "major_key"
 }
 
 module "INSTANCE_JENKINS" {
