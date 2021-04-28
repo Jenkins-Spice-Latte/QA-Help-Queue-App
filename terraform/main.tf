@@ -72,6 +72,17 @@ module "SSH_ING_PUBLIC_SG_RULE" {
   name_tag = "hq_allow_ssh_from_public"
 }
 
+module "JENKINS_ING_PUBLIC_SG_RULE" {
+  source = "./SG_RULE"
+  cidr_blocks = ["0.0.0.0/0"]
+  type = "ingress"
+  from_port = 8080
+  to_port = 8080
+  protocol = "tcp"
+  security_group_id = module.SSH_SG_PUBLIC.id
+  name_tag = "hq_allow_jenkins_from_public"
+}
+
 module "ALL_EG_PUBLIC_SG_RULE" {
   source = "./SG_RULE"
   cidr_blocks = ["0.0.0.0/0"]
