@@ -1,7 +1,12 @@
 #!/bin/bash
 
 sudo apt update -y && sudo apt upgrade -y
-sudo apt install unzip
+
+# checking if unzip is installed
+if [ ! -f /usr/bin/unzip ]
+then
+	sudo apt install unzip
+fi
 
 # getting terraform zip
 if [ ! -f terraform_0.15.1_linux_amd64.zip ]
