@@ -1,2 +1,6 @@
 
 backend/help-queue/src/main/resources/application.properties
+backend/CreateTicket/src/main/resources/application.properties
+backend/DeleteTicket/src/main/resources/application.properties
+backend/ReadTicket/src/main/resources/application.properties
+backend/UpdateTicket/src/main/resources/application.properties
