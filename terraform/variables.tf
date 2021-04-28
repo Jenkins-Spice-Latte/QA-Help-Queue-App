@@ -55,3 +55,7 @@ variable "key_name" {
 variable "public_key_path" {
   default = "~/.ssh/i_dont_give_a_ssh.pub"
 }
+
+variable "management_vm_cidr_ip" {
+  default = null
+}

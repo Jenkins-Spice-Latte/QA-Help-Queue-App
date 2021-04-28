@@ -103,7 +103,7 @@ module "SSH_SG_PRIVATE" {
 
 module "SSH_ING_PRIVATE_SG_RULE" {
   source = "./SG_RULE"
-  cidr_blocks = [var.vpc_cidr_block]
+  cidr_blocks = [var.vpc_cidr_block, var.management_vm_cidr_ip]
   type = "ingress"
   from_port = 22
   to_port = 22
