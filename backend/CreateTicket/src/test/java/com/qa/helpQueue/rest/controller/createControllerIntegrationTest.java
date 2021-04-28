@@ -32,12 +32,12 @@ public class createControllerIntegrationTest {
 	private ObjectMapper jsonifier; //POJO -> JSON
 	
 	
-	private final Tickets TEST_TICKET_1 = new Tickets("terraform broke", "Luke", "FILLERDESCRIPTION", 92658849L, "terraform", 5L, false);
-	private final Tickets TEST_TICKET_2 = new Tickets("java uninstalled itself", "Sonny", "FILLERDESCRIPTION", 38492837L, "java", 5L, true);
-	private final Tickets TEST_TICKET_3 = new Tickets("EKS wont create", "Manish", "FILLERDESCRIPTION", 89957463L, "K8S/AWS", 5L, false);
-	private final Tickets TEST_TICKET_4 = new Tickets("problems with react", "Moksh", "FILLERDESCRIPTION", 77765654L, "react", 5L, false);
-	private final Tickets TEST_TICKET_5 = new Tickets("test", "Vinesh", "FILLERDESCRIPTION", 77762517L, "test", 5L, true);
-	private final Tickets TEST_TICKET_6 = new Tickets("NGINX isnt working", "Zonaira", "FILLERDESCRIPTION", 88827454L, "nginx", 5L, false);
+	private final Tickets TEST_TICKET_1 = new Tickets(1L, "terraform broke", "Luke", "FILLERDESCRIPTION", 92658849L, "terraform", 5L, false);
+	private final Tickets TEST_TICKET_2 = new Tickets(2L, "java uninstalled itself", "Sonny", "FILLERDESCRIPTION", 38492837L, "java", 5L, true);
+	private final Tickets TEST_TICKET_3 = new Tickets(3L, "EKS wont create", "Manish", "FILLERDESCRIPTION", 89957463L, "K8S/AWS", 5L, false);
+	private final Tickets TEST_TICKET_4 = new Tickets(4L, "problems with react", "Moksh", "FILLERDESCRIPTION", 77765654L, "react", 5L, false);
+	private final Tickets TEST_TICKET_5 = new Tickets(5L, "test", "Vinesh", "FILLERDESCRIPTION", 77762517L, "test", 5L, true);
+	private final Tickets TEST_TICKET_6 = new Tickets(6L, "NGINX isnt working", "Zonaira", "FILLERDESCRIPTION", 88827454L, "nginx", 5L, false);
 	
 	
 	private final List<Tickets> TICKETS = List.of(TEST_TICKET_1, TEST_TICKET_2, TEST_TICKET_3, TEST_TICKET_4, TEST_TICKET_5, TEST_TICKET_6);
