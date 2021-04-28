@@ -9,7 +9,7 @@ const Sort = () => {
       <p>Sort</p>
       <Button id="newestBtn" color="secondary">Sort by newest</Button>
       <Button id="oldestBtn" color="secondary">Sort by oldest</Button>
-      <Button id="ascBtn" color="secondary">Sort in ascending order (by title)</Button>
+      <Button id="ascBtn" color="secondary">Sort by title</Button>
     </>
   );
 };

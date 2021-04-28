@@ -6,21 +6,18 @@
   display: grid;
   margin-top: 10px;
   margin-right: auto;
-  margin-left: auto;
 }
 
 #oldestBtn{
   display: grid;
   margin-top: 10px;
   margin-right: auto;
-  margin-left: auto;
 }
 
 #ascBtn{
   display: grid;
   margin-top: 10px;
   margin-right: auto;
-  margin-left: auto;
 }
 
 .mostUrgIc{
@@ -131,36 +128,53 @@
 .create_ticket_div{
   float: left;
   margin-top: 20px;
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   background-color: #61dafb;
 }
 
 .toggle_div{
   float: right;
   margin-top: 20px;
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   background-color: red;
   margin-left: auto;
 }
 
 .sort_div{
+  text-align: left;
   float: left;
-  margin-top: 50px;
-  padding: 30px;
+  margin-top: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 50px;
+  padding-right: 30px;
   background-color: aqua;
 }
 
 .filter_div{
   float: left;
-  margin-top: 100px;
-  padding: 30px;
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  padding-left: 50px;
+  padding-right: 30px;
   background-color: blue;
 }
 
 .queue_div{
   float: right;
   margin-top: 50px;
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
   min-width: 1200px;
   background-color: beige;
 }

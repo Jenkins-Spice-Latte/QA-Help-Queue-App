@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsClockFill } from "react-icons/bs";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
+import { CustomInput, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 const Create = (props) => {
   const {
     buttonLabel,
@@ -39,34 +39,16 @@ const Create = (props) => {
                <Input type="textarea" name="description" id="description" placeholder="Enter description" />
             </InputGroup>
             <br />
-         <FormGroup tag="fieldset">
-          <legend>Urgency</legend>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" /><BsClockFill className="mostUrgIc"/>{' '}
-            </Label>
+          <FormGroup>
+            <Label for="radioLabel">Urgency</Label>
+            <div>
+              <CustomInput type="radio" id="exampleCustomRadio" name="urgency" value="1" label="Most urgent" />
+              <CustomInput type="radio" id="exampleCustomRadio2" name="urgency" value="2" label="Very urgent" />
+              <CustomInput type="radio" id="exampleCustomRadio3" name="urgency" value="3" label="Slightly urgent" />
+              <CustomInput type="radio" id="exampleCustomRadio4" name="urgency" value="4" label="Less urgent" />
+              <CustomInput type="radio" id="exampleCustomRadio5" name="urgency" value="1" label="Least urgent" />
+            </div>
           </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" /><BsClockFill className="secMostUrgIc"/>{' '}
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" /><BsClockFill className="middleUrgIc"/>{' '}
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" /><BsClockFill className="secLeastUrgIc"/>{' '}
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio1" /><BsClockFill className="leastUrgIc"/>{' '}
-            </Label>
-          </FormGroup>
-        </FormGroup>
             <br />
 
             <Input type="hidden" name="completed" id="completed" value="false"/>
