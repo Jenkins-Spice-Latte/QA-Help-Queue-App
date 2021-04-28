@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.service.UpdateService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class UpdateController {
