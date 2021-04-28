@@ -140,19 +140,6 @@ module "INSTANCE_JENKINS" {
   name_tag = "Jenkins VM"
 }
 
-module "JENKINS_EIP" {
-  source = "./EIP"
-  eip_depends_on = module.INTERNET_GATEWAY
-  name_tag = "hq_jenkins_eip"
-}
-
-module "JENKINS_EIP_ASSOC" {
-  source = "./EIP_ASSOCIATION"
-  eip_allocation_id = module.JENKINS_EIP.id
-  instance_id = module.INSTANCE_JENKINS.id
-}
-
-
 # ^ private resources - testVM
 module "TEST_PRIVATE_SUBNET" {
   source                  = "./SUBNET"
