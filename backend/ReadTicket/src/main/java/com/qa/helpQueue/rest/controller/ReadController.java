@@ -1,0 +1,58 @@
+package com.qa.helpQueue.rest.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.qa.helpQueue.persistance.domain.Tickets;
+import com.qa.helpQueue.service.ReadService;
+
+
+@RestController
+public class ReadController {
+	
+	private ReadService service;
+	
+	@Autowired
+	public ReadController(ReadService service) {
+		super();
+		this.service = service;
+	}
+	
+	//Read All
+	@GetMapping("/readAll")
+	public ResponseEntity<List<Tickets>> readAll(){
+		return ResponseEntity.ok(this.service.readAll());
+	}
+	
+	//Read By Id
+	@GetMapping("/read/{ticketId}")
+	public ResponseEntity<Tickets> readById(@PathVariable Long ticketId){
+		Tickets ticketById = this.service.readById(ticketId);
+		return ResponseEntity.ok(ticketById);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
