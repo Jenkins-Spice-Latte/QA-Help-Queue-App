@@ -34,11 +34,11 @@ public class Tickets {
 	@Column
 	private boolean complete;
 	
-	
 
-	public Tickets(String title, String author, String description, Long time_created, String topic, Long urgency,
-			boolean complete) {
+	public Tickets(Long ticketID, String title, String author, String description, Long time_created, String topic,
+			Long urgency, boolean complete) {
 		super();
+		this.ticketID = ticketID;
 		this.title = title;
 		this.author = author;
 		this.description = description;
@@ -46,6 +46,9 @@ public class Tickets {
 		this.topic = topic;
 		this.urgency = urgency;
 		this.complete = complete;
+	}
+	
+	public Tickets() {
 	}
 
 	public Long getTicketID() {
