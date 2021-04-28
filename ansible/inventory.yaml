@@ -1,10 +1,20 @@
 all:
   hosts:
-    # jenkins
-    35.178.65.213:
-      ansible_ssh_private_key_file: "/home/ubuntu/.ssh/i_dont_give_a_ssh"
-      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
-    # test
-    3.10.171.127:
-      ansible_ssh_private_key_file: "/home/ubuntu/.ssh/i_dont_give_a_ssh"
-      ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+#     # jenkins
+#     35.178.65.213:
+#       ansible_ssh_private_key_file: "/home/ubuntu/.ssh/i_dont_give_a_ssh"
+#       ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+#     # test
+#     3.10.171.127:
+#       ansible_ssh_private_key_file: "/home/ubuntu/.ssh/i_dont_give_a_ssh"
+#       ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+    localhost:
+    become: false
+    tasks:
+      - name: get Terraform networking variables
+        fetch_terraform_backend_outputs:
+          object: "../terraform/terraform.tfstate"
+      - name: filter jenkins ip
+        debug:
+          msg: "{{ jenkins_public_ip }}"
