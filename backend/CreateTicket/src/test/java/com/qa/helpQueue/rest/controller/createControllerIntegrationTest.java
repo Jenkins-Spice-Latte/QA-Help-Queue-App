@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.helpQueue.persistance.domain.Tickets;
@@ -45,10 +45,15 @@ public class createControllerIntegrationTest {
 	@Test
 	void createTest() throws Exception {
 		
+		String mockPost= this.jsonifier.writeValueAsString(TEST_TICKET_1);
+		
+		System.out.println(mockPost);
+		
+		
 		this.mockMvc.perform(post("/create").accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON).content(this.jsonifier.writeValueAsString(TEST_TICKET_1)))
+                .contentType(MediaType.APPLICATION_JSON).content(mockPost))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(this.jsonifier.writeValueAsString(TEST_TICKET_1)));
+                .andExpect(content().json(mockPost));
 	}
 	
 	
