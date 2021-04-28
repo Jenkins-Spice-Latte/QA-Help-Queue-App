@@ -103,7 +103,7 @@ module "SSH_SG_PRIVATE" {
 
 module "SSH_ING_PRIVATE_SG_RULE" {
   source = "./SG_RULE"
-  cidr_blocks = [var.vpc_cidr_block, var.management_vm_cidr_ip]
+  cidr_blocks = [var.vpc_cidr_block]
   type = "ingress"
   from_port = 22
   to_port = 22
@@ -146,7 +146,7 @@ module "TEST_PRIVATE_SUBNET" {
   vpc_id                  = module.VPC.vpc_id
   availability_zone       = "eu-west-2a"
   cidr_block              = "10.0.1.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   tags = {
     Name = "hq_test_private_subnet"
   }
