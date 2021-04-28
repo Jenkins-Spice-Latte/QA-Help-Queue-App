@@ -21,7 +21,7 @@ import com.qa.helpQueue.persistance.domain.Tickets;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Sql(scripts = {"classpath:schema.sql" , "classpath:data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD) 
-public class updateControllerIntegrationTest {
+public class UpdateControllerIntegrationTest {
 	
 	@Autowired
 	private MockMvc mockMvc;

@@ -17,7 +17,7 @@ import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.persistance.repository.hqRepository;
 
 @SpringBootTest
-public class updateServiceUnitTest {
+public class UpdateServiceUnitTest {
 	
 	@Autowired
 	private UpdateService service;

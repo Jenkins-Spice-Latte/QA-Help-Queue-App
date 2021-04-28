@@ -14,7 +14,7 @@ import com.qa.helpQueue.persistance.domain.Tickets;
 import com.qa.helpQueue.service.DeleteService;
 
 @SpringBootTest
-public class deleteControllerUnitTest {
+public class DeleteControllerUnitTest {
 
 
 	
