@@ -18,8 +18,24 @@ touch $destFile
 echo "
 all:
   hosts:
-    ${bastion_public_ip}:
-    ${jenkins_public_ip}:
+    3.9.135.38:
+    18.132.14.178:
+  vars:
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
+    ansible_ssh_common_args: \"-o StrictHostKeyChecking=no\"
+
+jenkins:
+  hosts:
+    18.133.181.216:
+  vars:
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
+    ansible_ssh_common_args: \"-o StrictHostKeyChecking=no\"
+
+bastion:
+  hosts:
+    18.134.198.195:
   vars:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
