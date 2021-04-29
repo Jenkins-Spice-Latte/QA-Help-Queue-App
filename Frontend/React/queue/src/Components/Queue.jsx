@@ -29,17 +29,22 @@ const Queue = (props) => {
 
     return (
       <> 
+      <div className= "queue_div">
         <p>Pending Tickets</p>
-        {data.map((item) => {
-          if(item.complete === false)
-            return <Ticket item={item} className={className}/>  
-         })}
-
+          {data.map((item) => {
+            if(item.complete === false)
+              return <Ticket item={item} className={className}/>  
+          })}
+      </div>
+        
+      <div className= "queue_div">
         <p>Completed Tickets</p>
         {data.map((item) => {
           if(item.complete === true)
             return <Ticket item={item} className={className}/>  
          })}
+      </div>
+        
       </>
     );
   };
