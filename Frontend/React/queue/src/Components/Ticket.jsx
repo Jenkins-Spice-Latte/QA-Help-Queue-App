@@ -38,7 +38,7 @@ const Ticket = (props) => {
     
     var date = new Date(item.time_created);
     var hours = date.getHours();
-    var mins = "0" + date.getMinutes();
+    var mins = "" + date.getMinutes();
 
     var checkAuth;
     var checkTitle;
@@ -55,17 +55,20 @@ const Ticket = (props) => {
 
     const expand = () => setIsOpen(!isOpen);
 
-    function deleteT(id) {
-      axios.delete("http://localhost:8901/delete/"+id)
-      .then(response => {
-        console.log(response.data);
-      });
-    }
+    
 
     function mark(id) {
       axios.put("http://localhost:8904/update/"+id, {
         completed: true
       })
+      .then(response => {
+        console.log(response.data);
+      });
+    }
+
+    const deleteT = () => {
+
+      axios.delete("http://localhost:8904/delete/"+item.ticketID)
       .then(response => {
         console.log(response.data);
       });
@@ -170,7 +173,7 @@ const Ticket = (props) => {
                     <p><strong>Date created:</strong> {hours} : {mins}</p>
                     <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark(item.id)}>Mark as done</Button>
                     <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
-                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT(item.id)}>Delete ticket</Button>
+                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
 
 
                     {/* UPDATE MODAL */}
