@@ -13,13 +13,6 @@ const Filter = (props) => {
             </div>
           </FormGroup>
           <FormGroup>
-            <Label for="exampleCheckbox">Completed</Label>
-            <div>
-              <CustomInput type="checkbox" id="CustomCheckbox6" value="completed" label="Completed" checked/>
-              <CustomInput type="checkbox" id="CustomCheckbox7" value="uncompleted" label="Uncompleted" checked/>
-            </div>
-          </FormGroup>
-          <FormGroup>
             <Label for="exampleCheckbox">Urgency</Label>
             <div>
               <CustomInput type="checkbox" id="CustomCheckbox8" value="1" label="Most urgent" checked/>
