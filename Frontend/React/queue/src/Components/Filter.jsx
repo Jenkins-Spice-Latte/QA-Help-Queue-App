@@ -9,11 +9,7 @@ const Filter = (props) => {
           <FormGroup>
             <Label for="exampleCheckbox">Author</Label>
             <div>
-              <CustomInput type="checkbox" id="CustomCheckbox1" value="Author1" label="Author 1" checked/>
-              <CustomInput type="checkbox" id="CustomCheckbox2" value="Author2" label="Author 2" checked/>
-              <CustomInput type="checkbox" id="CustomCheckbox3" value="Author3" label="Author 3" checked/>
-              <CustomInput type="checkbox" id="CustomCheckbox4" value="Author4" label="Author 4" checked/>
-              <CustomInput type="checkbox" id="CustomCheckbox5" value="Author5" label="Author 5" checked/>
+              <Input type="text" name="author" id="author" placeholder="Filter by author" />
             </div>
           </FormGroup>
           <FormGroup>

@@ -131,6 +131,14 @@
   float: left;
 }
 
+#createUrgencyCheck{
+  color:forestgreen;
+}
+
+#createTopicCheck{
+  color:forestgreen;
+}
+
 .create_ticket_div{
   float: left;
   margin-top: 20px;
