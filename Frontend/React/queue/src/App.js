@@ -27,9 +27,9 @@ function App() {
           <div className= "toggle_div">
             <Toggle/>
           </div>
-          <div className= "queue_div">
+          
             <Queue/>
-          </div>
+          
         </div>
       </div>
     </div>
