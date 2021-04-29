@@ -19,17 +19,6 @@ const Queue = (props) => {
       setIsLoaded(true); 
   }
 
-<<<<<<< Updated upstream
-  const data = [
-    {id: 1, title: "Title 1", complete: false, description:"Desc 1", author:"Author 1", topic: "Topic1", urgency: 1},
-    {id: 2, title: "Title 2", complete: false, description:"Desc 2", author:"Author 2", topic: "Topic1", urgency: 2},
-    {id: 3, title: "Title 3", complete: true, description:"Desc 3", author:"Author 1", topic: "Topic3", urgency: 1},
-  ];
-
-
-
-=======
->>>>>>> Stashed changes
     return (
       <> 
       <div className= "queue_div">
