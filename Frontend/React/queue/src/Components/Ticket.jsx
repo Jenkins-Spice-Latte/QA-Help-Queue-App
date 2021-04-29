@@ -27,12 +27,12 @@ const Ticket = (props) => {
     const [isDone, setDone] = useState(false);
     const [isPriority, setPriority] = useState(1);
 
-    const [authorSt, setAuthor] = useState('');
+    const [authorSt, setAuthor] = useState(item.author);
     const [completeSt, setComplete] = useState("");
     const [completeStShow, setCompleteShow] = useState("");
-    const [descriptionSt, setDescription] = useState('');
+    const [descriptionSt, setDescription] = useState(item.description);
     const [timeSt, setTime] = useState('');
-    const [titleSt, setTitle] = useState('');
+    const [titleSt, setTitle] = useState(item.title);
     const [topicSt, setTopic] = useState('');
     const [urgencySt, setUrgency] = useState('');
     var checkAuth;
@@ -171,21 +171,21 @@ const Ticket = (props) => {
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>Author</InputGroupText>
                               </InputGroupAddon>
-                              <Input type="text" name="author" id="author" value={item.author} onChange={(e) => setAuthor(e.target.value)} placeholder="Enter author name"/>
+                              <Input type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Enter author name"/>
                             </InputGroup>
                             <br />
                             <InputGroup>
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>Title</InputGroupText>
                               </InputGroupAddon>
-                              <Input type="text" name="title" id="title" value={item.title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter title"/>
+                              <Input type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Enter title"/>
                             </InputGroup>
                             <br />
                             <InputGroup>
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>Description</InputGroupText>
                               </InputGroupAddon>
-                              <Input type="textarea" name="description" id="description" value={item.description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter description" />
+                              <Input type="textarea" name="description" id="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} placeholder="Enter description" />
                             </InputGroup>
                             <br />
                             <FormGroup>

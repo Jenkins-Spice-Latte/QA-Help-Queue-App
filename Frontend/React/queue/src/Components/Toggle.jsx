@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import { BsToggleOff,  BsToggleOn} from "react-icons/bs";
 
-
 const Toggle = (props) => {
   const [modeSelect, setmodeSelect] = useState("Trainee mode");
   var mode;
@@ -21,7 +20,6 @@ const Toggle = (props) => {
     return (
       <> 
         {mode}
-
       </>
     );
   };
