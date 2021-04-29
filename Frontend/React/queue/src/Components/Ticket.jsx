@@ -26,12 +26,7 @@ const Ticket = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isDone, setDone] = useState(false);
     const [isPriority, setPriority] = useState(1);
-<<<<<<< Updated upstream
-
     const [authorSt, setAuthor] = useState(item.author);
-=======
-    const [authorSt, setAuthor] = useState('');
->>>>>>> Stashed changes
     const [completeSt, setComplete] = useState("");
     const [completeStShow, setCompleteShow] = useState("");
     const [descriptionSt, setDescription] = useState(item.description);
@@ -76,7 +71,8 @@ const Ticket = (props) => {
       });
     }
 
-    function handleSubmit(id) {
+    const handleSubmit = event => {
+      event.preventDefault();
   
       let ticket = {
         author: authorSt,
@@ -88,7 +84,8 @@ const Ticket = (props) => {
         urgency: urgencySt
       };
   
-      axios.post("http://localhost:8903/update/"+id,  ticket)
+      console.log("TESTTESTTEST" + item.ticketID)
+      axios.put("http://localhost:8903/update/"+item.ticketID,  ticket)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -216,20 +213,11 @@ const Ticket = (props) => {
                             <FormGroup>
                               <Label for="radioLabel">Urgency</Label>
                               <div>
-<<<<<<< Updated upstream
-                                <CustomInput type="radio" id="exampleCustomRadio1" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" defaultChecked={UrgencyCheck1}/>
+                                <CustomInput type="radio" id="exampleCustomRadio" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" defaultChecked={UrgencyCheck1}/>
                                 <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" defaultChecked={UrgencyCheck2}/>
                                 <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" defaultChecked={UrgencyCheck3}/>
                                 <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" defaultChecked={UrgencyCheck4}/>
                                 <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" defaultChecked={UrgencyCheck5}/>
-                                {urgencyCheck}
-=======
-                                <CustomInput type="radio" id="exampleCustomRadio" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" />
->>>>>>> Stashed changes
                               </div>
                             </FormGroup>
                             <br />
