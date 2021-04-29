@@ -22,3 +22,4 @@ backend/CreateTicket/bin/src/test/java/com/qa/helpQueue/rest/controller/CreateCo
 backend/CreateTicket/bin/src/test/java/com/qa/helpQueue/service/CreateServiceUnitTest.class
 backend/CreateTicket/bin/.mvn/wrapper/maven-wrapper.jar
 backend/CreateTicket/bin/.mvn/wrapper/maven-wrapper.jar
+Frontend/React/queue/node_modules/

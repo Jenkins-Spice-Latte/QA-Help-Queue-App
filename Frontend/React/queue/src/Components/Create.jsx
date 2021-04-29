@@ -63,13 +63,13 @@ const Create = (props) => {
       author: authorSt,
       complete: completeSt,
       description: descriptionSt,
-      time_created: timeSt,
+      time_created: Date.now(),
       title: titleSt,
       topic: topicSt,
       urgency: urgencySt
     };
 
-    axios.post(`http://localhost:8900/create`,  ticket)
+    axios.post(`http://localhost:8901/create`,  ticket)
       .then(res => {
         console.log(res);
         console.log(res.data);
