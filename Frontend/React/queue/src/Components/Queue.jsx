@@ -7,18 +7,19 @@ const Queue = (props) => {
 
 
 
-  const [ticketdata, setTicketData] = useState([]);
+  const [data, setData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   if(isLoaded === false){
-      axios.get("http://localhost:8903/readAll")
+      axios.get("http://localhost:8902/readAll")
       .then(response => {
           console.log(response.data);
-          setTicketData(response.data);
+          setData(response.data);
       });
       setIsLoaded(true); 
   }
 
+<<<<<<< Updated upstream
   const data = [
     {id: 1, title: "Title 1", complete: false, description:"Desc 1", author:"Author 1", topic: "Topic1", urgency: 1},
     {id: 2, title: "Title 2", complete: false, description:"Desc 2", author:"Author 2", topic: "Topic1", urgency: 2},
@@ -27,6 +28,8 @@ const Queue = (props) => {
 
 
 
+=======
+>>>>>>> Stashed changes
     return (
       <> 
       <div className= "queue_div">
