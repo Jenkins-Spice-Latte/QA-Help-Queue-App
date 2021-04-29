@@ -1,12 +1,18 @@
+---
 - hosts: jenkins
   become: yes
   roles:
     - common
     - jenkins
 
-# test
 - hosts: bastion
   become: yes
   roles:
     - common
     - bastion
+
+- hosts: testvm
+  become: yes
+  roles:
+    - common
+    - testvm
