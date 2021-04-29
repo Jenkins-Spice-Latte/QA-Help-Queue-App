@@ -50,3 +50,5 @@ testvm:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o ProxyCommand=\"ssh -i /home/ubuntu/.ssh/i_dont_give_a_ssh -W %h:%p -q ${bastion_public_ip}\"'
 
 " >$destFile
+
+cd ~/QA-Help-Queue-App/ansible || exit ; ansible-playbook -v -i inventory.yaml playbook.yaml
