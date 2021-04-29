@@ -1,0 +1,7 @@
+---
+
+- name: "install docker"
+  script: ../../../ansible_scripts/install_docker.sh
+
+- name: "install docker compose"
+  script: ../../../ansible_scripts/install_docker_compose.sh

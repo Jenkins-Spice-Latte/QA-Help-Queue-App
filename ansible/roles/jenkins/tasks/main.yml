@@ -1,0 +1,10 @@
+---
+
+- name: "install jenkins"
+  script: ../../../ansible_scripts/install_jenkins.sh
+
+- name: "install aws cli"
+  script: ../../../ansible_scripts/install_aws_cli.sh
+
+- name: "install kubectl"
+  script: ../../../ansible_scripts/install_kubectl.sh
