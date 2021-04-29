@@ -19,6 +19,7 @@ all:
   hosts:
     ${bastion_public_ip}:
     ${jenkins_public_ip}:
+    ${testvm_private_ip}:
   vars:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
