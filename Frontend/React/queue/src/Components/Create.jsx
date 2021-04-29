@@ -63,13 +63,21 @@ const Create = (props) => {
       author: authorSt,
       complete: completeSt,
       description: descriptionSt,
+<<<<<<< Updated upstream
       time_created: timeSt,
+=======
+      time_created: Date.now(),
+>>>>>>> Stashed changes
       title: titleSt,
       topic: topicSt,
       urgency: urgencySt
     };
 
+<<<<<<< Updated upstream
     axios.post(`http://localhost:8900/create`,  ticket)
+=======
+    axios.post(`http://localhost:8901/create`,  ticket)
+>>>>>>> Stashed changes
       .then(res => {
         console.log(res);
         console.log(res.data);
