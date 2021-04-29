@@ -39,4 +39,13 @@ jenkins:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
     ansible_ssh_common_args: \"-o StrictHostKeyChecking=no\"
+
+TestVM:
+  hosts:
+    ${testvm_private_ip}:
+  vars:
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
+    ansible_ssh_common_args: '-o ProxyCommand=\"ssh -i /home/ubuntu/.ssh/i_dont_give_a_ssh -W %h:%p -q ${bastion_public_ip}\"'
+
 " >$destFile
