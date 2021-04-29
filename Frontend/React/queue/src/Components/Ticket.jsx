@@ -26,8 +26,12 @@ const Ticket = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isDone, setDone] = useState(false);
     const [isPriority, setPriority] = useState(1);
+<<<<<<< Updated upstream
 
     const [authorSt, setAuthor] = useState(item.author);
+=======
+    const [authorSt, setAuthor] = useState('');
+>>>>>>> Stashed changes
     const [completeSt, setComplete] = useState("");
     const [completeStShow, setCompleteShow] = useState("");
     const [descriptionSt, setDescription] = useState(item.description);
@@ -35,6 +39,12 @@ const Ticket = (props) => {
     const [titleSt, setTitle] = useState(item.title);
     const [topicSt, setTopic] = useState('');
     const [urgencySt, setUrgency] = useState('');
+
+    
+    var date = new Date(item.time_created);
+    var hours = date.getHours();
+    var mins = "0" + date.getMinutes();
+
     var checkAuth;
     var checkTitle;
     var checkDesc;
@@ -78,11 +88,13 @@ const Ticket = (props) => {
         urgency: urgencySt
       };
   
-      axios.post("http://localhost:8904/update"+id,  ticket)
+      axios.post("http://localhost:8903/update/"+id,  ticket)
         .then(res => {
           console.log(res);
           console.log(res.data);
         })
+
+        
     }
 
     const toggle = () => setModal(!modal);
@@ -158,15 +170,18 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Urgency:</strong> {item.urgency}</p>
                     <br />
-                    <p><strong>Date created:</strong> Anim pariatur cliche</p>
+                    <p><strong>Date created:</strong> {hours} : {mins}</p>
                     <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark(item.id)}>Mark as done</Button>
                     <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
                     <Button color="danger" className="queueBtnBlock" onClick={() => deleteT(item.id)}>Delete ticket</Button>
+
+
+                    {/* UPDATE MODAL */}
                     <div>
                       <Modal isOpen={modal} toggle={toggle} className={className}>
                         <ModalHeader toggle={toggle}>Update ticket</ModalHeader>
                         <ModalBody>
-                          <Form>
+                          <Form onSubmit={handleSubmit}>
                           <InputGroup>
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>Author</InputGroupText>
@@ -197,30 +212,37 @@ const Ticket = (props) => {
                                 <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" defaultChecked={TopicCheck4}/>
                                 <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" defaultChecked={TopicCheck5}/>
                               </div>
-                              {topicCheck}
                             </FormGroup>
                             <FormGroup>
                               <Label for="radioLabel">Urgency</Label>
                               <div>
+<<<<<<< Updated upstream
                                 <CustomInput type="radio" id="exampleCustomRadio1" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" defaultChecked={UrgencyCheck1}/>
                                 <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" defaultChecked={UrgencyCheck2}/>
                                 <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" defaultChecked={UrgencyCheck3}/>
                                 <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" defaultChecked={UrgencyCheck4}/>
                                 <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" defaultChecked={UrgencyCheck5}/>
                                 {urgencyCheck}
+=======
+                                <CustomInput type="radio" id="exampleCustomRadio" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" />
+                                <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" />
+                                <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" />
+                                <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" />
+                                <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" />
+>>>>>>> Stashed changes
                               </div>
                             </FormGroup>
                             <br />
-
                             <Input type="hidden" name="completed" id="completed" value="false"/>
+
+                            <br />
+                            <Button type="submit" color="primary" onClick={toggle}>Update ticket</Button>
+                            <Button color="secondary" onClick={toggle}>Cancel</Button>
                           </Form>
                           </ModalBody>
-                        <ModalFooter>
-                          <Button color="primary" onClick={toggle}>Update ticket</Button>{handleSubmit(item.id)}
-                          <Button color="secondary" onClick={toggle}>Cancel</Button>
-                        </ModalFooter>
                       </Modal>
                     </div>
+
 
                   </CardBody>
                 </Card>
