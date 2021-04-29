@@ -52,7 +52,7 @@ const Create = (props) => {
     checkDesc = <Input valid type="textarea" name="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Description" />
   }
 
-  const isEnabled = authorSt.length > 0 && descriptionSt.length > 0;
+  const isEnabled = authorSt.length > 0 && titleSt.length > 0 && descriptionSt.length > 0;
       
 
 
