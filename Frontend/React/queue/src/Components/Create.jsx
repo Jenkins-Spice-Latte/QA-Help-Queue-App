@@ -20,6 +20,16 @@ const Create = (props) => {
   var checkAuth;
   var checkTitle;
   var checkDesc;
+  var urgencyCheck;
+  var topicCheck;
+
+  if(urgencySt !== ""){
+    urgencyCheck = <p id="createUrgencyCheck">Urgency selected</p> 
+  }
+
+  if(topicSt !== ""){
+    topicCheck = <p id="createTopicCheck">Topic selected</p> 
+  }
   
   if(authorSt === ""){
     checkAuth = <Input type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Author name"/>
@@ -96,7 +106,7 @@ const Create = (props) => {
               <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" />
               <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" />
             </div>
-            {topicSt}
+            {topicCheck}
           </FormGroup>
           <br />
           <FormGroup>
@@ -108,8 +118,8 @@ const Create = (props) => {
               <CustomInput type="radio" id="urgency4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" />
               <CustomInput type="radio" id="urgency5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" />
             </div>
+            {urgencyCheck}
           </FormGroup>
-          {urgencySt}
             <br />
             <Input type="hidden" name="time" id="time" value={date} onSubmit={(e) => setTime(e.target.value)}/>
           

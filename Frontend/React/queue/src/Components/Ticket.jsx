@@ -20,6 +20,13 @@ const Ticket = (props) => {
 
     const expand = () => setIsOpen(!isOpen);
 
+    function deleteT(id) {
+      axios.delete("http://localhost:8901/delete/"+id)
+      .then(response => {
+        console.log(response.data);
+      });
+    }
+
     const toggle = () => setModal(!modal);
       if (isOpen) {
         btn = <BsChevronUp className="contractQueueIc" onClick={expand}/>;
@@ -59,6 +66,8 @@ const Ticket = (props) => {
               <Collapse isOpen={isOpen}>
                 <Card id="cueCard">
                   <CardBody>
+                    <p><strong>Author:</strong> {item.author}</p>
+                    <br />
                     <p><strong>Topic:</strong> {item.topic}</p>
                     <br />
                     <p><strong>Description:</strong></p>
@@ -71,7 +80,7 @@ const Ticket = (props) => {
                     <p><strong>Date created:</strong> Anim pariatur cliche</p>
                     <Button color="success" className="queueBtnBlock">Mark as done</Button>
                     <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
-                    <Button color="danger" className="queueBtnBlock">Delete ticket</Button>
+                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT(item.id)}>Delete ticket</Button>
                     <div>
                       <Modal isOpen={modal} toggle={toggle} className={className}>
                         <ModalHeader toggle={toggle}>Update ticket</ModalHeader>
