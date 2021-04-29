@@ -27,11 +27,12 @@ const Ticket = (props) => {
     var checkDesc;
     var urgencyCheck;
     var topicCheck;
-    
-
     var btn;
     var tickBtn;
     var priorityBtn;
+
+
+    const isEnabled = item.complete;
 
 
     const expand = () => setIsOpen(!isOpen);
@@ -72,6 +73,8 @@ const Ticket = (props) => {
     }
 
     const toggle = () => setModal(!modal);
+
+
       if (isOpen) {
         btn = <BsChevronUp className="contractQueueIc" onClick={expand}/>;
       } else {
@@ -96,13 +99,6 @@ const Ticket = (props) => {
         priorityBtn = <BsClockFill className="leastUrgIcQ"/>
       }
 
-      if(item.complete === false){
-        setCompleteShow("Incomplete");
-      } else{
-        setCompleteShow("Complete");
-      }
-    
-
 
     return (
         <div className="ticket_div" key={item.id}>
@@ -123,12 +119,10 @@ const Ticket = (props) => {
                     <p><strong>Description:</strong></p>
                     <p>{item.description}</p>
                     <br />
-                    <p><strong>Completed:</strong> {item.complete}</p>
-                    <br />
                     <p><strong>Urgency:</strong> {item.urgency}</p>
                     <br />
                     <p><strong>Date created:</strong> Anim pariatur cliche</p>
-                    <Button color="success" className="queueBtnBlock" onClick={() => mark(item.id)}>Mark as done</Button>
+                    <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark(item.id)}>Mark as done</Button>
                     <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
                     <Button color="danger" className="queueBtnBlock" onClick={() => deleteT(item.id)}>Delete ticket</Button>
                     <div>
