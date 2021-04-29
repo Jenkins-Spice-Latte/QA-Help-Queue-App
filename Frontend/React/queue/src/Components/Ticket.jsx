@@ -8,6 +8,19 @@ import { FaRegCheckCircle, FaCheckCircle } from "react-icons/fa";
 const Ticket = (props) => {
 
     const {item, className} = props;
+    let TopicCheck1 = false;
+    let TopicCheck2 = false;
+    let TopicCheck3 = false;
+    let TopicCheck4 = false;
+    let TopicCheck5 = false;
+    let UrgencyCheck1 = false;
+    let UrgencyCheck2 = false;
+    let UrgencyCheck3 = false;
+    let UrgencyCheck4 = false;
+    let UrgencyCheck5 = false;
+    const decidedComp = item.complete;
+    const  decidedTopic = item.topic;
+    const  decidedUrgency = item.urgency;
     
     const [modal, setModal] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -81,22 +94,46 @@ const Ticket = (props) => {
         btn = <BsChevronDown className="expandQueueIc" onClick={expand}/>;
       }
   
-      if (isDone) {
+      if (decidedComp) {
         tickBtn = <FaCheckCircle className="completedIc"/>;
       } else {
         tickBtn = <FaRegCheckCircle className="uncompletedIc"/>;
       }
   
-      if(isPriority === 1){
+      if(decidedUrgency === 1){
         priorityBtn = <BsClockFill className="mostUrgIcQ"/>
-      } else if(isPriority === 2){
+      } else if(decidedUrgency === 2){
         priorityBtn = <BsClockFill className="secMostUrgIcQ"/>
-      }else if(isPriority === 3){
+      }else if(decidedUrgency === 3){
         priorityBtn = <BsClockFill className="middleUrgIcQ"/>
-      }else if(isPriority === 4){
+      }else if(decidedUrgency === 4){
         priorityBtn = <BsClockFill className="secLeastUrgIcQ"/>
-      }else if(isPriority === 5){
+      }else if(decidedUrgency === 5){
         priorityBtn = <BsClockFill className="leastUrgIcQ"/>
+      }
+
+      if(decidedUrgency === 1){
+        UrgencyCheck1 = true;
+      } else if(decidedUrgency === 2){
+        UrgencyCheck2 = true;
+      }else if(decidedUrgency === 3){
+        UrgencyCheck3 = true;
+      }else if(decidedUrgency === 4){
+        UrgencyCheck4 = true;
+      }else if(decidedUrgency === 5){
+        UrgencyCheck5 = true;
+      }
+
+      if(decidedTopic === "Topic1"){
+        TopicCheck1 = true;
+      } else if(decidedTopic === "Topic2"){
+        TopicCheck2 = true;
+      }else if(decidedTopic === "Topic3"){
+        TopicCheck3 = true;
+      }else if(decidedTopic === "Topic4"){
+        TopicCheck4 = true;
+      }else if(decidedTopic === "Topic5"){
+        TopicCheck5 = true;
       }
 
 
@@ -154,22 +191,22 @@ const Ticket = (props) => {
                             <FormGroup>
                               <Label for="radioLabel">Topic</Label>
                               <div>
-                                <CustomInput type="radio" id="topic1" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic1" label="Topic 1" />
-                                <CustomInput type="radio" id="topic2" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic2" label="Topic 2" />
-                                <CustomInput type="radio" id="topic3" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic3" label="Topic 3" />
-                                <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" />
-                                <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" />
+                                <CustomInput type="radio" id="topic1" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic1" label="Topic 1" defaultChecked={TopicCheck1}/>
+                                <CustomInput type="radio" id="topic2" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic2" label="Topic 2" defaultChecked={TopicCheck2}/>
+                                <CustomInput type="radio" id="topic3" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic3" label="Topic 3" defaultChecked={TopicCheck3}/>
+                                <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" defaultChecked={TopicCheck4}/>
+                                <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" defaultChecked={TopicCheck5}/>
                               </div>
                               {topicCheck}
                             </FormGroup>
                             <FormGroup>
                               <Label for="radioLabel">Urgency</Label>
                               <div>
-                                <CustomInput type="radio" id="exampleCustomRadio" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" />
-                                <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" />
+                                <CustomInput type="radio" id="exampleCustomRadio1" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" defaultChecked={UrgencyCheck1}/>
+                                <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" defaultChecked={UrgencyCheck2}/>
+                                <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" defaultChecked={UrgencyCheck3}/>
+                                <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" defaultChecked={UrgencyCheck4}/>
+                                <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" defaultChecked={UrgencyCheck5}/>
                                 {urgencyCheck}
                               </div>
                             </FormGroup>
