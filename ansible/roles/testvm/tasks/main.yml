@@ -1,3 +1,7 @@
 ---
 
-# empty as of yet
+- name: Install dependencies
+  apt:
+    pkg:
+      - openjdk-11-jdk
+    state: present
