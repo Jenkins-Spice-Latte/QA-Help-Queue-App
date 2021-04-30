@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.deleteTicket.rest.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.service.DeleteService;
+import com.qa.deleteTicket.persistance.domain.Tickets;
+import com.qa.deleteTicket.service.DeleteService;
 
 @CrossOrigin
 @RestController

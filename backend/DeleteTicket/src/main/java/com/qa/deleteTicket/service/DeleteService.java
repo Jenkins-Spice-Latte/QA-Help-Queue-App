@@ -1,11 +1,11 @@
-package com.qa.helpQueue.service;
+package com.qa.deleteTicket.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.helpQueue.exception.TicketNotFoundException;
-import com.qa.helpQueue.persistance.repository.hqRepository;
+import com.qa.deleteTicket.exception.TicketNotFoundException;
+import com.qa.deleteTicket.persistance.repository.hqRepository;
 
 @Service
 public class DeleteService {
