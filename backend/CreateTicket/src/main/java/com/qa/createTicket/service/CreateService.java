@@ -1,10 +1,10 @@
-package com.qa.helpQueue.service;
+package com.qa.createTicket.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.persistance.repository.hqRepository;
+import com.qa.createTicket.persistance.domain.Tickets;
+import com.qa.createTicket.persistance.repository.hqRepository;
 
 @Service
 public class CreateService {

@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.createTicket.rest.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
@@ -13,11 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.service.CreateService;
+import com.qa.createTicket.persistance.domain.Tickets;
+import com.qa.createTicket.service.CreateService;
 
 @SpringBootTest
+@ActiveProfiles(profiles = "test")
 public class CreateControllerUnitTest {
 	
 	@Autowired

@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.createTicket.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.service.CreateService;
+import com.qa.createTicket.persistance.domain.Tickets;
+import com.qa.createTicket.service.CreateService;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
