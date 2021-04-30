@@ -17,6 +17,7 @@ pipeline {
                 git branch: 'frontend-backend', url: 'https://github.com/Jenkins-Spice-Latte/QA-Help-Queue-App/'
                 dir('./backend/CreateTicket') {
                     sh 'touch testing_this_directory'
+                    sh 'mvn clean build'
                 }
 
             }
