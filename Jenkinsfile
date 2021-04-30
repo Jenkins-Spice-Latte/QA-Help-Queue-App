@@ -12,11 +12,12 @@ pipeline {
                         git branch: 'frontend-backend', url: 'https://github.com/Jenkins-Spice-Latte/QA-Help-Queue-App/'
                     }
                 }
-
-                dir('backend/CreateTicket') {
+                parallel {
                     stage("Maven Test") {
                         steps {
-                            sh 'mvn test'
+                            dir('backend/CreateTicket') {
+                                sh 'mvn test'
+                            }
                         }
                     }
 
@@ -52,3 +53,33 @@ environment {
     SET_SCRIPT_EX_PERMS = 'chmod a+x'
 }
  */
+
+
+
+    stage('Test On Windows') {
+        agent {
+            label "windows"
+        }
+        steps {
+            bat "run-tests.bat"
+        }
+        post {
+            always {
+                junit "**/TEST-*.xml"
+            }
+        }
+    }
+    stage('Test On Linux') {
+        agent {
+            label "linux"
+        }
+        steps {
+            sh "run-tests.sh"
+        }
+        post {
+            always {
+                junit "**/TEST-*.xml"
+            }
+        }
+    }
+}
