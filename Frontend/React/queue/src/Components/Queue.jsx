@@ -6,13 +6,9 @@ const Queue = (props) => {
   const {buttonLabel, className} = props;
   const [data, setData] = useState([]);
 
-  console.log("queueprops")
-  console.log(props)
-
   if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")
       .then(response => {
-          console.log(response.data);
           setData(response.data);
       });
       props.switchLoaded(); 
@@ -25,7 +21,7 @@ const Queue = (props) => {
         <p>{props.mode}</p>       
         {data.map((item) => {
             if(item.complete === false)
-              return <Ticket item={item} className={className}/>  
+              return <Ticket item={item} className={className} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
           })}
       </div>
         
@@ -33,7 +29,7 @@ const Queue = (props) => {
         <p>Completed Tickets</p>
         {data.map((item) => {
           if(item.complete === true)
-            return <Ticket item={item} className={className}/>  
+            return <Ticket item={item} className={className} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
          })}
       </div>
         

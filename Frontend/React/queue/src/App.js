@@ -15,6 +15,7 @@ function App() {
     setIsLoaded(!isLoaded);
   }
 
+  console.log("app.js")
   console.log(isLoaded)
 
   return (

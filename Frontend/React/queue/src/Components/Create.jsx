@@ -4,9 +4,6 @@ import { BsClockFill } from "react-icons/bs";
 import { CustomInput, FormFeedback, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 
 const Create = (props) => {
-
-  console.log(props)
-
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -80,7 +77,6 @@ const Create = (props) => {
     axios.post(`http://localhost:8901/create`,  ticket)
       .then(res => {
         console.log(res);
-        console.log(res.data);
       })
 
     props.switchLoaded();
