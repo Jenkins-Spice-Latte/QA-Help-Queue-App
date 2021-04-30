@@ -7,7 +7,7 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 sh "chmod a+x ./jenkins_scripts/clone_repo.sh"
-                sh "ssh -o StrictHostKeyChecking=no ubuntu@$TEST_VM_IP < jenkins_scripts/clone_repo.sh"
+                sh "ssh -i ~/.ssh/jenkins_agent_key -o StrictHostKeyChecking=no ubuntu@$TEST_VM_IP < jenkins_scripts/clone_repo.sh"
             }
         }
     }
