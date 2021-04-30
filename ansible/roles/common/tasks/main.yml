@@ -1,11 +1,5 @@
 ---
 
-#- name: "install docker"
-#  script: ../../../ansible_scripts/install_docker.sh
-
-#- name: "install docker compose"
-#  script: ../../../ansible_scripts/install_docker_compose.sh
-
 - name:   Update and upgrade apt packages
   become: true
   apt:
@@ -20,34 +14,11 @@
   with_items:
     - 'docker'
 
-- name: Install dockercompose
+- name: Install dependencies
   apt:
-    name: "{{ item }}"
-    update_cache: yes
+    pkg:
+      - docker-compose
+      - mysql-client
+      - openjdk-8-jre
+      - maven
     state: present
-  with_items:
-    - 'docker-compose'
-
-- name: Install mysqlclient
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  with_items:
-    - 'mysql-client'
-
-- name: Install java
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  with_items:
-    - 'openjdk-8-jre'
-
-- name: Install maven
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  with_items:
-    - 'maven'
