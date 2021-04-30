@@ -19,6 +19,17 @@ pipeline {
             }
         }
 
+        stage('Run Maven Test') {
+            agent { label 'testvm' }
+            steps {
+                dir('./backend/CreateTicket') {
+                    sh 'touch testing_this_directory'
+                }
+            }
+        }
+
+
+
 //        stage('Build Docker Images') {
 //            steps {
 //            }
