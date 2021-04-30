@@ -32,11 +32,17 @@ pipeline {
 //        }
 
 
-
 //        stage('Build Docker Images') {
 //            steps {
 //            }
 //        }
 
+    }
+
+    post {
+        // Clean after build
+        always {
+            cleanWs()
+        }
     }
 }
