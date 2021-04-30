@@ -1,4 +1,4 @@
-package com.qa.helpQueue.service;
+package com.qa.readTicket.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
@@ -12,11 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.persistance.repository.hqRepository;
+import com.qa.readTicket.persistance.domain.Tickets;
+import com.qa.readTicket.persistance.repository.hqRepository;
+import com.qa.readTicket.service.ReadService;
 
 @SpringBootTest
+@ActiveProfiles(profiles = "test")
 public class ReadServiceUnitTest {
 	
 	@Autowired

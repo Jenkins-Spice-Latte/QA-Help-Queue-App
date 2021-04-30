@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.readTicket.rest.controller;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.service.ReadService;
+import com.qa.readTicket.persistance.domain.Tickets;
+import com.qa.readTicket.service.ReadService;
 
 @CrossOrigin
 @RestController

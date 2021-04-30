@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.readTicket.rest.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
@@ -13,11 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.service.ReadService;
+import com.qa.readTicket.persistance.domain.Tickets;
+import com.qa.readTicket.rest.controller.ReadController;
+import com.qa.readTicket.service.ReadService;
 
 @SpringBootTest
+@ActiveProfiles(profiles = "test")
 public class ReadControllerUnitTest {
 
 	@Autowired
