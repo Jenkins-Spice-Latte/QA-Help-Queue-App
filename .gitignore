@@ -23,3 +23,5 @@ backend/CreateTicket/bin/src/test/java/com/qa/helpQueue/service/CreateServiceUni
 backend/CreateTicket/bin/.mvn/wrapper/maven-wrapper.jar
 backend/CreateTicket/bin/.mvn/wrapper/maven-wrapper.jar
 Frontend/React/queue/node_modules/
+backend/.metadata/.lock
+backend/.metadata/.plugins/org.eclipse.m2e.logback.configuration/0.log

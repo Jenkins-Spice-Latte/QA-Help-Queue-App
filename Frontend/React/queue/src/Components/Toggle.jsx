@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import { BsToggleOff,  BsToggleOn} from "react-icons/bs";
-import Queue from "./Queue"
+import Queue from "./Queue";
+import Create from "./Create";
 
 const Toggle = (props) => {
   const [modeSelect, setmodeSelect] = useState("Trainee mode");
@@ -22,6 +23,7 @@ const Toggle = (props) => {
       <> 
         {mode}
         <Queue mode={(modeSelect)}/>
+        <Create mode={(modeSelect)}/>
       </>
     );
   };

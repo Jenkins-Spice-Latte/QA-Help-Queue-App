@@ -17,11 +17,18 @@ const Create = (props) => {
   const [topicSt, setTopic] = useState('');
   const [urgencySt, setUrgency] = useState('');
   const date = +new Date;
+  let disabled;
   var checkAuth;
   var checkTitle;
   var checkDesc;
   var urgencyCheck;
   var topicCheck;
+
+  if(props.mode === "Trainer mode"){
+    disabled = false;
+  } else{
+    disabled = true;
+  }
 
   if(urgencySt !== ""){
     urgencyCheck = <p id="createUrgencyCheck">Urgency selected</p> 
@@ -78,7 +85,7 @@ const Create = (props) => {
 
     return (
       <>
-        <Button color="success" size="lg" onClick={toggle}>Create a ticket</Button>
+        <Button color="success" size="lg" disabled={disabled} onClick={toggle}>Create a ticket</Button>
       <div>
         <Modal isOpen={modal} toggle={toggle} className={className}>
         <Form onSubmit={handleSubmit}>
