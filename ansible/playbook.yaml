@@ -1,15 +1,15 @@
 ---
+- hosts: bastion
+  become: yes
+  roles:
+    - bastion
+
 - hosts: jenkins
   become: yes
   roles:
     - common
     - jenkins
 
-- hosts: bastion
-  become: yes
-  roles:
-    - common
-    - bastion
 
 - hosts: testvm
   become: yes
