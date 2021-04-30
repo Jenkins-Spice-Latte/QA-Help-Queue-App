@@ -1,12 +1,18 @@
 import './App.css';
 import { Button } from 'reactstrap';
+import React, { useState } from 'react';
 import Sort from './Components/Sort';
 import Filter from './Components/Filter';
 import Create from './Components/Create';
 import Queue from './Components/Queue';
 import Toggle from './Components/Toggle';
 
+
 function App() {
+  const [modeSelect, setmodeSelect] = useState("Trainee mode");
+  const onCheckboxBtnClick = (selected) => {
+    setmodeSelect(selected);
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -14,7 +20,7 @@ function App() {
       <div className="all_columns">
         <div className="column_one">
           <div className= "create_ticket_div">  
-            <Create/>
+            <Create mode={(modeSelect)}/>
           </div>
           <div  className= "sort_div">
             <Sort/>
@@ -25,10 +31,11 @@ function App() {
         </div>
         <div className="column_two">
           <div className= "toggle_div">
-            <Toggle/>
+            {modeSelect}
+            <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect}/>
           </div>
           
-            <Queue/>
+            <Queue mode={(modeSelect)}/>
           
         </div>
       </div>
