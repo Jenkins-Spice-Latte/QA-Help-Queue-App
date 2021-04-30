@@ -22,7 +22,8 @@ const Queue = (props) => {
     return (
       <> 
       <div className= "queue_div">
-        <p>Pending Tickets</p>          
+        <p>Pending Tickets</p>
+        {props.sort}
         {data.map((item) => {
             if(item.complete === false)
               return <Ticket item={item} className={className} mode={(props.mode)}/>  

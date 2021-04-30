@@ -10,9 +10,37 @@ import Toggle from './Components/Toggle';
 
 function App() {
   const [modeSelect, setmodeSelect] = useState("Trainee mode");
+  const [sortChange, setsortChange] = useState("Oldest");
+  const [urgentFilterChange, setUrgentFilter] = useState([1,2,3,4,5]);
+  const [topicFilterChange, setTopicFilter] = useState(["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]);
   const onCheckboxBtnClick = (selected) => {
     setmodeSelect(selected);
   }
+
+  const onFilterUrgentCheckboxClick = (selected) => {
+    const index = urgentFilterChange.indexOf(selected);
+    if (index < 0) {
+      urgentFilterChange.push(selected);
+    } else {
+      urgentFilterChange.splice(index, 1);
+    }
+    setUrgentFilter([...urgentFilterChange]);
+  }
+
+  const onFilterTopicCheckboxClick = (selected) => {
+    const index = topicFilterChange.indexOf(selected);
+    if (index < 0) {
+      topicFilterChange.push(selected);
+    } else {
+      topicFilterChange.splice(index, 1);
+    }
+    setTopicFilter([...topicFilterChange]);
+  }
+
+  const onSortBtnClick = (selected) => {
+    setsortChange(selected);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -23,19 +51,20 @@ function App() {
             <Create mode={(modeSelect)}/>
           </div>
           <div  className= "sort_div">
-            <Sort/>
+            <Sort onSortBtnClick={onSortBtnClick}/>
           </div>
           <div  className= "filter_div">
-            <Filter/>
+            {urgentFilterChange}
+            {topicFilterChange}
+            <Filter urgencyCheck={onFilterUrgentCheckboxClick} urgent={(urgentFilterChange)} topicCheck={onFilterTopicCheckboxClick} topic={(topicFilterChange)}/>
           </div>
         </div>
         <div className="column_two">
           <div className= "toggle_div">
-            {modeSelect}
             <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect}/>
           </div>
           
-            <Queue mode={(modeSelect)}/>
+            <Queue mode={(modeSelect)} sort={sortChange}/>
           
         </div>
       </div>
