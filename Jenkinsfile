@@ -13,7 +13,7 @@ pipeline {
                     }
                 }
 
-                stage('Test and Export Coverage') {
+                stage('Run Backend Tests and Export Coverage') {
                     parallel {
                         stage("CreateTicket Test") {
                             steps {
@@ -50,15 +50,15 @@ pipeline {
                 }
             }
 
-            post {
-                // Clean after build
-                always {
+//            post {
+//                // Clean after build
+//                always {
 //                    cleanWs()
-                }
-//                success {
-//                    stash name: "artifacts", includes: "artifacts/**/*"
 //                }
-            }
+////                success {
+////                    stash name: "artifacts", includes: "artifacts/**/*"
+////                }
+//            }
         }
     }
 }
