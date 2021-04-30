@@ -1,7 +1,33 @@
 ---
 
-- name: "install docker"
-  script: ../../../ansible_scripts/install_docker.sh
+#- name: "install docker"
+#  script: ../../../ansible_scripts/install_docker.sh
 
-- name: "install docker compose"
-  script: ../../../ansible_scripts/install_docker_compose.sh
+#- name: "install docker compose"
+#  script: ../../../ansible_scripts/install_docker_compose.sh
+
+- name:   Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade:          yes
+    update_cache:     yes
+    cache_valid_time: 8600 #One hour
+
+- name: Install docker and dockercompose
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+      state: present
+    with_items:
+      - 'containerd.io'
+      - 'docker-ce-cli'
+      - 'docker-ce'
+      - 'docker-compose'
+
+- name: Install mysqlclient
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+      state: present
+    with_items:
+      - 'mysql-client'
