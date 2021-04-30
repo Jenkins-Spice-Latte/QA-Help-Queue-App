@@ -9,25 +9,25 @@ pipeline {
     }
      */
     stages {
-        stage('Clone and Checkout Repo') {
-            agent { label 'testvm' }
-            steps {
-                // sh "$SET_SCRIPT_EX_PERMS ./jenkins_scripts/clone_repo.sh"
-                // sh "$TEST_VM_SSH_COMMAND < ./jenkins_scripts/clone_repo.sh"
-                git branch: 'frontend-backend', url: 'https://github.com/Jenkins-Spice-Latte/QA-Help-Queue-App/'
+        agent {
+            label 'testvm'
+            stage('Clone and Checkout Repo') {
+                steps {
+                    // sh "$SET_SCRIPT_EX_PERMS ./jenkins_scripts/clone_repo.sh"
+                    // sh "$TEST_VM_SSH_COMMAND < ./jenkins_scripts/clone_repo.sh"
+                    git branch: 'frontend-backend', url: 'https://github.com/Jenkins-Spice-Latte/QA-Help-Queue-App/'
 
+                }
             }
-        }
 
-        stage('Run Maven Test') {
-            agent { label 'testvm' }
-            steps {
-                dir('./backend/CreateTicket') {
-                    sh 'touch testing_this_directory'
+            stage('Run Maven Test') {
+                steps {
+                    dir('./backend/CreateTicket') {
+                        sh 'touch testing_this_directory'
+                    }
                 }
             }
         }
-
 
 
 //        stage('Build Docker Images') {
