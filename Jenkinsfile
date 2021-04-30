@@ -13,18 +13,18 @@ pipeline {
                     }
                 }
 
-                stage("Maven Test") {
-                    steps {
-                        dir('~/workspace/backend/CreateTicket') {
+                dir('backend/CreateTicket') {
+                    stage("Maven Test") {
+                        steps {
                             sh 'mvn test'
                         }
                     }
-                }
 
-                stage("Maven Install (Build)") {
-                    steps {
-                        dir('~/workspace/backend/CreateTicket') {
-                            sh 'mvn install'
+                    stage("Maven Install (Build)") {
+                        steps {
+                            dir('~/workspace/backend/CreateTicket') {
+                                sh 'mvn install'
+                            }
                         }
                     }
                 }
