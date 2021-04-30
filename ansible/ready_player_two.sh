@@ -19,6 +19,7 @@ all:
   hosts:
     ${bastion_public_ip}:
     ${jenkins_public_ip}:
+    ${testvm_private_ip}:
   vars:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
@@ -46,6 +47,12 @@ testvm:
   vars:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: \"/home/ubuntu/.ssh/i_dont_give_a_ssh\"
-    ansible_ssh_common_args: '-o ProxyCommand=\"ssh -i /home/ubuntu/.ssh/i_dont_give_a_ssh -W %h:%p -q ${bastion_public_ip}\"'
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o ProxyCommand=\"ssh -i /home/ubuntu/.ssh/i_dont_give_a_ssh -W %h:%p -q ${bastion_public_ip}\"'
 
 " >$destFile
+cd ~/QA-Help-Queue-App/ansible || exit ; ANSIBLE_STDOUT_CALLBACK=yaml ansible-playbook -v -i inventory.yaml playbook.yaml
+
+ssh -i ~/.ssh/i_dont_give_a_ssh -o StrictHostKeyChecking=no ubuntu@${jenkins_public_ip} '(sudo cat /home/jenkins/.jenkins/secrets/initialAdminPassword)' > JENKINS_PASS.txt
+echo "http://${jenkins_public_ip}:8080/" >> JENKINS_PASS.txt
+
+# jenkins-casc.yaml /usr/local/jenkins-casc.yaml
