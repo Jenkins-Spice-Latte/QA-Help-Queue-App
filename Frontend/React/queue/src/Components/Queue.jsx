@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Ticket from './Ticket'
 
 const Queue = (props) => {
   const {buttonLabel, className} = props;
-
-
-
   const [data, setData] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  if(isLoaded === false){
+  console.log("queueprops")
+  console.log(props)
+
+  if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")
       .then(response => {
           console.log(response.data);
           setData(response.data);
       });
-      setIsLoaded(true); 
+      props.switchLoaded(); 
   }
 
     return (
