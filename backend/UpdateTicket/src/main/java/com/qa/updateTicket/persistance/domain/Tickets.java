@@ -1,4 +1,4 @@
-package com.qa.helpQueue.persistance.domain;
+package com.qa.updateTicket.persistance.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

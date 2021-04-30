@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.updateTicket.rest.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -11,16 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.helpQueue.persistance.domain.Tickets;
+import com.qa.updateTicket.persistance.domain.Tickets;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = {"classpath:schema.sql" , "classpath:data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD) 
+@Sql(scripts = {"classpath:schema.sql" , "classpath:data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@ActiveProfiles(profiles = "test")
 public class UpdateControllerIntegrationTest {
 	
 	@Autowired

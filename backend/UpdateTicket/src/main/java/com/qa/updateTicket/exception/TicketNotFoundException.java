@@ -1,4 +1,4 @@
-package com.qa.helpQueue.exception;
+package com.qa.updateTicket.exception;
 
 import javax.persistence.EntityNotFoundException;
 

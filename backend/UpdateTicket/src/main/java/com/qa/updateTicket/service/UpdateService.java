@@ -1,11 +1,11 @@
-package com.qa.helpQueue.service;
+package com.qa.updateTicket.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.helpQueue.exception.TicketNotFoundException;
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.persistance.repository.hqRepository;
+import com.qa.updateTicket.exception.TicketNotFoundException;
+import com.qa.updateTicket.persistance.domain.Tickets;
+import com.qa.updateTicket.persistance.repository.hqRepository;
 
 @Service
 public class UpdateService {

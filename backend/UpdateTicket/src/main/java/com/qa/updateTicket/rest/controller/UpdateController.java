@@ -1,4 +1,4 @@
-package com.qa.helpQueue.rest.controller;
+package com.qa.updateTicket.rest.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.helpQueue.persistance.domain.Tickets;
-import com.qa.helpQueue.service.UpdateService;
+import com.qa.updateTicket.persistance.domain.Tickets;
+import com.qa.updateTicket.service.UpdateService;
 
 import org.springframework.web.bind.annotation.RequestBody;
 

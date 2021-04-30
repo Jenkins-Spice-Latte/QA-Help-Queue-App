@@ -1,4 +1,4 @@
-package com.qa.helpQueue;
+package com.qa.updateTicket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
