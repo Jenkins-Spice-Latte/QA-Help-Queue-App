@@ -9,7 +9,7 @@ const Filter = (props) => {
           <FormGroup>
             <Label for="exampleCheckbox">Author</Label>
             <div>
-              <Input type="text" name="author" id="author" placeholder="Filter by author" />
+              <Input type="text" name="author" id="author" placeholder="Filter by author" onChange={(e) => props.setAuthorFilter(e.target.value)}/>
             </div>
           </FormGroup>
           <FormGroup>
