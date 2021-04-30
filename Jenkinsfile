@@ -51,9 +51,9 @@ pipeline {
                 always {
                     cleanWs()
                 }
-                success {
-                    stash name: "artifacts", includes: "artifacts/**/*"
-                }
+//                success {
+//                    stash name: "artifacts", includes: "artifacts/**/*"
+//                }
             }
         }
     }
