@@ -55,8 +55,7 @@ function App() {
           <div  className= "sort_div">
             <Sort onSortBtnClick={onSortBtnClick}/>
           </div>
-          <div  className= "filter_div">
-            
+          <div  className= "filter_div">  
             <Filter urgencyCheck={onFilterUrgentCheckboxClick} setAuthorFilter={setAuthorFilter} urgent={(urgentFilterChange)} topicCheck={onFilterTopicCheckboxClick} topic={(topicFilterChange)}/>
           </div>
         </div>

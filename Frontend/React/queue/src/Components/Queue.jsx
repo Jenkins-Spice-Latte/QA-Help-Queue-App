@@ -8,6 +8,9 @@ const Queue = (props) => {
 
 
   const [data, setData] = useState([]);
+  const result = data.filter(item => 
+    item.author.toLowerCase().includes(props.authorfilter.toLowerCase()));
+
   const [isLoaded, setIsLoaded] = useState(false);
 
   if(isLoaded === false){
@@ -26,6 +29,13 @@ const Queue = (props) => {
         {props.sort}
         {data.map((item) => {
             if(item.complete === false)
+              return <Ticket item={item} className={className} mode={(props.mode)}/>  
+          })}
+      </div>
+
+      <div className= "queue_div">
+        <p>Filtered Tickets</p>
+        {result.map((item) => {
               return <Ticket item={item} className={className} mode={(props.mode)}/>  
           })}
       </div>
