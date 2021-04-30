@@ -4,7 +4,7 @@ import Ticket from './Ticket'
 
 const Queue = (props) => {
   const {buttonLabel, className} = props;
-
+  const [mode, setmode] = useState(props.mode);
 
 
   const [data, setData] = useState([]);
@@ -22,11 +22,10 @@ const Queue = (props) => {
     return (
       <> 
       <div className= "queue_div">
-        <p>Pending Tickets</p>   
-        <p>{props.mode}</p>       
+        <p>Pending Tickets</p>          
         {data.map((item) => {
             if(item.complete === false)
-              return <Ticket item={item} className={className}/>  
+              return <Ticket item={item} className={className} mode={(props.mode)}/>  
           })}
       </div>
         
