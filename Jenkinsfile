@@ -2,13 +2,23 @@ pipeline {
     agent any
     environment {
         TEST_VM_IP = '10.0.1.188'
+        SSH_KEY_PATH = '~/.ssh/jenkins_agent_key'
+        TEST_VM_SSH_COMMAND = 'ssh -i $SSH_KEY_PATH -o StrictHostKeyChecking=no ubuntu@$TEST_VM_IP'
+        SET_SCRIPT_EX_PERMS = 'chmod a+x'
     }
     stages {
-        stage('Clone Repo') {
+        stage('Clone and Checkout Repo') {
             steps {
-                sh "chmod a+x ./jenkins_scripts/clone_repo.sh"
-                sh "ssh -i ~/.ssh/jenkins_agent_key -o StrictHostKeyChecking=no ubuntu@$TEST_VM_IP < jenkins_scripts/clone_repo.sh"
+                sh "$SET_SCRIPT_EX_PERMS ./jenkins_scripts/clone_repo.sh"
+                sh "$TEST_VM_SSH_COMMAND < ./jenkins_scripts/clone_repo.sh"
+
             }
         }
+
+//        stage('Build Docker Images') {
+//            steps {
+//            }
+//        }
+
     }
 }
