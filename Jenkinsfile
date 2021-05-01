@@ -61,9 +61,9 @@ pipeline {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
                                     jacoco(
-                                            execPattern     : "**/target/*.exec",
-                                            classPattern    : "**/target/classes",
-                                            sourcePattern   : "/src/main/java",
+                                            execPattern: "**/target/*.exec",
+                                            classPattern: "**/target/classes",
+                                            sourcePattern: "/src/main/java",
                                             exclusionPattern: "/src/test*"
                                     )
 
@@ -87,9 +87,9 @@ pipeline {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
                                     jacoco(
-                                            execPattern     : "**/target/*.exec",
-                                            classPattern    : "**/target/classes",
-                                            sourcePattern   : "/src/main/java",
+                                            execPattern: "**/target/*.exec",
+                                            classPattern: "**/target/classes",
+                                            sourcePattern: "/src/main/java",
                                             exclusionPattern: "/src/test*"
                                     )
 
@@ -113,9 +113,9 @@ pipeline {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
                                     jacoco(
-                                            execPattern     : "**/target/*.exec",
-                                            classPattern    : "**/target/classes",
-                                            sourcePattern   : "/src/main/java",
+                                            execPattern: "**/target/*.exec",
+                                            classPattern: "**/target/classes",
+                                            sourcePattern: "/src/main/java",
                                             exclusionPattern: "/src/test*"
                                     )
 
@@ -170,12 +170,19 @@ pipeline {
                         }
                     }
                 }
+                stage("Archive JAR Artifacts") {
+                    steps {
+                        archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
+                    }
+                }
             }
 
 
             post {
                 // Clean after build
-                always { cleanWs() }
+                always {
+                    cleanWs()
+                }
             }
         }
     }
