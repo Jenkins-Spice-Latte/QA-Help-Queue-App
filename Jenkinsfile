@@ -137,7 +137,7 @@ pipeline {
 
                 stage("Maven Package") {
                     environment {
-                        MVN_PACKAGE_COMMAND = 'mvn clean install -Dmaven.test.skip=true'
+                        MVN_PACKAGE_COMMAND = "mvn versions:set -DnewVersion=1.${BUILD_NUMBER}-PRODUCTION && mvn clean install -Dmaven.test.skip=true"
                     }
                     parallel {
                         stage("CreateTicket Package") {
