@@ -134,6 +134,42 @@ pipeline {
 
                     }
                 }
+
+                stage("Maven Package") {
+                    environment {
+                        MVN_PACKAGE_COMMAND = 'mvn clean install -Dmaven.test.skip=true'
+                    }
+                    parallel {
+                        stage("CreateTicket Package") {
+                            steps {
+                                dir("backend/CreateTicket") {
+                                    sh "${MVN_PACKAGE_COMMAND}"
+                                }
+                            }
+                        }
+                        stage("ReadTicket Package") {
+                            steps {
+                                dir("backend/ReadTicket") {
+                                    sh "${MVN_PACKAGE_COMMAND}"
+                                }
+                            }
+                        }
+                        stage("UpdateTicket Package") {
+                            steps {
+                                dir("backend/UpdateTicket") {
+                                    sh "${MVN_PACKAGE_COMMAND}"
+                                }
+                            }
+                        }
+                        stage("DeleteTicket Package") {
+                            steps {
+                                dir("backend/DeleteTicket") {
+                                    sh "${MVN_PACKAGE_COMMAND}"
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
 
