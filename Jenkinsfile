@@ -24,7 +24,7 @@ pipeline {
                     }
                 }
 
-                stage("Backend Tests and Coverage") {
+                stage("Tests and Coverage") {
                     parallel {
                         stage("CreateTicket Test") {
                             environment {
@@ -33,12 +33,12 @@ pipeline {
                             steps {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
-                                    step([$class          : "JacocoPublisher",
-                                          execPattern     : "**/target/*.exec",
-                                          classPattern    : "**/target/classes",
-                                          sourcePattern   : "/src/main/java",
-                                          exclusionPattern: "/src/test*"
-                                    ])
+                                    jacoco(
+                                            execPattern: "**/target/*.exec",
+                                            classPattern: "**/target/classes",
+                                            sourcePattern: "/src/main/java",
+                                            exclusionPattern: "/src/test*"
+                                    )
 
                                     publishHTML([allowMissing         : true,
                                                  alwaysLinkToLastBuild: false,
@@ -135,36 +135,38 @@ pipeline {
                     }
                 }
 
-                stage("Maven Package") {
+                stage("Build JAR Files") {
                     environment {
-                        MVN_PACKAGE_COMMAND = "mvn versions:set -DnewVersion=1.${BUILD_NUMBER}-PRODUCTION && mvn clean install -Dmaven.test.skip=true"
+                        SET_ARTIFACT_VER = "mvn versions:set -DnewVersion=1.${BUILD_NUMBER}-PRODUCTION"
+                        MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
+                        RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                     }
                     parallel {
                         stage("CreateTicket Package") {
                             steps {
                                 dir("backend/CreateTicket") {
-                                    sh "${MVN_PACKAGE_COMMAND}"
+                                    sh "${RUN_BUILD}"
                                 }
                             }
                         }
                         stage("ReadTicket Package") {
                             steps {
                                 dir("backend/ReadTicket") {
-                                    sh "${MVN_PACKAGE_COMMAND}"
+                                    sh "${RUN_BUILD}"
                                 }
                             }
                         }
                         stage("UpdateTicket Package") {
                             steps {
                                 dir("backend/UpdateTicket") {
-                                    sh "${MVN_PACKAGE_COMMAND}"
+                                    sh "${RUN_BUILD}"
                                 }
                             }
                         }
                         stage("DeleteTicket Package") {
                             steps {
                                 dir("backend/DeleteTicket") {
-                                    sh "${MVN_PACKAGE_COMMAND}"
+                                    sh "${RUN_BUILD}"
                                 }
                             }
                         }
