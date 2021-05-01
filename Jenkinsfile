@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage("Agent: Test VM") {
             agent {
@@ -19,8 +18,8 @@ pipeline {
                     steps {
                         checkout([
                                 $class           : "GitSCM",
-                                branches         : [[name: "frontend-backend"]],
-                                userRemoteConfigs: [[url: "https://github.com/Jenkins-Spice-Latte/QA-Help-Queue-App"]]
+                                branches         : [[name: "${env.BRANCH_NAME}"]],
+                                userRemoteConfigs: [[credentialsId: 'GITHUB_ACCESS_TOKEN', url: "${env.GIT_URL}"]]
                         ])
                     }
                 }
@@ -61,12 +60,12 @@ pipeline {
                             steps {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
-                                    step([$class          : "JacocoPublisher",
-                                          execPattern     : "**/target/*.exec",
-                                          classPattern    : "**/target/classes",
-                                          sourcePattern   : "/src/main/java",
-                                          exclusionPattern: "/src/test*"
-                                    ])
+                                    jacoco(
+                                            execPattern     : "**/target/*.exec",
+                                            classPattern    : "**/target/classes",
+                                            sourcePattern   : "/src/main/java",
+                                            exclusionPattern: "/src/test*"
+                                    )
 
                                     publishHTML([allowMissing         : true,
                                                  alwaysLinkToLastBuild: false,
@@ -87,12 +86,12 @@ pipeline {
                             steps {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
-                                    step([$class          : "JacocoPublisher",
-                                          execPattern     : "**/target/*.exec",
-                                          classPattern    : "**/target/classes",
-                                          sourcePattern   : "/src/main/java",
-                                          exclusionPattern: "/src/test*"
-                                    ])
+                                    jacoco(
+                                            execPattern     : "**/target/*.exec",
+                                            classPattern    : "**/target/classes",
+                                            sourcePattern   : "/src/main/java",
+                                            exclusionPattern: "/src/test*"
+                                    )
 
                                     publishHTML([allowMissing         : true,
                                                  alwaysLinkToLastBuild: false,
@@ -113,12 +112,12 @@ pipeline {
                             steps {
                                 dir("backend/${MICROSERVICE_NAME}") {
                                     sh "mvn test"
-                                    step([$class          : "JacocoPublisher",
-                                          execPattern     : "**/target/*.exec",
-                                          classPattern    : "**/target/classes",
-                                          sourcePattern   : "/src/main/java",
-                                          exclusionPattern: "/src/test*"
-                                    ])
+                                    jacoco(
+                                            execPattern     : "**/target/*.exec",
+                                            classPattern    : "**/target/classes",
+                                            sourcePattern   : "/src/main/java",
+                                            exclusionPattern: "/src/test*"
+                                    )
 
                                     publishHTML([allowMissing         : true,
                                                  alwaysLinkToLastBuild: false,
