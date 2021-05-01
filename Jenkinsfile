@@ -7,7 +7,6 @@ pipeline {
             }
 
             stages {
-
                 stage("Clean Workspace") {
                     steps {
                         cleanWs()
@@ -24,161 +23,78 @@ pipeline {
                     }
                 }
 
-                stage("Tests and Coverage") {
-                    parallel {
-                        stage("CreateTicket Test") {
-                            environment {
-                                MICROSERVICE_NAME = 'CreateTicket'
-                            }
-                            steps {
-                                dir("backend/${MICROSERVICE_NAME}") {
-                                    sh "mvn test"
-                                    jacoco(
-                                            execPattern: "**/target/*.exec",
-                                            classPattern: "**/target/classes",
-                                            sourcePattern: "/src/main/java",
-                                            exclusionPattern: "/src/test*"
-                                    )
-
-                                    publishHTML([allowMissing         : true,
-                                                 alwaysLinkToLastBuild: false,
-                                                 keepAll              : false,
-                                                 reportDir            : "./target/site/jacoco/",
-                                                 reportFiles          : "index.html",
-                                                 reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                 reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                    ])
-                                }
-                            }
+                stage("Tests, Coverage, Create JARs") {
+                    when {
+                        anyOf {
+                            branch 'main';
+                            branch 'dev';
+                            branch pattern: "*backend*", comparator: "GLOB"
                         }
-
-
-                        stage("ReadTicket Test") {
-                            environment {
-                                MICROSERVICE_NAME = 'ReadTicket'
-                            }
-                            steps {
-                                dir("backend/${MICROSERVICE_NAME}") {
-                                    sh "mvn test"
-                                    jacoco(
-                                            execPattern: "**/target/*.exec",
-                                            classPattern: "**/target/classes",
-                                            sourcePattern: "/src/main/java",
-                                            exclusionPattern: "/src/test*"
-                                    )
-
-                                    publishHTML([allowMissing         : true,
-                                                 alwaysLinkToLastBuild: false,
-                                                 keepAll              : false,
-                                                 reportDir            : "./target/site/jacoco/",
-                                                 reportFiles          : "index.html",
-                                                 reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                 reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                    ])
-                                }
-                            }
-                        }
-
-                        stage("UpdateTicket Test") {
-                            environment {
-                                MICROSERVICE_NAME = 'UpdateTicket'
-                            }
-                            steps {
-                                dir("backend/${MICROSERVICE_NAME}") {
-                                    sh "mvn test"
-                                    jacoco(
-                                            execPattern: "**/target/*.exec",
-                                            classPattern: "**/target/classes",
-                                            sourcePattern: "/src/main/java",
-                                            exclusionPattern: "/src/test*"
-                                    )
-
-                                    publishHTML([allowMissing         : true,
-                                                 alwaysLinkToLastBuild: false,
-                                                 keepAll              : false,
-                                                 reportDir            : "./target/site/jacoco/",
-                                                 reportFiles          : "index.html",
-                                                 reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                 reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                    ])
-                                }
-                            }
-                        }
-
-                        stage("DeleteTicket Test") {
-                            environment {
-                                MICROSERVICE_NAME = 'DeleteTicket'
-                            }
-                            steps {
-                                dir("backend/${MICROSERVICE_NAME}") {
-                                    sh "mvn test"
-                                    jacoco(
-                                            execPattern: "**/target/*.exec",
-                                            classPattern: "**/target/classes",
-                                            sourcePattern: "/src/main/java",
-                                            exclusionPattern: "/src/test*"
-                                    )
-
-                                    publishHTML([allowMissing         : true,
-                                                 alwaysLinkToLastBuild: false,
-                                                 keepAll              : false,
-                                                 reportDir            : "./target/site/jacoco/",
-                                                 reportFiles          : "index.html",
-                                                 reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                 reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                    ])
-                                }
-                            }
-                        }
-
-
                     }
-                }
 
-                stage("Build JAR Files") {
                     environment {
-                        SET_ARTIFACT_VER = "mvn versions:set -DnewVersion=1.${BUILD_NUMBER}-PRODUCTION"
+                        SET_ARTIFACT_VER = "mvn versions:set -DnewVersion=PROD.1.0.${BUILD_NUMBER}"
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                     }
-                    parallel {
-                        stage("CreateTicket Package") {
-                            steps {
-                                dir("backend/CreateTicket") {
-                                    sh "${RUN_BUILD}"
-                                }
+
+                    matrix {
+                        axes {
+                            axis {
+                                name "MICROSERVICE_NAME"
+                                values "CreateTicket", "ReadTicket", "UpdateTicket", "DeleteTicket"
                             }
                         }
-                        stage("ReadTicket Package") {
-                            steps {
-                                dir("backend/ReadTicket") {
-                                    sh "${RUN_BUILD}"
+
+                        stages {
+                            stage("Backend Microservices") {
+                                steps {
+                                    echo "${MICROSERVICE_NAME}"
+                                    dir("backend/${MICROSERVICE_NAME}") {
+                                        sh "mvn test"
+                                        jacoco(
+                                                execPattern: "**/target/*.exec",
+                                                classPattern: "**/target/classes",
+                                                sourcePattern: "/src/main/java",
+                                                exclusionPattern: "/src/test*"
+                                        )
+                                        publishHTML([allowMissing         : true,
+                                                     alwaysLinkToLastBuild: false,
+                                                     keepAll              : false,
+                                                     reportDir            : "./target/site/jacoco/",
+                                                     reportFiles          : "index.html",
+                                                     reportName           : "${MICROSERVICE_NAME} Results Report",
+                                                     reportTitles         : "${MICROSERVICE_NAME} Test Results"
+                                        ])
+                                    }
                                 }
                             }
-                        }
-                        stage("UpdateTicket Package") {
-                            steps {
-                                dir("backend/UpdateTicket") {
-                                    sh "${RUN_BUILD}"
-                                }
-                            }
-                        }
-                        stage("DeleteTicket Package") {
-                            steps {
-                                dir("backend/DeleteTicket") {
-                                    sh "${RUN_BUILD}"
+
+                            stage("Build JAR Files") {
+                                steps {
+                                    echo "${MICROSERVICE_NAME}"
+                                    dir("backend/${MICROSERVICE_NAME}") {
+                                        sh "${RUN_BUILD}"
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
                 stage("Archive JAR Artifacts") {
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
                 }
-            }
 
+                stage("Build Container Images") {
+                    steps {
+                        sh "echo 'containerise command placeholder'"
+                    }
+
+                }
+            }
 
             post {
                 // Clean after build
