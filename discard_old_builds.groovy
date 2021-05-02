@@ -6,14 +6,6 @@ import jenkins.branch.*
 import org.jenkinsci.plugins.workflow.job.*
 import org.jenkinsci.plugins.workflow.multibranch.*
 
-/**
- * Utility function used to delete old builds.
- *
- * @param item the current Jenkins item to process, this can be a Folder or a Project
- * @param numberOfBuildsToKeep the total number of builds to keep. Please note that one more build could be
- *        kept if the first "numberOfBuildsToKeep" builds are all in a failed state.
- */
-
 def deleteOldBuilds(item, Integer numberOfBuildsToKeep, Integer numberOfSuccessfulBuildsKept) {
     def count = 1
 
