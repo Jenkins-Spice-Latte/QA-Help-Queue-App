@@ -86,7 +86,11 @@ pipeline {
                                 steps {
                                     script {
                                         dir("backend/") {
-                                            sh "docker build -t dockertest:${BUILD_VERSION_ID} --build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/*.jar' --build-arg EXPOSED_PORT='9991' -f Dockerfile ."
+                                            sh "docker build -t " +
+                                                    "dockertest:${BUILD_VERSION_ID} " +
+                                                    "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/*.jar' " +
+                                                    "--build-arg EXPOSED_PORT=9991 " +
+                                                    "-f Dockerfile ."
 
                                             withCredentials([usernamePassword(
                                                     credentialsId: 'DOCKERHUB_LOGIN',
@@ -98,7 +102,6 @@ pipeline {
                                                 sh "docker image push ${USERNAME}/dockertest:${BUILD_VERSION_ID}"
                                             }
                                         }
-//                            The important thing here is that the image name must match the name of the repository you created in ECR.
                                     }
                                 }
                             }
