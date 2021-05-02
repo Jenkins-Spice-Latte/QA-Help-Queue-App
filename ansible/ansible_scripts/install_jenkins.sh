@@ -42,5 +42,11 @@ done
 echo "initial admin password: \$(cat .jenkins/secrets/initialAdminPassword)"
 EOF
 fi
+
+# generate key pair for jenkins user
+sudo -i -u jenkins bash << EOF
+ssh-keygen -q -t rsa -N '' -f ~/.ssh/jenkins_agent_key <<<y 2>&1 >/dev/null
+EOF
+
 curl ifconfig.me
 cat /home/jenkins/.jenkins/secrets/initialAdminPassword

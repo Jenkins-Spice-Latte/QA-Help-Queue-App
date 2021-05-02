@@ -54,5 +54,3 @@ cd ~/QA-Help-Queue-App/ansible || exit ; ANSIBLE_STDOUT_CALLBACK=yaml ansible-pl
 
 ssh -i ~/.ssh/i_dont_give_a_ssh -o StrictHostKeyChecking=no ubuntu@${jenkins_public_ip} '(sudo cat /home/jenkins/.jenkins/secrets/initialAdminPassword)' > JENKINS_PASS.txt
 echo "http://${jenkins_public_ip}:8080/" >> JENKINS_PASS.txt
-
-# jenkins-casc.yaml /usr/local/jenkins-casc.yaml
