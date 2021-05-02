@@ -24,7 +24,7 @@ pipeline {
                     }
                 }
 
-                stage("Tests, Coverage, Create JARs") {
+                stage("Backend Microservices") {
                     when {
                         anyOf {
                             branch 'main';
@@ -45,33 +45,35 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket"//, "ReadTicket", "UpdateTicket", "DeleteTicket" //RE-ENABLE THIS LATER
+                                values "CreateTicket",
+                                        "ReadTicket",
+                                        "UpdateTicket",
+                                        "DeleteTicket"
                             }
                         }
-                        //RE-ENABLE THIS LATER
                         stages {
-//                            stage("Backend Microservices") {
-//                                steps {
-//                                    echo "${MICROSERVICE_NAME}"
-//                                    dir("backend/${MICROSERVICE_NAME}") {
-//                                        sh "mvn test"
-//                                        jacoco(
-//                                                execPattern: "**/target/*.exec",
-//                                                classPattern: "**/target/classes",
-//                                                sourcePattern: "/src/main/java",
-//                                                exclusionPattern: "/src/test*"
-//                                        )
-//                                        publishHTML([allowMissing         : true,
-//                                                     alwaysLinkToLastBuild: false,
-//                                                     keepAll              : false,
-//                                                     reportDir            : "./target/site/jacoco/",
-//                                                     reportFiles          : "index.html",
-//                                                     reportName           : "${MICROSERVICE_NAME} Results Report",
-//                                                     reportTitles         : "${MICROSERVICE_NAME} Test Results"
-//                                        ])
-//                                    }
-//                                }
-//                            }
+                            stage("Testing") {
+                                steps {
+                                    echo "${MICROSERVICE_NAME}"
+                                    dir("backend/${MICROSERVICE_NAME}") {
+                                        sh "mvn test"
+                                        jacoco(
+                                                execPattern: "**/target/*.exec",
+                                                classPattern: "**/target/classes",
+                                                sourcePattern: "/src/main/java",
+                                                exclusionPattern: "/src/test*"
+                                        )
+                                        publishHTML([allowMissing         : true,
+                                                     alwaysLinkToLastBuild: false,
+                                                     keepAll              : false,
+                                                     reportDir            : "./target/site/jacoco/",
+                                                     reportFiles          : "index.html",
+                                                     reportName           : "${MICROSERVICE_NAME} Results Report",
+                                                     reportTitles         : "${MICROSERVICE_NAME} Test Results"
+                                        ])
+                                    }
+                                }
+                            }
 
                             stage("Build JAR Files") {
                                 steps {
@@ -81,15 +83,26 @@ pipeline {
                                     }
                                 }
                             }
-//                              could make this outside of matrix stage and create new matrix
-                            stage("Build Container Images") {
+                            stage("Create Container Images") {
+                                environment {
+                                    DOCKERIZED_NAME = "${MICROSERVICE_NAME == "CreateTicket" ? "createticket" :  MICROSERVICE_NAME == "ReadTicket" ? "readticket" : MICROSERVICE_NAME == "UpdateTicket" ? "updateticket" : MICROSERVICE_NAME == "DeleteTicket" ? "deleteticket" : null}"
+                                    MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" :  MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
+                                    EXPOSED_PORT = "${MICROSERVICE_NAME == "CreateTicket" ? "8901" :  MICROSERVICE_NAME == "ReadTicket" ? "8902" : MICROSERVICE_NAME == "UpdateTicket" ? "8903" : MICROSERVICE_NAME == "DeleteTicket" ? "8904" : null}"
+                                    ORG_NAME = "jenkinsspicelatte"
+                                    IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
+                                    JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
+                                }
+
                                 steps {
+
+                                    echo "${MICROSERVICE_NAME} -> ${IMAGE_IDENTIFIER}"
                                     script {
                                         dir("backend/") {
+
                                             sh "docker build -t " +
-                                                    "dockertest:${BUILD_VERSION_ID} " +
-                                                    "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/*.jar' " +
-                                                    "--build-arg EXPOSED_PORT=9991 " +
+                                                    "${IMAGE_IDENTIFIER} " +
+                                                    "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " + // create-ticket-PROD.1.0.149.jar
+                                                    "--build-arg EXPOSED_PORT=${EXPOSED_PORT} " +
                                                     "-f Dockerfile ."
 
                                             withCredentials([usernamePassword(
@@ -97,9 +110,9 @@ pipeline {
                                                     usernameVariable: 'USERNAME',
                                                     passwordVariable: 'PASSWORD'
                                             )]) {
-                                                sh "docker tag dockertest:${BUILD_VERSION_ID} ${USERNAME}/dockertest:${BUILD_VERSION_ID}"
+                                                sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                                 sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-                                                sh "docker image push ${USERNAME}/dockertest:${BUILD_VERSION_ID}"
+                                                sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                             }
                                         }
                                     }
@@ -116,18 +129,9 @@ pipeline {
                     }
                 }
 
-//                stage("Build Container Images") {
-//                    steps {
-//                        script {
-//                            docker.build('demo')
-////                            The important thing here is that the image name must match the name of the repository you created in ECR.
-//                        }
-//                    }
-//                }
             }
 
             post {
-                // Clean after build
                 always {
                     sh "docker system prune --force --all --volumes"
                     sh "docker logout"
