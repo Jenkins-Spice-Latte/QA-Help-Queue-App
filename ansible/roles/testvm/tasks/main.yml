@@ -5,3 +5,7 @@
     pkg:
       - openjdk-11-jdk
     state: present
+
+- name: Allow Docker for non sudoer
+  become: yes
+  shell: "chmod 666 /var/run/docker.sock"

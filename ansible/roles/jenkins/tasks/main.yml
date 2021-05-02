@@ -14,3 +14,7 @@
 
 - name: "install kubectl"
   script: ../../../ansible_scripts/install_kubectl.sh
+
+- name: Add jenkins to docker group
+  become: yes
+  shell: "usermod -aG docker jenkins && sudo systemctl restart jenkins"
