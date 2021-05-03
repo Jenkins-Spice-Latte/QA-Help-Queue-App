@@ -1,12 +1,16 @@
 
 FROM openjdk:11
 
+# arg file gets passed in during build.
+# springboot jar file in this case.
 ARG JAR_FILE
-ARG EXPOSED_PORT
 
-ARG RDS_ENDPOINT
-ARG RDS_USERNAME
-ARG RDS_PASSWORD
+# use   --env "VARIABLE1=abcdefg"   at runtime.
+ENV RDS_ENDPOINT=$RDS_ENDPOINT
+ENV RDS_USERNAME=$RDS_USERNAME
+ENV RDS_PASSWORD=$RDS_PASSWORD
+
+ENV EXPOSED_PORT=$EXPOSED_PORT
 
 COPY $JAR_FILE app.jar
 

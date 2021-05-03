@@ -53,7 +53,7 @@ pipeline {
                         PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
                         PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
                         PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
-                        PROPERTIES_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
+                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
                         JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
                         // combines all into one argument.
@@ -62,7 +62,7 @@ pipeline {
                                 "${PROPERTIES_DATA_REST_BASE} " +
                                 "${PROPERTIES_INITIALIZATION_MODE} " +
                                 "${PROPERTIES_DRIVER_CLASS} " +
-                                "${PROPERTIES_DATASOURCE_URL} " +
+                                "${PROPERTIES_TEST_DATASOURCE_URL} " +
                                 "${JPA_HIBERNATE_DDL} " +
                                 "${JPA_SHOW_SQL_BOOL}'"
                     }
@@ -142,9 +142,9 @@ pipeline {
                                             // builds image - sends args to Dockerfile.
                                             sh "docker build -t " +
                                                     "${IMAGE_IDENTIFIER} " +
-                                                    "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " + // create-ticket-PROD.1.0.149.jar
-                                                    "--build-arg EXPOSED_PORT=${EXPOSED_PORT} " +
+                                                    "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " +
                                                     "-f Dockerfile ."
+                                            // all the other arguments (ENV) in dockerfile are input at runtime.
                                             withCredentials([usernamePassword(
                                                     credentialsId: 'DOCKERHUB_LOGIN',
                                                     usernameVariable: 'DOCKERHUB_USER',
