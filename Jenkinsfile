@@ -49,11 +49,11 @@ pipeline {
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                         // overrides application.properties file data.
-                        SPRING_PROFILES_ACTIVE = "spring.profiles.active=real_test"
+                        SPRING_PROFILES_ACTIVE = "spring.profiles.active=real_test" //TODO: change this
                         PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
                         PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
                         PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
-                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
+                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' //TODO: change this
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
                         JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
                         // combines all into one argument.
@@ -84,9 +84,9 @@ pipeline {
                                     dir("backend/${MICROSERVICE_NAME}") {
                                         // gets the test database username and password from jenkins secrets.
                                         withCredentials([usernamePassword(
-                                                credentialsId: 'TEST_RDS_CREDENTIALS',
-                                                usernameVariable: 'TEST_RDS_USR',
-                                                passwordVariable: 'TEST_RDS_PWD'
+                                                credentialsId: 'TEST_RDS_CREDENTIALS', //TODO: change??
+                                                usernameVariable: 'TEST_RDS_USR', //TODO: change??
+                                                passwordVariable: 'TEST_RDS_PWD' //TODO: change??
                                         )]) {
                                             // runs maven test
                                             sh "mvn test ${TEST_APPLICATION_PROPERTIES} " +
@@ -188,7 +188,7 @@ pipeline {
                                     usernameVariable: 'GH_USER',
                                     passwordVariable: 'GH_PASS'
                             )]) {
-                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/$GH_USER/supreme-disco main'
+                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/$GH_USER/supreme-disco main' //TODO: change
                             }
                         }
                     }
@@ -209,5 +209,17 @@ pipeline {
                 }
             }
         }
+        //TODO: add conditional to check if branch name contains frontend, main, or dev.
+        //TODO: frontend testing.
+        //TODO: frontend build package (npm?).
+        //TODO: create frontend image using dockerfile.
+        //TODO: push frontend container image to dockerhub.
+        //TODO: push frontend test results to github.
+        //TODO: archive frontend npm package.
+        //TODO: clean workspace.
+
+        //TODO: change node to kubernetes cluster (or maybe just run kubectl commands using the endpoint?)
+        //TODO: use kubernetes yaml files to run containers (where does dockercompose come into this?)
+
     }
 }
