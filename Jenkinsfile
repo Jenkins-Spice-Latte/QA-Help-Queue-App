@@ -166,6 +166,12 @@ pipeline {
                 stage("Push Test Results to Github") {
                     steps {
                         dir("backend/allTestCov/") {
+                            // creating main index file so developer can access the other coverage reports
+                            sh "echo '<h2>Jacoco Test Coverage -Test Coverage-PROD.1.0.${BUILD_NUMBER} [${env.BRANCH_NAME}]</h2>" +
+                                    "<p><a href='CreateTicket/jacoco/index.html'>CreateTicket Coverage</a></p> " +
+                                    "<p><a href='ReadTicket/jacoco/index.html'>ReadTicket Coverage</a></p> " +
+                                    "<p><a href='UpdateTicket/jacoco/index.html'>UpdateTicket Coverage</a></p> " +
+                                    "<p><a href='UpdateTicket/jacoco/index.html'>DeleteTicket Coverage</a></p>' > index.html"
                             sh "pwd"
                             sh "git init"
                             sh "git status"
