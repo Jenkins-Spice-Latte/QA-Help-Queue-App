@@ -164,6 +164,13 @@ pipeline {
                 }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
+                    when {
+                        anyOf {
+                            branch 'main';
+                            branch 'dev';
+                            branch pattern: "*backend*", comparator: "GLOB"
+                        }
+                    }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
@@ -195,6 +202,13 @@ pipeline {
                 }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
+                    when {
+                        anyOf {
+                            branch 'main';
+                            branch 'dev';
+                            branch pattern: "*backend*", comparator: "GLOB"
+                        }
+                    }
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
