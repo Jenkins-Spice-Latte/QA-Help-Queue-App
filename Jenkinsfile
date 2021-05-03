@@ -12,7 +12,6 @@ pipeline {
             agent {
                 label "testvm"
             }
-
             stages {
                 stage("Clean Workspace") {
                     steps {
@@ -22,7 +21,6 @@ pipeline {
                         sh "docker system prune --force --all --volumes"
                     }
                 }
-
                 stage("Code Checkout") {
                     steps {
                         // gets the source code of the branch & repo where the Jenkinsfile is located.
@@ -33,7 +31,6 @@ pipeline {
                         ])
                     }
                 }
-
                 stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
                     when {
@@ -44,7 +41,6 @@ pipeline {
                             branch pattern: "*backend*", comparator: "GLOB"
                         }
                     }
-
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "PROD.1.0.${BUILD_NUMBER}"
@@ -53,15 +49,16 @@ pipeline {
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                         // overrides application.properties file data.
+                        SPRING_PROFILES_ACTIVE = "spring.profiles.active=real_test"
                         PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
                         PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
                         PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
-                        PROPERTIES_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' ///////GETTING NULL ERROR
+                        PROPERTIES_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
                         JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
-
                         // combines all into one argument.
                         TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments='" +
+                                "${SPRING_PROFILES_ACTIVE} " +
                                 "${PROPERTIES_DATA_REST_BASE} " +
                                 "${PROPERTIES_INITIALIZATION_MODE} " +
                                 "${PROPERTIES_DRIVER_CLASS} " +
@@ -69,7 +66,6 @@ pipeline {
                                 "${JPA_HIBERNATE_DDL} " +
                                 "${JPA_SHOW_SQL_BOOL}'"
                     }
-
                     // matrix used to parallelize stages for each microservice.
                     matrix {
                         axes {
@@ -104,6 +100,9 @@ pipeline {
                                                 sourcePattern: "/src/main/java",
                                                 exclusionPattern: "/src/test*"
                                         )
+                                        sh "pwd"
+                                        sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
+                                        sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
                                         //exports test results back to jenkins for devs.
                                         publishHTML([allowMissing         : true,
                                                      alwaysLinkToLastBuild: false,
@@ -116,7 +115,6 @@ pipeline {
                                     }
                                 }
                             }
-
                             // builds jar files by running the command mvn clean install.
                             stage("Build JAR Files") {
                                 steps {
@@ -126,7 +124,6 @@ pipeline {
                                     }
                                 }
                             }
-
                             stage("Create & Push Container Images") {
                                 environment {
                                     // conditionals to set variable depending on microservice name (a very hacky way - jenkins declarative pipeline limitation).
@@ -138,20 +135,16 @@ pipeline {
                                     IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                     JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
                                 }
-
                                 steps {
-
                                     echo "${MICROSERVICE_NAME} -> ${IMAGE_IDENTIFIER}"
                                     script {
                                         dir("backend/") {
-
                                             // builds image - sends args to Dockerfile.
                                             sh "docker build -t " +
                                                     "${IMAGE_IDENTIFIER} " +
                                                     "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " + // create-ticket-PROD.1.0.149.jar
                                                     "--build-arg EXPOSED_PORT=${EXPOSED_PORT} " +
                                                     "-f Dockerfile ."
-
                                             withCredentials([usernamePassword(
                                                     credentialsId: 'DOCKERHUB_LOGIN',
                                                     usernameVariable: 'DOCKERHUB_USER',
@@ -166,20 +159,41 @@ pipeline {
                                     }
                                 }
                             }
-
                         }
                     }
                 }
-
+                // push test results directory to github repo.
+                stage("Push Test Results to Github") {
+                    steps {
+                        dir("backend/allTestCov/") {
+                            sh "pwd"
+                            sh "git init"
+                            sh "git status"
+                            sh "git add --all"
+                            sh "git status"
+                            sh "git config --global user.email 'jacoco-test-coverage@jenkins'"
+                            sh "git config --global user.name 'Jenkins'"
+                            sh "ls -la"
+                            sh "git commit -m 'Test Coverage-PROD.1.0.${BUILD_NUMBER} [${env.BRANCH_NAME}]'"
+                            sh "git status"
+                            sh "git branch -M main"
+                            withCredentials([usernamePassword(
+                                    credentialsId: 'GITHUB_MORE_PERMS',
+                                    usernameVariable: 'GH_USER',
+                                    passwordVariable: 'GH_PASS'
+                            )]) {
+                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/$GH_USER/supreme-disco main'
+                            }
+                        }
+                    }
+                }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
                 }
-
             }
-
             post {
                 always {
                     // clean workspace even after a failure.
