@@ -8,6 +8,14 @@ pipeline {
     agent any
     stages {
         stage("Agent: Test VM") {
+            when {
+                anyOf {
+                    branch 'main';
+                    branch 'dev';
+                    // checks for branches with the word 'backend'.
+                    branch pattern: "*backend*", comparator: "GLOB"
+                }
+            }
             // sets to run on the testvm node.
             agent {
                 label "testvm"
@@ -33,14 +41,6 @@ pipeline {
                 }
                 stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
-                    when {
-                        anyOf {
-                            branch 'main';
-                            branch 'dev';
-                            // checks for branches with the word 'backend'.
-                            branch pattern: "*backend*", comparator: "GLOB"
-                        }
-                    }
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "PROD.1.0.${BUILD_NUMBER}"
@@ -164,13 +164,6 @@ pipeline {
                 }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
-                    when {
-                        anyOf {
-                            branch 'main';
-                            branch 'dev';
-                            branch pattern: "*backend*", comparator: "GLOB"
-                        }
-                    }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
@@ -202,13 +195,6 @@ pipeline {
                 }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
-                    when {
-                        anyOf {
-                            branch 'main';
-                            branch 'dev';
-                            branch pattern: "*backend*", comparator: "GLOB"
-                        }
-                    }
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
