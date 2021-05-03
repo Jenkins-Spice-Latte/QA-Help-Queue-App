@@ -1,4 +1,10 @@
 pipeline {
+    options {
+        // only allowing 1 build at a time for each branch.
+        disableConcurrentBuilds()
+        //fail the pipeline after 30 min
+        timeout(time: 30, unit: 'MINUTES')
+    }
     agent any
     stages {
         stage("Agent: Test VM") {
@@ -50,7 +56,7 @@ pipeline {
                         PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
                         PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
                         PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
-                        PROPERTIES_DATASOURCE_URL = "--spring.datasource.url=jdbc:mysql://${TEST_RDS_ENDPOINT}/testdb" ///////GETTING NULL ERROR
+                        PROPERTIES_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' ///////GETTING NULL ERROR
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
                         JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
 
@@ -88,8 +94,8 @@ pipeline {
                                         )]) {
                                             // runs maven test
                                             sh "mvn test ${TEST_APPLICATION_PROPERTIES} " +
-                                                    "-Dspring.datasource.username=${TEST_RDS_USR} " +
-                                                    "-Dspring.datasource.password=${TEST_RDS_PWD}"
+                                                    '-Dspring.datasource.username=$TEST_RDS_USR ' +
+                                                    '-Dspring.datasource.password=$TEST_RDS_PWD'
                                         }
                                         // generates test coverage.
                                         jacoco(
@@ -153,7 +159,7 @@ pipeline {
                                             )]) {
                                                 // pushes to dockerhub
                                                 sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
-                                                sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}"
+                                                sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
                                                 sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                             }
                                         }
