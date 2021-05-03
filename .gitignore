@@ -1,3 +1,10 @@
 /gdsl
 /src/pipeline.gdsl
 /src/
+.idea/workspace.xml
+.idea/discord.xml
+.idea/modules.xml
+.idea/QA-Help-Queue-App.iml
+.idea/vcs.xml
+
+.gitignore
