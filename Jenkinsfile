@@ -46,7 +46,7 @@ pipeline {
                         // clean install command that lets us test first, and then skip test during build.
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
-                        // application.properties file with
+                        // overrides application.properties file data.
                         PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
                         PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
                         PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
@@ -54,7 +54,7 @@ pipeline {
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
                         JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
 
-
+                        // combines all into one argument.
                         TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments='" +
                                 "${PROPERTIES_DATA_REST_BASE} " +
                                 "${PROPERTIES_INITIALIZATION_MODE} " +
@@ -64,6 +64,7 @@ pipeline {
                                 "${JPA_SHOW_SQL_BOOL}'"
                     }
 
+                    // matrix used to parallelize stages for each microservice.
                     matrix {
                         axes {
                             axis {
@@ -79,21 +80,25 @@ pipeline {
                                 steps {
                                     echo "${MICROSERVICE_NAME}"
                                     dir("backend/${MICROSERVICE_NAME}") {
+                                        // gets the test database username and password from jenkins secrets.
                                         withCredentials([usernamePassword(
                                                 credentialsId: 'TEST_RDS_CREDENTIALS',
                                                 usernameVariable: 'TEST_RDS_USR',
                                                 passwordVariable: 'TEST_RDS_PWD'
                                         )]) {
+                                            // runs maven test
                                             sh "mvn test ${TEST_APPLICATION_PROPERTIES} " +
                                                     "-Dspring.datasource.username=${TEST_RDS_USR} " +
                                                     "-Dspring.datasource.password=${TEST_RDS_PWD}"
                                         }
+                                        // generates test coverage.
                                         jacoco(
                                                 execPattern: "**/target/*.exec",
                                                 classPattern: "**/target/classes",
                                                 sourcePattern: "/src/main/java",
                                                 exclusionPattern: "/src/test*"
                                         )
+                                        //exports test results back to jenkins for devs.
                                         publishHTML([allowMissing         : true,
                                                      alwaysLinkToLastBuild: false,
                                                      keepAll              : false,
@@ -106,6 +111,7 @@ pipeline {
                                 }
                             }
 
+                            // builds jar files by running the command mvn clean install.
                             stage("Build JAR Files") {
                                 steps {
                                     echo "${MICROSERVICE_NAME}"
@@ -117,9 +123,11 @@ pipeline {
 
                             stage("Create & Push Container Images") {
                                 environment {
+                                    // conditionals to set variable depending on microservice name (a very hacky way - jenkins declarative pipeline limitation).
                                     DOCKERIZED_NAME = "${MICROSERVICE_NAME == "CreateTicket" ? "createticket" : MICROSERVICE_NAME == "ReadTicket" ? "readticket" : MICROSERVICE_NAME == "UpdateTicket" ? "updateticket" : MICROSERVICE_NAME == "DeleteTicket" ? "deleteticket" : null}"
                                     MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" : MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
                                     EXPOSED_PORT = "${MICROSERVICE_NAME == "CreateTicket" ? "8901" : MICROSERVICE_NAME == "ReadTicket" ? "8902" : MICROSERVICE_NAME == "UpdateTicket" ? "8903" : MICROSERVICE_NAME == "DeleteTicket" ? "8904" : null}"
+                                    // docker image information.
                                     ORG_NAME = "jenkinsspicelatte"
                                     IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                     JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
@@ -131,6 +139,7 @@ pipeline {
                                     script {
                                         dir("backend/") {
 
+                                            // builds image - sends args to Dockerfile.
                                             sh "docker build -t " +
                                                     "${IMAGE_IDENTIFIER} " +
                                                     "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " + // create-ticket-PROD.1.0.149.jar
@@ -142,6 +151,7 @@ pipeline {
                                                     usernameVariable: 'DOCKERHUB_USER',
                                                     passwordVariable: 'DOCKERHUB_PASS'
                                             )]) {
+                                                // pushes to dockerhub
                                                 sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                                 sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASS}"
                                                 sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
@@ -155,6 +165,7 @@ pipeline {
                     }
                 }
 
+                // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
@@ -165,6 +176,7 @@ pipeline {
 
             post {
                 always {
+                    // clean workspace even after a failure.
                     sh "docker system prune --force --all --volumes"
                     sh "docker logout"
                     cleanWs()
