@@ -61,7 +61,7 @@ pipeline {
                         
                         JPA_DATABASE_PLATFORM = "--spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect"
                         JPA_GENERATE_DDL = "--spring.jpa.generate-ddl=true"
-                        JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
+                        JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=create-drop" //should be create-delete?
 
                         SERVER_PORT = "--server.port=8901"
                         
