@@ -1,6 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-update-ticket,com.qa.updateTicket.service,UpdateService,0,44,0,0,0,11,0,2,0,2
-update-ticket,com.qa.updateTicket.persistance.domain,Tickets,0,86,0,0,0,36,0,18,0,18
-update-ticket,com.qa.updateTicket.rest.controller,UpdateController,0,18,0,0,0,5,0,2,0,2
-update-ticket,com.qa.updateTicket.exception,TicketNotFoundException,3,0,0,0,1,0,1,0,1,0
-update-ticket,com.qa.updateTicket,UpdateTicketApplication,5,3,0,0,2,1,1,1,1,1
