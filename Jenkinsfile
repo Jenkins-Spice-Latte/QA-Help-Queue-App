@@ -167,16 +167,16 @@ pipeline {
                                     "<p><a href='UpdateTicket/jacoco/index.html'>DeleteTicket Coverage</a></p>' > index.html"
                             sh "git init"
                             sh "git add --all"
-                            sh "git config --global user.email 'jacoco-test-coverage@jenkins'"
+                            sh "git config --global user.email 'jenkins@jenkins-spice-latte'"
                             sh "git config --global user.name 'Jenkins'"
                             sh "git commit -m 'Test Coverage-1.0.${BUILD_NUMBER}PROD [${env.BRANCH_NAME}]'"
-                            sh "git branch -M main"
+                            sh "git branch -M test-coverage"
                             withCredentials([usernamePassword(
                                     credentialsId: 'GITHUB_MORE_PERMS',
                                     usernameVariable: 'GH_USER',
                                     passwordVariable: 'GH_PASS'
                             )]) {
-                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/Jenkins-Spice-Latte/QA-HQ-Test-Coverage main' //TODO: change
+                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/Jenkins-Spice-Latte/QA-Help-Queue-App test-coverage' //TODO: change
                             }
                         }
                     }
