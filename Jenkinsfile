@@ -189,7 +189,6 @@ pipeline {
                     }
                 }
             }
-
             post {
                 always {
                     // clean workspace even after a failure.
