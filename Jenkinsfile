@@ -74,7 +74,7 @@ pipeline {
                                 "${JPA_DATABASE_PLATFORM}" +
                                 "${JPA_GENERATE_DDL}" +
                                 "${JPA_HIBERNATE_DDL}" +
-                                "${SERVER_PORT}"
+                                "${SERVER_PORT}'"
 
 
                                 // "${PROPERTIES_DATA_REST_BASE} " +
