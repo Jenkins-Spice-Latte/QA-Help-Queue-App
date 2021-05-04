@@ -1,5 +1,4 @@
 import './App.css';
-import { Button } from 'reactstrap';
 import React, { useState } from 'react';
 import Sort from './Components/Sort';
 import Filter from './Components/Filter';
@@ -44,7 +43,7 @@ function App() {
   const onSortBtnClick = (selected) => {
     setsortChange(selected);
   }
-
+  
   const switchLoaded = () => {
     setIsLoaded(!isLoaded);
   }
@@ -72,7 +71,8 @@ function App() {
           </div>
           
             <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} 
-                    topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded} isLoaded={isLoaded}/>
+                    topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded} isLoaded={(isLoaded)}/>
+
           
         </div>
       </div>
