@@ -9,7 +9,17 @@ const Queue = (props) => {
 
   const [data, setData] = useState([]);
   const result = data.filter(item => 
-    item.author.toLowerCase().includes(props.authorfilter.toLowerCase()));
+                  item.author.toLowerCase().includes(props.authorfilter.toLowerCase())
+                );
+
+  function isPrime(num) {
+    for (let i = 2; num > i; i++) {
+      if (num % i == 0) {
+        return false;
+      }
+    }
+    return num > 1;
+  }
 
   const [isLoaded, setIsLoaded] = useState(false);
 
