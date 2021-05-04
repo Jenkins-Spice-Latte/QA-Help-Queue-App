@@ -158,7 +158,9 @@ pipeline {
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
-                            sh "echo '<h2>Test Coverage 1.0.${BUILD_NUMBER}PROD ${GIT_COMMIT}</h2>" +
+                            sh "echo '<h2>Test Coverage " +
+                                    "Version: 1.0.${BUILD_NUMBER}PROD " +
+                                    "Commit: ${GIT_COMMIT}</h2>" +
                                     "<p><a href='CreateTicket/jacoco/index.html'>CreateTicket Coverage</a></p> " +
                                     "<p><a href='ReadTicket/jacoco/index.html'>ReadTicket Coverage</a></p> " +
                                     "<p><a href='UpdateTicket/jacoco/index.html'>UpdateTicket Coverage</a></p> " +
