@@ -133,7 +133,7 @@ pipeline {
                                             sh "docker build -t " +
                                                     "${IMAGE_IDENTIFIER} " +
                                                     "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " +
-                                                    "-f docker/Dockerfile.backend ."
+                                                    "-f ../docker/Dockerfile.backend ."
                                             // all the other arguments (ENV) in dockerfile are input at runtime.
                                             withCredentials([usernamePassword(
                                                     credentialsId: 'DOCKERHUB_LOGIN',
