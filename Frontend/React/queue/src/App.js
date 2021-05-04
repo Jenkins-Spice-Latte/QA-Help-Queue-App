@@ -61,21 +61,23 @@ function App() {
       <div className="all_columns">
         <div className="column_one">
           <div className= "create_ticket_div">  
-            <Create mode={(modeSelect)}/>
+            <Create mode={(modeSelect)} switchLoaded={switchLoaded}/>
           </div>
           <div  className= "sort_div">
             <Sort onSortBtnClick={onSortBtnClick}/>
           </div>
           <div  className= "filter_div">  
-            <Filter urgencyCheck={onFilterUrgentCheckboxClick} setAuthorFilter={setAuthorFilter} urgent={(urgentFilterChange)} topicCheck={onFilterTopicCheckboxClick} topic={(topicFilterChange)}/>
+            <Filter urgencyCheck={onFilterUrgentCheckboxClick} setAuthorFilter={setAuthorFilter} urgent={(urgentFilterChange)} 
+                    topicCheck={onFilterTopicCheckboxClick} topic={(topicFilterChange)}/>
           </div>
         </div>
         <div className="column_two">
           <div className= "toggle_div">
-            <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect} switchLoaded={switchLoaded} isLoaded={isLoaded}/>
+            <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect}/>
           </div>
           
-            <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} topicfilter={(topicFilterChange)} authorfilter={(authorFilter)}/>
+            <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} 
+                    topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded}/>
           
         </div>
       </div>

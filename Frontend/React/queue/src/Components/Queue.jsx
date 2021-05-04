@@ -5,7 +5,6 @@ import Ticket from './Ticket'
 const Queue = (props) => {
   const {buttonLabel, className} = props;
 
-  console.log(authorFilter)
 
   const [data, setData] = useState([]);
   const result = data.filter(item => 
