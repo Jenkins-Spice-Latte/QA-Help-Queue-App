@@ -6,6 +6,7 @@ import Filter from './Components/Filter';
 import Create from './Components/Create';
 import Queue from './Components/Queue';
 import Toggle from './Components/Toggle';
+import { useState } from 'react';
 
 
 function App() {
@@ -43,6 +44,15 @@ function App() {
     setsortChange(selected);
   }
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const switchLoaded = () => {
+    setIsLoaded(!isLoaded);
+  }
+
+  console.log("app.js")
+  console.log(isLoaded)
+
   return (
     <div className="App">
       <header className="App-header">
@@ -61,7 +71,7 @@ function App() {
         </div>
         <div className="column_two">
           <div className= "toggle_div">
-            <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect}/>
+            <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect} switchLoaded={switchLoaded} isLoaded={isLoaded}/>
           </div>
           
             <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} topicfilter={(topicFilterChange)} authorfilter={(authorFilter)}/>

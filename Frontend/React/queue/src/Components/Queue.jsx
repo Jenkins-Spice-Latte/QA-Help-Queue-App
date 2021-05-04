@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Ticket from './Ticket'
 
@@ -22,14 +22,14 @@ const Queue = (props) => {
   }
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [data, setData] = useState([]);
 
-  if(isLoaded === false){
+  if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")
       .then(response => {
-          console.log(response.data);
           setData(response.data);
       });
-      setIsLoaded(true); 
+      props.switchLoaded(); 
   }
 
     return (
@@ -39,14 +39,15 @@ const Queue = (props) => {
         {props.sort}
         {data.map((item) => {
             if(item.complete === false)
-              return <Ticket item={item} className={className} mode={(props.mode)}/>  
+              return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
           })}
       </div>
 
       <div className= "queue_div">
         <p>Filtered Tickets</p>
         {result.map((item) => {
-              return <Ticket item={item} className={className} mode={(props.mode)}/>  
+              return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
+
           })}
       </div>
         
@@ -54,7 +55,7 @@ const Queue = (props) => {
         <p>Completed Tickets</p>
         {data.map((item) => {
           if(item.complete === true)
-            return <Ticket item={item} className={className}/>  
+            return <Ticket item={item} className={className} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
          })}
       </div>
         

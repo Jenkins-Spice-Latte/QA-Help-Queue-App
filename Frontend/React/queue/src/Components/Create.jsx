@@ -4,8 +4,6 @@ import { BsClockFill } from "react-icons/bs";
 import { CustomInput, FormFeedback, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 
 const Create = (props) => {
-  const {buttonLabel, className} = props;
-
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -79,15 +77,16 @@ const Create = (props) => {
     axios.post(`http://localhost:8901/create`,  ticket)
       .then(res => {
         console.log(res);
-        console.log(res.data);
       })
+
+    props.switchLoaded();
   }
 
     return (
       <>
         <Button color="success" size="lg" disabled={disabled} onClick={toggle}>Create a ticket</Button>
       <div>
-        <Modal isOpen={modal} toggle={toggle} className={className}>
+        <Modal isOpen={modal} toggle={toggle}>
         <Form onSubmit={handleSubmit}>
           <ModalHeader toggle={toggle}>Create a ticket</ModalHeader>
           <ModalBody>

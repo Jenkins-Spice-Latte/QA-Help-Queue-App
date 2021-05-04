@@ -7,7 +7,10 @@ import { FaRegCheckCircle, FaCheckCircle } from "react-icons/fa";
 
 const Ticket = (props) => {
 
-    const {item, className} = props;
+    const item = props.item;
+    const className = props.className;
+
+
     let TopicCheck1 = false;
     let TopicCheck2 = false;
     let TopicCheck3 = false;
@@ -64,13 +67,26 @@ const Ticket = (props) => {
 
     
 
-    function mark(id) {
-      axios.put("http://localhost:8904/update/"+id, {
-        completed: true
-      })
+    const mark = () => {
+
+      let ticket = {
+        author: authorSt,
+        complete: true,
+        description: descriptionSt,
+        time_created: timeSt,
+        title: titleSt,
+        topic: topicSt,
+        urgency: urgencySt
+      };
+
+
+      axios.put("http://localhost:8903/update/"+item.ticketID, ticket)
       .then(response => {
+        console.log(response);
         console.log(response.data);
-      });
+
+        props.switchLoaded()
+      });  
     }
 
     const deleteT = () => {
@@ -79,6 +95,9 @@ const Ticket = (props) => {
       .then(response => {
         console.log(response.data);
       });
+
+      props.switchLoaded()
+      console.log(props.isLoaded)
     }
 
     const handleSubmit = event => {
@@ -101,7 +120,7 @@ const Ticket = (props) => {
           console.log(res.data);
         })
 
-        
+      props.switchLoaded()
     }
 
     const toggle = () => setModal(!modal);
@@ -177,9 +196,10 @@ const Ticket = (props) => {
                     <p><strong>Urgency:</strong> {item.urgency}</p>
                     <br />
                     <p><strong>Date created:</strong> {hours} : {mins}</p>
-                    <Button disabled={isEnabled} color="success" className="queueBtnBlock" disabled={disabled} onClick={() => mark(item.id)}>Mark as done</Button>
-                    <Button color="warning" className="queueBtnBlock" disabled={disabled} onClick={toggle}>Update ticket</Button>
-                    <Button color="danger" className="queueBtnBlock" disabled={disabled} onClick={() => deleteT()}>Delete ticket</Button>
+
+                    <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
+                    <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
+                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
 
 
                     {/* UPDATE MODAL */}

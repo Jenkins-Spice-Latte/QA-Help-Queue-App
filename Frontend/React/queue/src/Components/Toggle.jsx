@@ -18,7 +18,10 @@ const Toggle = (props) => {
 
     return (
       <> 
+        {mode}
         {modeBtn}
+        <Queue mode={(modeSelect)} isLoaded={props.isLoaded} switchLoaded={props.switchLoaded}/>
+        <Create mode={(modeSelect)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded} />
       </>
     );
   };
