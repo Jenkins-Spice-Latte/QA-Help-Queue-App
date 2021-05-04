@@ -40,22 +40,49 @@ pipeline {
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                         // overrides application.properties file data.
+
+                        
                         SPRING_PROFILES_ACTIVE = "spring.profiles.active=real_test" //TODO: change this
-                        PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
-                        PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
-                        PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
-                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' //TODO: change this
+
+                        // MANNYS CODE
+                        // PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
+                        // PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
+                        // PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
+                        // PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' //TODO: change this
+                        // JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
+                        // JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
+
+                        //SONNYS CODE
+                        //DATASOURCE.URL => ENVIRONMENT
+                        //DATASOURCE.USERNAME => ENVIRONMENT
+                        //DATASOURCE.PASSWORD => ENVIRONMENT
+                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
+                        PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jsbc.Driver"
+                        
+                        JPA_DATABASE_PLATFORM = "spring.jpa.database-platform = org.hibernate.dialect.MySQL5Dialect"
+                        JPA_GENERATE_DDL = "spring.jpa.generate-ddl=true"
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
-                        JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
+
+                        SERVER_PORT = "--server.port=8901"
+                        
+
                         // combines all into one argument.
                         TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments='" +
                                 "${SPRING_PROFILES_ACTIVE} " +
-                                "${PROPERTIES_DATA_REST_BASE} " +
-                                "${PROPERTIES_INITIALIZATION_MODE} " +
-                                "${PROPERTIES_DRIVER_CLASS} " +
-                                "${PROPERTIES_TEST_DATASOURCE_URL} " +
-                                "${JPA_HIBERNATE_DDL} " +
-                                "${JPA_SHOW_SQL_BOOL}'"
+                                "${PROPERTIES_TEST_DATASOURCE_URL}" +
+                                "${PROPERTIES_DRIVER_CLASS}" +
+                                "${JPA_DATABASE_PLATFORM}" +
+                                "${JPA_GENERATE_DDL}" +
+                                "${JPA_HIBERNATE_DDL}" +
+                                "${SERVER_PORT}"
+
+
+                                // "${PROPERTIES_DATA_REST_BASE} " +
+                                // "${PROPERTIES_INITIALIZATION_MODE} " +
+                                // "${PROPERTIES_DRIVER_CLASS} " +
+                                // "${PROPERTIES_TEST_DATASOURCE_URL} " +
+                                // "${JPA_HIBERNATE_DDL} " +
+                                // "${JPA_SHOW_SQL_BOOL}'"
                     }
                     // matrix used to parallelize stages for each microservice.
                     matrix {
