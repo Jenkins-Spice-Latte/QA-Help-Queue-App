@@ -68,7 +68,7 @@ pipeline {
                         
 
                         // combines all into one argument.
-                        TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments='" +
+                        TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments=CreateTicket'" +
                                 "${SPRING_PROFILES_ACTIVE} " +
                                 "${PROPERTIES_TEST_DATASOURCE_URL}" +
                                 "${PROPERTIES_DRIVER_CLASS}" +
