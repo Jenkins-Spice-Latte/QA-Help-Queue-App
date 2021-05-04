@@ -4,8 +4,8 @@ import Ticket from './Ticket'
 
 const Queue = (props) => {
   const {buttonLabel, className} = props;
-  const [mode, setmode] = useState(props.mode);
 
+  console.log(authorFilter)
 
   const [data, setData] = useState([]);
   const result = data.filter(item => 
@@ -22,7 +22,6 @@ const Queue = (props) => {
   }
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [data, setData] = useState([]);
 
   if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")

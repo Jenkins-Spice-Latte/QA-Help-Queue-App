@@ -6,7 +6,6 @@ import Filter from './Components/Filter';
 import Create from './Components/Create';
 import Queue from './Components/Queue';
 import Toggle from './Components/Toggle';
-import { useState } from 'react';
 
 
 function App() {
@@ -14,7 +13,9 @@ function App() {
   const [sortChange, setsortChange] = useState("Oldest");
   const [urgentFilterChange, setUrgentFilter] = useState([1,2,3,4,5]);
   const [topicFilterChange, setTopicFilter] = useState(["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]);
-  const [authorFilter, setAuthorFilter] = useState("");
+  const [authorFilter, setAuthorFilter] = useState("eg");
+
+  console.log(authorFilter)
 
   const onCheckboxBtnClick = (selected) => {
     setmodeSelect(selected);
