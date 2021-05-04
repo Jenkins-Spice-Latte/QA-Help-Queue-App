@@ -3,7 +3,7 @@ import axios from 'axios';
 import Ticket from './Ticket'
 
 const Queue = (props) => {
-  const {buttonLabel, className} = props;
+  const {className} = props;
 
 
   const [data, setData] = useState([]);

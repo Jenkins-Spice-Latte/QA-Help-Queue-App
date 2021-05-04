@@ -1,5 +1,4 @@
 import './App.css';
-import { Button } from 'reactstrap';
 import React, { useState } from 'react';
 import Sort from './Components/Sort';
 import Filter from './Components/Filter';
