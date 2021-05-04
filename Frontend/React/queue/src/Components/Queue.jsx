@@ -70,6 +70,42 @@ const Queue = (props) => {
     item.author.toLowerCase().includes(props.authorfilter.toLowerCase())
   );
 
+  function compare(sortname) {
+    if(sortname === "oldest"){
+      key = "time_created";
+      order = "asc";
+
+    } else if(sortname === "newest"){
+      key = "time_created";
+      order = "desc";
+
+    } else{
+      key = "title";
+      order = "asc";
+    }
+
+    return function sort(a, b) {
+      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        return 0;
+      }
+  
+      const varA = (typeof a[key] === 'string')
+        ? a[key].toUpperCase() : a[key];
+      const varB = (typeof b[key] === 'string')
+        ? b[key].toUpperCase() : b[key];
+  
+      let comp = 0;
+      if (varA > varB) {
+        comp = 1;
+      } else if (varA < varB) {
+        comp = -1;
+      }
+      return (
+        (order === 'desc') ? (comp * -1) : comp
+      );
+    };
+  }
+
   if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")
       .then(response => {
@@ -83,8 +119,8 @@ const Queue = (props) => {
       <> 
       <div className= "queue_div">
         <p>Pending Tickets</p>
-        {props.sort}
-        {result.map((item) => {
+        
+        {result.sort(compare(props.sort)).map((item) => {
             if(item.complete === false)
               return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
           })}
