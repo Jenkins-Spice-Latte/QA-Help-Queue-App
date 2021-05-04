@@ -20,7 +20,6 @@ import com.qa.updateTicket.rest.controller.UpdateController;
 import com.qa.updateTicket.service.UpdateService;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 public class UpdateControllerUnitTest {
 
 	
