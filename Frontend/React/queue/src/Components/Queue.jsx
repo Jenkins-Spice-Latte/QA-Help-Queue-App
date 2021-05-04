@@ -5,6 +5,8 @@ import Ticket from './Ticket'
 const Queue = (props) => {
   const {buttonLabel, className} = props;
 
+  console.log("queue")
+  console.log(props.isLoaded)
 
   const [data, setData] = useState([]);
   const result = data.filter(item => 
@@ -20,14 +22,13 @@ const Queue = (props) => {
     return num > 1;
   }
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
   if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")
       .then(response => {
+          console.log(response.data)
           setData(response.data);
+          props.switchLoaded(); 
       });
-      props.switchLoaded(); 
   }
 
     return (
