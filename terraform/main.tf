@@ -280,79 +280,79 @@ module "PROD_RDS" {
  vpc_security_group_ids = [module.RDS_SG_PRIVATE.id]
  name_tag = "hq_prod_rds"
 }
-#
-#
-## ^ deployment resources (eks)
-#module "EKS_PUBLIC_SUBNET_A" {
-#  source                  = "./SUBNET"
-#  vpc_id                  = module.VPC.vpc_id
-#  availability_zone       = "eu-west-2a"
-#  cidr_block              = "10.0.22.0/24"
-#  map_public_ip_on_launch = true
-#  tags = {
-#    Name = "hq_eks_public_subnet_a"
-#    # tags for kubernetes
-#    "kubernetes.io/cluster/eks" = "shared"
-#    "kubernetes.io/role/elb"    = 1
-#  }
-#}
-#
-#module "EKS_PUBLIC_SUBNET_B" {
-#  source                  = "./SUBNET"
-#  vpc_id                  = module.VPC.vpc_id
-#  availability_zone       = "eu-west-2b"
-#  cidr_block              = "10.0.44.0/24"
-#  map_public_ip_on_launch = true
-#  tags = {
-#    Name = "hq_eks_public_subnet_b"
-#    # tags for kubernetes load balancer
-#    "kubernetes.io/cluster/eks" = "shared"
-#    "kubernetes.io/role/elb"    = 1
-#  }
-#}
-#
-#module "EKS_RT_ASSOCIATION_A" {
-#  source         = "./RT_A"
-#  subnet_id      = module.EKS_PUBLIC_SUBNET_A.id
-#  route_table_id = module.PUBLIC_RT.id
-#}
-#
-#module "EKS_RT_ASSOCIATION_B" {
-#  source         = "./RT_A"
-#  subnet_id      = module.EKS_PUBLIC_SUBNET_B.id
-#  route_table_id = module.PUBLIC_RT.id
-#}
-#
-## Roles and policies for eks cluster and eks node group
-#module "EKS_ROLES_POLICIES" {
-#  source = "./POLICIES"
-#}
-#
-#module "EKS_CLUSTER" {
-#  source = "./EKS_CLUSTER"
-#  name = "eks_cluster"
-#  role_arn = module.EKS_ROLES_POLICIES.cluster_arn
-#  subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
-#  endpoint_public_access = true
-#  endpoint_private_access = true
-#  depends_on_a = module.EKS_ROLES_POLICIES.cluster_policy_attachment_a
-#  depends_on_b = module.EKS_ROLES_POLICIES.cluster_policy_attachment_b
-#  name_tag = "eks_cluster"
-#}
-#
-#module "EKS_NODE_GROUP" {
-#  source = "./EKS_NODE_GROUP"
-#  node_group_name = "eks_nodes"
-#  ami_type = "AL2_x86_64"
-#  instance_type = var.ec2_instance_type
-#  cluster_name = module.EKS_CLUSTER.cluster_name
-#  node_role_arn = module.EKS_ROLES_POLICIES.nodes_arn
-#  subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
-#  desired_size = 2
-#  max_size = 4
-#  min_size = 2
-#  depends_on_a = module.EKS_ROLES_POLICIES.ng_policy_attachment_a
-#  depends_on_b = module.EKS_ROLES_POLICIES.ng_policy_attachment_b
-#  depends_on_c = module.EKS_ROLES_POLICIES.ng_policy_attachment_c
-#  name_tag = "eks_node_group"
-#}
+
+
+# ^ deployment resources (eks)
+module "EKS_PUBLIC_SUBNET_A" {
+  source                  = "./SUBNET"
+  vpc_id                  = module.VPC.vpc_id
+  availability_zone       = "eu-west-2a"
+  cidr_block              = "10.0.22.0/24"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "hq_eks_public_subnet_a"
+    # tags for kubernetes
+    "kubernetes.io/cluster/eks" = "shared"
+    "kubernetes.io/role/elb"    = 1
+  }
+}
+
+module "EKS_PUBLIC_SUBNET_B" {
+  source                  = "./SUBNET"
+  vpc_id                  = module.VPC.vpc_id
+  availability_zone       = "eu-west-2b"
+  cidr_block              = "10.0.44.0/24"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "hq_eks_public_subnet_b"
+    # tags for kubernetes load balancer
+    "kubernetes.io/cluster/eks" = "shared"
+    "kubernetes.io/role/elb"    = 1
+  }
+}
+
+module "EKS_RT_ASSOCIATION_A" {
+  source         = "./RT_A"
+  subnet_id      = module.EKS_PUBLIC_SUBNET_A.id
+  route_table_id = module.PUBLIC_RT.id
+}
+
+module "EKS_RT_ASSOCIATION_B" {
+  source         = "./RT_A"
+  subnet_id      = module.EKS_PUBLIC_SUBNET_B.id
+  route_table_id = module.PUBLIC_RT.id
+}
+
+# Roles and policies for eks cluster and eks node group
+module "EKS_ROLES_POLICIES" {
+  source = "./POLICIES"
+}
+
+module "EKS_CLUSTER" {
+  source = "./EKS_CLUSTER"
+  name = "eks_cluster"
+  role_arn = module.EKS_ROLES_POLICIES.cluster_arn
+  subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
+  endpoint_public_access = true
+  endpoint_private_access = true
+  depends_on_a = module.EKS_ROLES_POLICIES.cluster_policy_attachment_a
+  depends_on_b = module.EKS_ROLES_POLICIES.cluster_policy_attachment_b
+  name_tag = "eks_cluster"
+}
+
+module "EKS_NODE_GROUP" {
+  source = "./EKS_NODE_GROUP"
+  node_group_name = "eks_nodes"
+  ami_type = "AL2_x86_64"
+  instance_type = var.ec2_instance_type
+  cluster_name = module.EKS_CLUSTER.cluster_name
+  node_role_arn = module.EKS_ROLES_POLICIES.nodes_arn
+  subnet_ids = [module.EKS_PUBLIC_SUBNET_A.id,module.EKS_PUBLIC_SUBNET_B.id]
+  desired_size = 2
+  max_size = 4
+  min_size = 2
+  depends_on_a = module.EKS_ROLES_POLICIES.ng_policy_attachment_a
+  depends_on_b = module.EKS_ROLES_POLICIES.ng_policy_attachment_b
+  depends_on_c = module.EKS_ROLES_POLICIES.ng_policy_attachment_c
+  name_tag = "eks_node_group"
+}
