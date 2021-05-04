@@ -34,3 +34,4 @@ backend/CreateTicket/bin/src/test/java/com/qa/helpQueue/service/CreateServiceUni
 backend/CreateTicket/bin/.mvn/wrapper/maven-wrapper.jar
 backend/CreateTicket/bin/.mvn/wrapper/maven-wrapper.jar
 /Frontend
+backend/CreateTicket/bin/
