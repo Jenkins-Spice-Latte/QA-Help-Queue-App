@@ -42,7 +42,7 @@ pipeline {
                         // overrides application.properties file data.
 
                         
-                        SPRING_PROFILES_ACTIVE = "spring.profiles.active=real_test" //TODO: change this
+                        SPRING_PROFILES_ACTIVE = "--spring.profiles.active=dev" //TODO: change this
 
                         // MANNYS CODE
                         // PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
