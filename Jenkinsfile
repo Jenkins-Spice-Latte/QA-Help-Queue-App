@@ -80,7 +80,7 @@ pipeline {
                                                 passwordVariable: 'TEST_RDS_PWD' //TODO: change??
                                         )]) {
                                             // runs maven test
-                                            sh "mvn test ${TEST_APPLICATION_PROPERTIES} " +
+                                            sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
                                                     '-Dspring.datasource.username=$TEST_RDS_USR ' +
                                                     '-Dspring.datasource.password=$TEST_RDS_PWD'
                                         }
@@ -133,7 +133,7 @@ pipeline {
                                             sh "docker build -t " +
                                                     "${IMAGE_IDENTIFIER} " +
                                                     "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " +
-                                                    "-f Dockerfile ."
+                                                    "-f docker/Dockerfile.backend ."
                                             // all the other arguments (ENV) in dockerfile are input at runtime.
                                             withCredentials([usernamePassword(
                                                     credentialsId: 'DOCKERHUB_LOGIN',
@@ -144,6 +144,7 @@ pipeline {
                                                 sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                                 sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
                                                 sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
+                                                /// ! home/ubuntu/workspace/_Help-Queue-App_backend-jenkdock/backend/Dockerfile ERROR
                                             }
                                         }
                                     }
