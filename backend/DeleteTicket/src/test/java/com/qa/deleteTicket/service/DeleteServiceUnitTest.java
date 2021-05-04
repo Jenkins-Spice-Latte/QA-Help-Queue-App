@@ -18,7 +18,6 @@ import com.qa.deleteTicket.persistance.repository.hqRepository;
 import com.qa.deleteTicket.service.DeleteService;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 public class DeleteServiceUnitTest {
 
 	

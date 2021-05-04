@@ -19,7 +19,6 @@ import com.qa.createTicket.persistance.domain.Tickets;
 import com.qa.createTicket.service.CreateService;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 public class CreateControllerUnitTest {
 	
 	@Autowired
