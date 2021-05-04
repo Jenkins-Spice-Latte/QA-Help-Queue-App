@@ -10,3 +10,7 @@
 
 .gitignore
 **/*.properties
+**/node_modules/*
+**/bin/*
+**/target/
+**/backend/CreateTicket/target/**
