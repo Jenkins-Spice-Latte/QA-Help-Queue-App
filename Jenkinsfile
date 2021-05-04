@@ -8,18 +8,8 @@ pipeline {
     agent any
     stages {
         stage("Agent: Test VM") {
-            when {
-                anyOf {
-                    branch 'main';
-                    branch 'dev';
-                    // checks for branches with the word 'backend'.
-                    branch pattern: "*backend*", comparator: "GLOB"
-                }
-            }
             // sets to run on the testvm node.
-            agent {
-                label "testvm"
-            }
+            agent { label "testvm" }
             stages {
                 stage("Clean Workspace") {
                     steps {
@@ -41,6 +31,7 @@ pipeline {
                 }
                 stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
@@ -100,7 +91,6 @@ pipeline {
                                                 sourcePattern: "/src/main/java",
                                                 exclusionPattern: "/src/test*"
                                         )
-                                        sh "pwd"
                                         sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
                                         sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
                                         //exports test results back to jenkins for devs.
@@ -164,37 +154,34 @@ pipeline {
                 }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
-                            sh "echo '<h2>Jacoco Test Coverage -Test Coverage-PROD.1.0.${BUILD_NUMBER} [${env.BRANCH_NAME}]</h2>" +
+                            sh "echo '<h2>Test Coverage - 1.0.${BUILD_NUMBER}PROD</h2>" +
                                     "<p><a href='CreateTicket/jacoco/index.html'>CreateTicket Coverage</a></p> " +
                                     "<p><a href='ReadTicket/jacoco/index.html'>ReadTicket Coverage</a></p> " +
                                     "<p><a href='UpdateTicket/jacoco/index.html'>UpdateTicket Coverage</a></p> " +
                                     "<p><a href='UpdateTicket/jacoco/index.html'>DeleteTicket Coverage</a></p>' > index.html"
-                            sh "pwd"
                             sh "git init"
-                            sh "git status"
                             sh "git add --all"
-                            sh "git status"
                             sh "git config --global user.email 'jacoco-test-coverage@jenkins'"
                             sh "git config --global user.name 'Jenkins'"
-                            sh "ls -la"
-                            sh "git commit -m 'Test Coverage-PROD.1.0.${BUILD_NUMBER} [${env.BRANCH_NAME}]'"
-                            sh "git status"
+                            sh "git commit -m 'Test Coverage-1.0.${BUILD_NUMBER}PROD [${env.BRANCH_NAME}]'"
                             sh "git branch -M main"
                             withCredentials([usernamePassword(
                                     credentialsId: 'GITHUB_MORE_PERMS',
                                     usernameVariable: 'GH_USER',
                                     passwordVariable: 'GH_PASS'
                             )]) {
-                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/$GH_USER/supreme-disco main' //TODO: change
+                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/Jenkins-Spice-Latte/QA-HQ-Test-Coverage' //TODO: change
                             }
                         }
                     }
                 }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
@@ -217,9 +204,7 @@ pipeline {
         //TODO: push frontend test results to github.
         //TODO: archive frontend npm package.
         //TODO: clean workspace.
-
         //TODO: change node to kubernetes cluster (or maybe just run kubectl commands using the endpoint?)
         //TODO: use kubernetes yaml files to run containers (where does dockercompose come into this?)
-
     }
 }
