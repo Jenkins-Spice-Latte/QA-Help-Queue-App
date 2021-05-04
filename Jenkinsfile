@@ -57,7 +57,7 @@ pipeline {
                         //DATASOURCE.USERNAME => ENVIRONMENT
                         //DATASOURCE.PASSWORD => ENVIRONMENT
                         PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
-                        PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jsbc.Driver"
+                        PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jdbc.Driver"
                         
                         JPA_DATABASE_PLATFORM = "--spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect"
                         JPA_GENERATE_DDL = "--spring.jpa.generate-ddl=true"
