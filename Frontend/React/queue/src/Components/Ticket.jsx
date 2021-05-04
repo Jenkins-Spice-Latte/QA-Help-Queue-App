@@ -7,7 +7,10 @@ import { FaRegCheckCircle, FaCheckCircle } from "react-icons/fa";
 
 const Ticket = (props) => {
 
-    const {item, className} = props;
+    const item = props.item;
+    const className = props.className;
+
+
     let TopicCheck1 = false;
     let TopicCheck2 = false;
     let TopicCheck3 = false;
@@ -26,7 +29,6 @@ const Ticket = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isDone, setDone] = useState(false);
     const [isPriority, setPriority] = useState(1);
-
     const [authorSt, setAuthor] = useState(item.author);
     const [completeSt, setComplete] = useState("");
     const [completeStShow, setCompleteShow] = useState("");
@@ -35,6 +37,12 @@ const Ticket = (props) => {
     const [titleSt, setTitle] = useState(item.title);
     const [topicSt, setTopic] = useState('');
     const [urgencySt, setUrgency] = useState('');
+
+    
+    var date = new Date(item.time_created);
+    var hours = date.getHours();
+    var mins = "" + date.getMinutes();
+
     var checkAuth;
     var checkTitle;
     var checkDesc;
@@ -43,6 +51,13 @@ const Ticket = (props) => {
     var btn;
     var tickBtn;
     var priorityBtn;
+    let disabled;
+    
+    if(props.mode === "Trainer mode"){
+      disabled = false;
+    } else{
+      disabled = true;
+    }
 
 
     const isEnabled = item.complete;
@@ -50,23 +65,43 @@ const Ticket = (props) => {
 
     const expand = () => setIsOpen(!isOpen);
 
-    function deleteT(id) {
-      axios.delete("http://localhost:8901/delete/"+id)
+    
+
+    const mark = () => {
+
+      let ticket = {
+        author: authorSt,
+        complete: true,
+        description: descriptionSt,
+        time_created: timeSt,
+        title: titleSt,
+        topic: topicSt,
+        urgency: urgencySt
+      };
+
+
+      axios.put("http://localhost:8903/update/"+item.ticketID, ticket)
+      .then(response => {
+        console.log(response);
+        console.log(response.data);
+
+        props.switchLoaded()
+      });  
+    }
+
+    const deleteT = () => {
+
+      axios.delete("http://localhost:8904/delete/"+item.ticketID)
       .then(response => {
         console.log(response.data);
       });
+
+      props.switchLoaded()
+      console.log(props.isLoaded)
     }
 
-    function mark(id) {
-      axios.put("http://localhost:8904/update/"+id, {
-        completed: true
-      })
-      .then(response => {
-        console.log(response.data);
-      });
-    }
-
-    function handleSubmit(id) {
+    const handleSubmit = event => {
+      event.preventDefault();
   
       let ticket = {
         author: authorSt,
@@ -78,11 +113,14 @@ const Ticket = (props) => {
         urgency: urgencySt
       };
   
-      axios.post("http://localhost:8904/update"+id,  ticket)
+      console.log("TESTTESTTEST" + item.ticketID)
+      axios.put("http://localhost:8903/update/"+item.ticketID,  ticket)
         .then(res => {
           console.log(res);
           console.log(res.data);
         })
+
+      props.switchLoaded()
     }
 
     const toggle = () => setModal(!modal);
@@ -139,7 +177,6 @@ const Ticket = (props) => {
 
     return (
         <div className="ticket_div" key={item.id}>
-            
               <p className="ticket_comp title_comp">{item.title} </p>
               <p className="ticket_comp">{item.topic} </p>
               {btn}
@@ -158,15 +195,19 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Urgency:</strong> {item.urgency}</p>
                     <br />
-                    <p><strong>Date created:</strong> Anim pariatur cliche</p>
-                    <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark(item.id)}>Mark as done</Button>
+                    <p><strong>Date created:</strong> {hours} : {mins}</p>
+
+                    <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
                     <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
-                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT(item.id)}>Delete ticket</Button>
+                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
+
+
+                    {/* UPDATE MODAL */}
                     <div>
                       <Modal isOpen={modal} toggle={toggle} className={className}>
                         <ModalHeader toggle={toggle}>Update ticket</ModalHeader>
                         <ModalBody>
-                          <Form>
+                          <Form onSubmit={handleSubmit}>
                           <InputGroup>
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>Author</InputGroupText>
@@ -197,30 +238,28 @@ const Ticket = (props) => {
                                 <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" defaultChecked={TopicCheck4}/>
                                 <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" defaultChecked={TopicCheck5}/>
                               </div>
-                              {topicCheck}
                             </FormGroup>
                             <FormGroup>
                               <Label for="radioLabel">Urgency</Label>
                               <div>
-                                <CustomInput type="radio" id="exampleCustomRadio1" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" defaultChecked={UrgencyCheck1}/>
+                                <CustomInput type="radio" id="exampleCustomRadio" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="1" label="Most urgent" defaultChecked={UrgencyCheck1}/>
                                 <CustomInput type="radio" id="exampleCustomRadio2" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="2" label="Very urgent" defaultChecked={UrgencyCheck2}/>
                                 <CustomInput type="radio" id="exampleCustomRadio3" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="3" label="Slightly urgent" defaultChecked={UrgencyCheck3}/>
                                 <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" defaultChecked={UrgencyCheck4}/>
                                 <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" defaultChecked={UrgencyCheck5}/>
-                                {urgencyCheck}
                               </div>
                             </FormGroup>
                             <br />
-
                             <Input type="hidden" name="completed" id="completed" value="false"/>
+
+                            <br />
+                            <Button type="submit" color="primary" onClick={toggle}>Update ticket</Button>
+                            <Button color="secondary" onClick={toggle}>Cancel</Button>
                           </Form>
                           </ModalBody>
-                        <ModalFooter>
-                          <Button color="primary" onClick={toggle}>Update ticket</Button>{handleSubmit(item.id)}
-                          <Button color="secondary" onClick={toggle}>Cancel</Button>
-                        </ModalFooter>
                       </Modal>
                     </div>
+
 
                   </CardBody>
                 </Card>

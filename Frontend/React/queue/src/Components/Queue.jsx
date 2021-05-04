@@ -1,39 +1,53 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Ticket from './Ticket'
 
 const Queue = (props) => {
   const {buttonLabel, className} = props;
+  const [mode, setmode] = useState(props.mode);
 
 
+  const [data, setData] = useState([]);
+  const result = data.filter(item => 
+                  item.author.toLowerCase().includes(props.authorfilter.toLowerCase())
+                );
 
-  const [ticketdata, setTicketData] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  if(isLoaded === false){
-      axios.get("http://localhost:8903/readAll")
-      .then(response => {
-          console.log(response.data);
-          setTicketData(response.data);
-      });
-      setIsLoaded(true); 
+  function isPrime(num) {
+    for (let i = 2; num > i; i++) {
+      if (num % i == 0) {
+        return false;
+      }
+    }
+    return num > 1;
   }
 
-  const data = [
-    {id: 1, title: "Title 1", complete: false, description:"Desc 1", author:"Author 1", topic: "Topic1", urgency: 1},
-    {id: 2, title: "Title 2", complete: false, description:"Desc 2", author:"Author 2", topic: "Topic1", urgency: 2},
-    {id: 3, title: "Title 3", complete: true, description:"Desc 3", author:"Author 1", topic: "Topic3", urgency: 1},
-  ];
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [data, setData] = useState([]);
 
-
+  if(props.isLoaded === false){
+      axios.get("http://localhost:8902/readAll")
+      .then(response => {
+          setData(response.data);
+      });
+      props.switchLoaded(); 
+  }
 
     return (
       <> 
       <div className= "queue_div">
         <p>Pending Tickets</p>
-          {data.map((item) => {
+        {props.sort}
+        {data.map((item) => {
             if(item.complete === false)
-              return <Ticket item={item} className={className}/>  
+              return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
+          })}
+      </div>
+
+      <div className= "queue_div">
+        <p>Filtered Tickets</p>
+        {result.map((item) => {
+              return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
+
           })}
       </div>
         
@@ -41,7 +55,7 @@ const Queue = (props) => {
         <p>Completed Tickets</p>
         {data.map((item) => {
           if(item.complete === true)
-            return <Ticket item={item} className={className}/>  
+            return <Ticket item={item} className={className} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
          })}
       </div>
         
