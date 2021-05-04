@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.qa.helpQueue.rest.controller.UpdateControllerUnitTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.202 s - in com.qa.helpQueue.rest.controller.UpdateControllerUnitTest

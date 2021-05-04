@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpdateService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">help-queue</a> &gt; <a href="index.source.html" class="el_package">com.qa.helpQueue.service</a> &gt; <span class="el_source">UpdateService.java</span></div><h1>UpdateService.java</h1><pre class="source lang-java linenums">package com.qa.helpQueue.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.qa.helpQueue.exception.TicketNotFoundException;
+import com.qa.helpQueue.persistance.domain.Tickets;
+import com.qa.helpQueue.persistance.repository.hqRepository;
+
+@Service
+public class UpdateService {
+	
+	private hqRepository repo;
+	
+	@Autowired
+	public UpdateService(hqRepository repo) {
+<span class="fc" id="L17">		super();</span>
+<span class="fc" id="L18">		this.repo = repo;</span>
+<span class="fc" id="L19">	}</span>
+	
+	public Tickets update(Long ticketId, Tickets ticket) {
+<span class="fc" id="L22">		Tickets ticketToUpdate = this.repo.findById(ticketId).orElseThrow(TicketNotFoundException::new);</span>
+
+<span class="fc" id="L24">		ticketToUpdate.setAuthor(ticket.getAuthor());</span>
+<span class="fc" id="L25">		ticketToUpdate.setTitle(ticket.getTitle());</span>
+<span class="fc" id="L26">		ticketToUpdate.setDescription(ticket.getDescription());</span>
+<span class="fc" id="L27">		ticketToUpdate.setTopic(ticket.getTopic());</span>
+<span class="fc" id="L28">		ticketToUpdate.setUrgency(ticket.getUrgency());</span>
+<span class="fc" id="L29">		ticketToUpdate.setComplete(ticket.isComplete());</span>
+		
+<span class="fc" id="L31">		return this.repo.save(ticketToUpdate);</span>
+	}
+}
+
+
+
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

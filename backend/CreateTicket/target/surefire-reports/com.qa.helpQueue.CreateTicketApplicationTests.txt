@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.qa.helpQueue.CreateTicketApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.028 s - in com.qa.helpQueue.CreateTicketApplicationTests
