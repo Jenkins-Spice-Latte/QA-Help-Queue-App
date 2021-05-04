@@ -13,7 +13,8 @@ function App() {
   const [sortChange, setsortChange] = useState("Oldest");
   const [urgentFilterChange, setUrgentFilter] = useState([1,2,3,4,5]);
   const [topicFilterChange, setTopicFilter] = useState(["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]);
-  const [authorFilter, setAuthorFilter] = useState("eg");
+  const [authorFilter, setAuthorFilter] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   console.log(authorFilter)
 
@@ -45,7 +46,7 @@ function App() {
     setsortChange(selected);
   }
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  
 
   const switchLoaded = () => {
     setIsLoaded(!isLoaded);
@@ -77,7 +78,7 @@ function App() {
           </div>
           
             <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} 
-                    topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded}/>
+                    topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded} isLoaded={(isLoaded)}/>
           
         </div>
       </div>
