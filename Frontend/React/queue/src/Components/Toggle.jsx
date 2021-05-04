@@ -5,23 +5,21 @@ import Queue from "./Queue";
 import Create from "./Create";
 
 const Toggle = (props) => {
-  const [modeSelect, setmodeSelect] = useState("Trainee mode");
-  var mode;
+  var modeBtn;
 
-  const onCheckboxBtnClick = (selected) => {
-    setmodeSelect(selected);
-  }
 
-  if(modeSelect === "Trainee mode"){
-    mode = <Button color="primary" onClick={() => onCheckboxBtnClick("Trainer mode")}><BsToggleOff className="trainerBtn"/> Use trainer mode</Button>
+
+  if(props.mode === "Trainee mode"){
+    modeBtn = <Button color="primary" onClick={() => props.onCheckboxBtnClick("Trainer mode")}><BsToggleOff className="trainerBtn"/> Use trainer mode</Button>
   } else{
-    mode = <Button color="primary" onClick={() => onCheckboxBtnClick("Trainee mode")}><BsToggleOn className="traineeBtn"/> Use trainee mode</Button>    
+    modeBtn = <Button color="primary" onClick={() => props.onCheckboxBtnClick("Trainee mode")}><BsToggleOn className="traineeBtn"/> Use trainee mode</Button>    
   } 
 
 
     return (
       <> 
         {mode}
+        {modeBtn}
         <Queue mode={(modeSelect)} isLoaded={props.isLoaded} switchLoaded={props.switchLoaded}/>
         <Create mode={(modeSelect)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded} />
       </>
