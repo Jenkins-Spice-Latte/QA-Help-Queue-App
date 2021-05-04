@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: read_backend_deploy
+  labels:
+    app: help_queue_read
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: help_queue_read
+
+  template:
+    metadata:
+      labels:
+        app: help_queue_read
+    spec:
+      containers:
+      - name: readticket
+        image: jenkinsspicelatte/hq-backend-readticket
+        ports:
+        - containerPort: 5002
+        env:
+        - name: DATABASE_URI
+          value: -----ENVIRONMENT VARIABLE -----------
+        - name: SECRET_KEY
+          value: -----ENVIRONMENT VARIALBE -----------

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc_create_backend
+  labels:
+    app: svc_help_queue_create_backend
+spec:
+  containers:
+  - name: createticket
+    image: jenkinsspicelatte/hq-backend-createticket:latest
+    ports:
+    - containerPort: 5001
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc_create_backend
+  labels:
+    app : svc_create_backend
+spec:
+  selector:
+    app: svc_create_backend
+  ports: 
+  - protocol: TCP
+    port: 5001
+    targetPort: 5001
+  type: ClusterIP

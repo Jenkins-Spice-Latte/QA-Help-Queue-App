@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: update_backend_deploy
+  labels:
+    app: help_queue_update
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: help_queue_update
+
+  template:
+    metadata:
+      labels:
+        app: help_queue_update
+    spec:
+      containers:
+      - name: updateticket
+        image: jenkinsspicelatte/hq-backend-updateticket
+        ports:
+        - containerPort: 5003
+        env:
+        - name: DATABASE_URI
+          value: -----ENVIRONMENT VARIABLE -----------
+        - name: SECRET_KEY
+          value: -----ENVIRONMENT VARIALBE -----------

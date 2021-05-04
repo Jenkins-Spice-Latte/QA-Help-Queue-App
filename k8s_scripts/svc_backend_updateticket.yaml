@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc_update_backend
+  labels:
+    app: svc_help_queue_update_backend
+spec:
+  containers:
+  - name: updateticket
+    image: jenkinsspicelatte/hq-backend-updateticket:latest
+    ports:
+    - containerPort: 5002
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc_update_backend
+  labels:
+    app : svc_update_backend
+spec:
+  selector:
+    app: svc_update_backend
+  ports: 
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002
+  type: ClusterIP
