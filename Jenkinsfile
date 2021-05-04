@@ -144,7 +144,6 @@ pipeline {
                                                 sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                                 sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
                                                 sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
-                                                /// ! home/ubuntu/workspace/_Help-Queue-App_backend-jenkdock/backend/Dockerfile ERROR
                                             }
                                         }
                                     }
@@ -175,7 +174,7 @@ pipeline {
                                     usernameVariable: 'GH_USER',
                                     passwordVariable: 'GH_PASS'
                             )]) {
-                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/Jenkins-Spice-Latte/QA-HQ-Test-Coverage' //TODO: change
+                                sh 'git push -f https://$GH_USER:$GH_PASS@github.com/Jenkins-Spice-Latte/QA-HQ-Test-Coverage main' //TODO: change
                             }
                         }
                     }
