@@ -5,6 +5,8 @@ import Ticket from './Ticket'
 const Queue = (props) => {
   const {className} = props;
 
+  console.log("queue")
+  console.log(props.isLoaded)
 
   const [data, setData] = useState([]);
   
@@ -71,9 +73,10 @@ const Queue = (props) => {
   if(props.isLoaded === false){
       axios.get("http://localhost:8902/readAll")
       .then(response => {
+          console.log(response.data)
           setData(response.data);
+          props.switchLoaded(); 
       });
-      props.switchLoaded(); 
   }
 
     return (

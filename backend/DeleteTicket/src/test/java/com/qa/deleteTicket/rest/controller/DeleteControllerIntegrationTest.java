@@ -20,7 +20,6 @@ import com.qa.deleteTicket.persistance.domain.Tickets;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Sql(scripts = {"classpath:schema.sql" , "classpath:data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-@ActiveProfiles(profiles = "test")
 public class DeleteControllerIntegrationTest {
 	
 	@Autowired

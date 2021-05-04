@@ -19,7 +19,6 @@ import com.qa.readTicket.persistance.repository.hqRepository;
 import com.qa.readTicket.service.ReadService;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "test")
 public class ReadServiceUnitTest {
 	
 	@Autowired

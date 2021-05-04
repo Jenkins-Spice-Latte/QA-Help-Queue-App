@@ -82,22 +82,17 @@ const Ticket = (props) => {
 
       axios.put("http://localhost:8903/update/"+item.ticketID, ticket)
       .then(response => {
-        console.log(response);
         console.log(response.data);
-
         props.switchLoaded()
       });  
     }
 
     const deleteT = () => {
-
       axios.delete("http://localhost:8904/delete/"+item.ticketID)
       .then(response => {
         console.log(response.data);
+        props.switchLoaded()
       });
-
-      props.switchLoaded()
-      console.log(props.isLoaded)
     }
 
     const handleSubmit = event => {
@@ -112,15 +107,13 @@ const Ticket = (props) => {
         topic: topicSt,
         urgency: urgencySt
       };
-  
-      console.log("TESTTESTTEST" + item.ticketID)
+      
       axios.put("http://localhost:8903/update/"+item.ticketID,  ticket)
         .then(res => {
           console.log(res);
           console.log(res.data);
+          props.switchLoaded()
         })
-
-      props.switchLoaded()
     }
 
     const toggle = () => setModal(!modal);

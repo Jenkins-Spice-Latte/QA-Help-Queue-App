@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { BsClockFill } from "react-icons/bs";
-import { CustomInput, FormFeedback, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
+import { CustomInput, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
 
 const Create = (props) => {
   const [modal, setModal] = useState(false);
@@ -77,9 +77,8 @@ const Create = (props) => {
     axios.post(`http://localhost:8901/create`,  ticket)
       .then(res => {
         console.log(res);
+        props.switchLoaded();
       })
-
-    props.switchLoaded();
   }
 
     return (

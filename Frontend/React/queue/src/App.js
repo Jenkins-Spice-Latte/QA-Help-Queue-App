@@ -15,7 +15,6 @@ function App() {
   const [authorFilter, setAuthorFilter] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
-  console.log(authorFilter)
 
   const onCheckboxBtnClick = (selected) => {
     setmodeSelect(selected);
@@ -44,15 +43,10 @@ function App() {
   const onSortBtnClick = (selected) => {
     setsortChange(selected);
   }
-
   
-
   const switchLoaded = () => {
     setIsLoaded(!isLoaded);
   }
-
-  console.log("app.js")
-  console.log(isLoaded)
 
   return (
     <div className="App">
@@ -78,6 +72,7 @@ function App() {
           
             <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} 
                     topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded} isLoaded={(isLoaded)}/>
+
           
         </div>
       </div>
