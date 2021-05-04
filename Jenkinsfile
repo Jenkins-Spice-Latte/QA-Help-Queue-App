@@ -189,6 +189,7 @@ pipeline {
                     }
                 }
             }
+
             post {
                 always {
                     // clean workspace even after a failure.
@@ -207,6 +208,6 @@ pipeline {
         //TODO: archive frontend npm package.
         //TODO: clean workspace.
         //TODO: change node to kubernetes cluster (or maybe just run kubectl commands using the endpoint?)
-        //TODO: use kubernetes yaml files to run containers (where does dockercompose come into this? )
+        //TODO: use kubernetes yaml files to run containers (where does dockercompose come into this?)
     }
 }
