@@ -162,7 +162,7 @@ const Ticket = (props) => {
 
     return (
         <div className="ticket_div" key={item.id}>
-              <p className="ticket_comp title_comp">{item.title} ({item.topic}) </p>
+              <p className="ticket_comp title_comp">{item.title} ({item.topic}) </p>    
               {btn}
               {tickBtn}
               {priorityBtn}
