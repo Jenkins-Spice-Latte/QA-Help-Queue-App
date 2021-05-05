@@ -78,9 +78,16 @@ const Queue = (props) => {
     item.author.toLowerCase().includes(props.authorfilter.toLowerCase())
   );
 
-  const result = result2.filter(item => 
+  const result3 = result2.filter(item => 
     item.title.toLowerCase().includes(props.titleFilter.toLowerCase())
   );
+
+  const result4 = result2.filter(item => 
+    item.description.toLowerCase().includes(props.titleFilter.toLowerCase())
+  );
+
+  let result = result4.concat(result3);
+
 
 
 
