@@ -1,7 +1,7 @@
 
 /gdsl
-/src/pipeline.gdsl
-/src/
+/src_groovy/main/groovy/pipeline.gdsl
+/src_groovy/
 .idea/workspace.xml
 .idea/discord.xml
 .idea/modules.xml
