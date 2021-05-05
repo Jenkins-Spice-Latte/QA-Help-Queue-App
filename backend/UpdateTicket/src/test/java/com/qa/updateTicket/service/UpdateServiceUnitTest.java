@@ -19,6 +19,7 @@ import com.qa.updateTicket.persistance.repository.hqRepository;
 import com.qa.updateTicket.service.UpdateService;
 
 @SpringBootTest
+@ActiveProfiles(profiles = "test")
 public class UpdateServiceUnitTest {
 	
 	@Autowired

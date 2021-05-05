@@ -20,6 +20,7 @@ import com.qa.readTicket.rest.controller.ReadController;
 import com.qa.readTicket.service.ReadService;
 
 @SpringBootTest
+@ActiveProfiles(profiles = "test")
 public class ReadControllerUnitTest {
 
 	@Autowired

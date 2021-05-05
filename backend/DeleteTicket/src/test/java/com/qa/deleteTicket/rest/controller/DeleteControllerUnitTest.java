@@ -16,6 +16,7 @@ import com.qa.deleteTicket.rest.controller.DeleteController;
 import com.qa.deleteTicket.service.DeleteService;
 
 @SpringBootTest
+@ActiveProfiles(profiles = "test")
 public class DeleteControllerUnitTest {
 
 

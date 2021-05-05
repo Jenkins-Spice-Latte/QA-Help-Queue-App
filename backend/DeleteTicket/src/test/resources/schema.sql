@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `tickets`;
-CREATE TABLE IF NOT EXISTS `tickets`(
+DROP TABLE IF EXISTS `Tickets`;
+CREATE TABLE IF NOT EXISTS `Tickets`(
 	`ticketid` integer AUTO_INCREMENT,
     `author` varchar(255) not null,
     `complete` long not null,
