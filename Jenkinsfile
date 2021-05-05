@@ -255,7 +255,7 @@ pipeline {
             }
                 
             }
-        }
+        
         //TODO: add conditional to check if branch name contains frontend, main, or dev.
         //TODO: frontend testing.
         //TODO: frontend build package (npm?).
