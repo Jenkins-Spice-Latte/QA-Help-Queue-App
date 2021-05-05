@@ -101,17 +101,23 @@ pipeline {
                                 steps {
                                     echo "${MICROSERVICE_NAME}"
                                     dir("backend/${MICROSERVICE_NAME}") {
+                                        //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
-                                        withCredentials([usernamePassword(
+                                        sh "mkdir /src/main/resources"
+                                        APP_PROP_TEST_CREATETICKET = credentials('APPLICATION_PROPERTIES_TEST_8901')
+                                        sh 'cp -a $APP_PROP_TEST_CREATETICKET /src/main/resources/'
+                                        /*withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
                                                 passwordVariable: 'TEST_RDS_PSWD' //TODO: change??
-                                        )]) {
+                                        )]) { */
                                             // runs maven test
-                                            sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
+                                            sh "mvn clean test"
+
+                                            /*sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
                                                     '-Dspring.datasource.username=$TEST_RDS_USR' +
-                                                    '-Dspring.datasource.password=$TEST_RDS_PSWD'
-                                        }
+                                                    '-Dspring.datasource.password=$TEST_RDS_PSWD'*/
+                                        //}
                                         // generates test coverage.
                                         jacoco(
                                                 execPattern: "**/target/*.exec",
