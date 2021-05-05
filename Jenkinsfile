@@ -56,26 +56,25 @@ pipeline {
                         //DATASOURCE.URL => ENVIRONMENT
                         //DATASOURCE.USERNAME => ENVIRONMENT
                         //DATASOURCE.PASSWORD => ENVIRONMENT
-                        // PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb'
+                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb'
+                        PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jdbc.Driver"
+                        
+                        JPA_DATABASE_PLATFORM = "--spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect"
+                        JPA_GENERATE_DDL = "--spring.jpa.generate-ddl=true"
+                        JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=create-drop" //should be create-delete?
 
-                        // PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jdbc.Driver"
-                    
-                        // JPA_DATABASE_PLATFORM = "--spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect"
-                        // JPA_GENERATE_DDL = "--spring.jpa.generate-ddl=true"
-                        // JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=create-drop" //should be create-delete?
-
-                        // SERVER_PORT = "server.port=8901"
+                        SERVER_PORT = "--server.port=8901"
                         
 
-                        // // combines all into one argument.
-                        // TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments=CreateTicket'" +
-                        //         "${SPRING_PROFILES_ACTIVE} " +
-                        //         "${PROPERTIES_TEST_DATASOURCE_URL}" +
-                        //         "${PROPERTIES_DRIVER_CLASS}" +
-                        //         "${JPA_DATABASE_PLATFORM}" +
-                        //         "${JPA_GENERATE_DDL}" +
-                        //         "${JPA_HIBERNATE_DDL}" +
-                        //         "${SERVER_PORT}'"
+                        // combines all into one argument.
+                        TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments=' " +
+                                "${SPRING_PROFILES_ACTIVE} " +
+                                "${PROPERTIES_TEST_DATASOURCE_URL} " +
+                                "${PROPERTIES_DRIVER_CLASS} " +
+                                "${JPA_DATABASE_PLATFORM} " +
+                                "${JPA_GENERATE_DDL} " +
+                                "${JPA_HIBERNATE_DDL} " +
+                                "${SERVER_PORT}'"
 
 
                                 // "${PROPERTIES_DATA_REST_BASE} " +
@@ -84,17 +83,16 @@ pipeline {
                                 // "${PROPERTIES_TEST_DATASOURCE_URL} " +
                                 // "${JPA_HIBERNATE_DDL} " +
                                 // "${JPA_SHOW_SQL_BOOL}'"
-                        APP_PROP_TEST_CREATETICKET = credentials('APPLICATION_PROPERTIES_TEST_8901')
                     }
                     // matrix used to parallelize stages for each microservice.
                     matrix {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket"/*,
+                                values "CreateTicket",
                                         "ReadTicket",
                                         "UpdateTicket",
-                                        "DeleteTicket"*/
+                                        "DeleteTicket"
                             }
                         }
                         stages {
@@ -102,42 +100,17 @@ pipeline {
                                 steps {
                                     echo "${MICROSERVICE_NAME}"
                                     dir("backend/${MICROSERVICE_NAME}") {
-                                        //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
-//                                        sh "mkdir src/main/resources"
-//                                        withCredentials([usernamePassword(
-//                                                credentialsId: 'SONNY_DB_CREDS', //TODO: change??
-//                                                usernameVariable: 'SONNY_RDS_U', //TODO: change??
-//                                                passwordVariable: 'SONNY_RDS_P' //TODO: change??
-//                                        )]) {
-//                                            sh 'echo "spring.profiles.active=test" > src/main/resources/application.properties'
-//                                            sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
-//                                                    'spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb\n' +
-//                                                    'spring.datasource.username=root\n' +
-//                                                    'spring.datasource.password=wokewoke\n' +
-//                                                    'spring.datasource.driverClassName=com.mysql.jdbc.Driver\n' +
-//                                                    'spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect\n' +
-//                                                    'spring.jpa.generate-ddl=true\n' +
-//                                                    'spring.jpa.hibernate.ddl-auto=create-drop\n' +
-//                                                    'server.port=8901\n' +
-//                                                    'spring.jpa.show-sql=true\n' +
-//                                                    'spring.data.rest.base-path=/api'
-//                                        }
-//                                        sh "cat src/main/resources/application-test.properties"
-//                                        sh "cat src/main/resources/application.properties"
-//                                        sh "ls -la src/main/resources"
-                                        /*withCredentials([usernamePassword(
-                                                credentialsId: 'SONNY_DB_CREDS', //TODO: change??
+                                        withCredentials([usernamePassword(
+                                                credentialsId: 'TEST_RDS_CREDENTIALS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
-                                                passwordVariable: 'TEST_RDS_PSWD' //TODO: change??
-                                        )]) { */
-                                            // runs maven  test
-                                            sh "mvn clean test"
-
-                                            /*sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
-                                                    '-Dspring.datasource.username=$TEST_RDS_USR' +
-                                                    '-Dspring.datasource.password=$TEST_RDS_PSWD'*/
-                                        //}
+                                                passwordVariable: 'TEST_RDS_PWD' //TODO: change??
+                                        )]) {
+                                            // runs maven test
+                                            sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
+                                                    '-Dspring.datasource.username=$TEST_RDS_USR ' +
+                                                    '-Dspring.datasource.password=$TEST_RDS_PWD'
+                                        }
                                         // generates test coverage.
                                         jacoco(
                                                 execPattern: "**/target/*.exec",
