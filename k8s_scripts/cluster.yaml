@@ -11,12 +11,12 @@ vpc:
   subnets:
     public:
       eu-west-2a:
-        id: "subnet-081157d9047ac35c4" #"hq_eks_public_subnet_a"
+        id: "subnet-0614d47bc8df9f3b7" #"hq_eks_public_subnet_a"
         cidr: "10.0.22.0/24"
 
       eu-west-2b:
-        id: "subnet-03ad3ee767bc87549" #"hq_eks_public_subnet_b"
-        cidr: "11.0.44.0/24"
+        id: "subnet-01a546a87f0215584" #"hq_eks_public_subnet_b"
+        cidr: "10.0.44.0/24"
 
 nodeGroups:
   - name: ng-1
