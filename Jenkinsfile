@@ -105,7 +105,8 @@ pipeline {
                                         //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
                                         sh "mkdir src/main/resources"
-                                        sh 'echo spring.datasource.url=\n' +
+                                        sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
+                                                ' spring.datasource.url=\n' +
                                                 'spring.datasource.username=\n' +
                                                 'spring.datasource.password=\n' +
                                                 'spring.datasource.driver-class-name=com.mysql.jdbc.Driver\n' +
@@ -114,7 +115,7 @@ pipeline {
                                                 'spring.jpa.hibernate.ddl-auto=create-drop\n' +
                                                 'server.port=8901\n' +
                                                 'spring.jpa.show-sql=true\n' +
-                                                'spring.data.rest.base-path=/api >> src/main/resources/application-test.properties'
+                                                'spring.data.rest.base-path=/api'
                                         sh "cat src/main/resources/application-test.properties"
                                         /*withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
