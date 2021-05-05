@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: update_backend_deploy
+  name: update-backend-deploy
   labels:
-    app: help_queue_update
+    app: help-queue-update
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help_queue_update
+      app: help-queue-update
 
   template:
     metadata:
       labels:
-        app: help_queue_update
+        app: help-queue-update
     spec:
       containers:
       - name: updateticket

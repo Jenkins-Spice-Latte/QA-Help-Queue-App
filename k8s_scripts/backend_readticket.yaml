@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: read_backend_deploy
+  name: read-backend-deploy
   labels:
-    app: help_queue_read
+    app: help-queue-read
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help_queue_read
+      app: help-queue-read
 
   template:
     metadata:
       labels:
-        app: help_queue_read
+        app: help-queue-read
     spec:
       containers:
       - name: readticket

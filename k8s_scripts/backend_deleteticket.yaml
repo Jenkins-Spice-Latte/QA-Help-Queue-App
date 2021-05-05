@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: delete_backend_deploy
+  name: delete-backend-deploy
   labels:
-    app: help_queue_delete
+    app: help-queue-delete
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help_queue_delete
+      app: help-queue-delete
 
   template:
     metadata:
       labels:
-        app: help_queue_delete
+        app: help-queue-delete
     spec:
       containers:
       - name: deleteticket

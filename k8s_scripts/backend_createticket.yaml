@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: create_backend_deploy
+  name: create-backend-deploy
   labels:
-    app: help_queue_create_backend
+    app: help-queue-create-backend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help_queue_create_backend
+      app: help-queue-create-backend
 
   template:
     metadata:
       labels:
-        app: help_queue_create_backend
+        app: help-queue-create-backend
     spec:
       containers:
       - name: createticket
