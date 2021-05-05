@@ -1,7 +1,7 @@
 #! /bin/bash
 
-kubectl apply -f nginx-config.yaml 
-kubectl apply -f nginx-lb.yaml -f nginx.yaml 
+kubectl apply -f nginx_config.yaml 
+kubectl apply -f svc_nginx_lb.yaml -f nginx.yaml 
 
 kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml
 
