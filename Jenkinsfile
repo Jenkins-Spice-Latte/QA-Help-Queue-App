@@ -1,3 +1,5 @@
+String[] MICROSERVICE_LIST = ['CreateTicket', 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
+
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
@@ -46,16 +48,7 @@ pipeline {
                     }
 
                     // matrix used to parallelize stages for each microservice.
-                    matrix {
-                        axes {
-                            axis {
-                                name "MICROSERVICE_NAME"
-                                values "UpdateTicket"
-                                        //"ReadTicket"
-                                        //"UpdateTicket",
-                                        //"DeleteTicket"
-                            }
-                        }
+                    for(MICROSERVICE_NAME in MICROSERVICE_LIST) {
                         stages {
                             stage("Deposit application.properties"){
                                 steps{
