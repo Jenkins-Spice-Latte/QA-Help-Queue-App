@@ -25,21 +25,21 @@ pipeline {
                     sh "kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml"
                     sh "kubectl apply -f backend_createticket.yaml -f backend_readticket.yaml -f backend_updateticket.yaml -f backend_deleteticket.yaml"
 
-                    sh "kubectl set env deployment/create_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    sh "kubectl set env deployment/create_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    sh "kubectl set env deployment/create_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
+                    // sh "kubectl set env deployment/create_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
+                    // sh "kubectl set env deployment/create_backend_deploy RDS_USERNAME=$RDS_USERNAME"
+                    // sh "kubectl set env deployment/create_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
 
-                    sh "kubectl set env deployment/read_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    sh "kubectl set env deployment/read_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    sh "kubectl set env deployment/read_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
+                    // sh "kubectl set env deployment/read_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
+                    // sh "kubectl set env deployment/read_backend_deploy RDS_USERNAME=$RDS_USERNAME"
+                    // sh "kubectl set env deployment/read_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
 
-                    sh "kubectl set env deployment/update_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    sh "kubectl set env deployment/update_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    sh "kubectl set env deployment/update_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
+                    // sh "kubectl set env deployment/update_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
+                    // sh "kubectl set env deployment/update_backend_deploy RDS_USERNAME=$RDS_USERNAME"
+                    // sh "kubectl set env deployment/update_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
 
-                    sh "kubectl set env deployment/delete_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    sh "kubectl set env deployment/delete_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    sh "kubectl set env deployment/delete_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"            
+                    // sh "kubectl set env deployment/delete_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
+                    // sh "kubectl set env deployment/delete_backend_deploy RDS_USERNAME=$RDS_USERNAME"
+                    // sh "kubectl set env deployment/delete_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"            
                 }
             }
                 
