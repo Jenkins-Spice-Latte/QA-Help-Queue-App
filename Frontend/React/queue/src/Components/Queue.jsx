@@ -20,6 +20,15 @@ const Queue = (props) => {
   let urgency3data = [];
   let urgency4data = [];
   let urgency5data = [];
+  
+  if(props.isLoaded === false){
+    axios.get("http://localhost:8902/readAll")
+    .then(response => {
+        console.log(response.data)
+        setData(response.data);
+        props.switchLoaded(); 
+    });
+  }
 
   if(props.topicfilter.includes("Topic1")) {
     topic1data = data.filter(item => item.topic === "Topic1");
@@ -107,21 +116,13 @@ const Queue = (props) => {
     };
   }
 
-  if(props.isLoaded === false){
-      axios.get("http://localhost:8902/readAll")
-      .then(response => {
-          console.log(response.data)
-          setData(response.data);
-          props.switchLoaded(); 
-      });
-  }
 
     return (
       <> 
       <div className= "queue_div">
         <p>Pending Tickets</p>
         
-        {result.sort(compare(props.sort)).map((item) => {
+        {result.map((item) => {
             if(item.complete === false)
               return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
           })}

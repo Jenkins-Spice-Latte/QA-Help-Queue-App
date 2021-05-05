@@ -27,27 +27,19 @@ const Ticket = (props) => {
     
     const [modal, setModal] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [isDone, setDone] = useState(false);
-    const [isPriority, setPriority] = useState(1);
     const [authorSt, setAuthor] = useState(item.author);
     const [completeSt, setComplete] = useState("");
-    const [completeStShow, setCompleteShow] = useState("");
     const [descriptionSt, setDescription] = useState(item.description);
     const [timeSt, setTime] = useState('');
     const [titleSt, setTitle] = useState(item.title);
-    const [topicSt, setTopic] = useState('');
-    const [urgencySt, setUrgency] = useState('');
+    const [topicSt, setTopic] = useState(item.topic);
+    const [urgencySt, setUrgency] = useState(item.urgency);
 
     
     var date = new Date(item.time_created);
     var hours = date.getHours();
     var mins = "" + date.getMinutes();
 
-    var checkAuth;
-    var checkTitle;
-    var checkDesc;
-    var urgencyCheck;
-    var topicCheck;
     var btn;
     var tickBtn;
     var priorityBtn;
@@ -171,7 +163,6 @@ const Ticket = (props) => {
     return (
         <div className="ticket_div" key={item.id}>
               <p className="ticket_comp title_comp">{item.title} ({item.topic}) </p>
-              <p className="ticket_comp">{item.topic} </p>
               {btn}
               {tickBtn}
               {priorityBtn}
