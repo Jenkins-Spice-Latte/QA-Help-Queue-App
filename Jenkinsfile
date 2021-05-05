@@ -1,3 +1,5 @@
+String[] MICRO_SERVICES = ["CreateTicket", "ReadTicket", "UpdateTicket", "DeleteTicket",]
+
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
@@ -73,12 +75,12 @@ pipeline {
 //                        // "${PROPERTIES_TEST_DATASOURCE_URL} " +
 //                        // "${JPA_HIBERNATE_DDL} " +
 //                        // "${JPA_SHOW_SQL_BOOL}'"
-                        String[] MICROSERVICE_NAME = ["CreateTicket", "ReadTicket", "UpdateTicket", "DeleteTicket",]
+
                     }
                     stage("Testing") {
                         steps {
                             script {
-                                for (MICROSERVICE_NAME in MICROSERVICE_NAME) {
+                                for (MICROSERVICE_NAME in MICRO_SERVICES) {
                                     stage("Microservice Testing"){
                                         echo "${MICROSERVICE_NAME}"
                                         dir("backend/${MICROSERVICE_NAME}") {
