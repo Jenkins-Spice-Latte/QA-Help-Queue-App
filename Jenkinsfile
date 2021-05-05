@@ -5,6 +5,7 @@ pipeline {
         //fail the pipeline after 30 min
         timeout(time: 30, unit: 'MINUTES')
     }
+    agent any
     stages {
         stage("Create EKS Cluster"){
             steps{
