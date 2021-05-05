@@ -5,8 +5,7 @@ import Ticket from './Ticket'
 const Queue = (props) => {
   const {className} = props;
 
-  console.log("queue")
-  console.log(props.isLoaded)
+  console.log(props.sort);
 
   const [data, setData] = useState([]);
   
@@ -71,6 +70,8 @@ const Queue = (props) => {
   );
 
   function compare(sortname) {
+    let key = "time_created";
+    let order = "asc";
     if(sortname === "oldest"){
       key = "time_created";
       order = "asc";
@@ -130,7 +131,7 @@ const Queue = (props) => {
         <p>Completed Tickets</p>
         {result.map((item) => {
           if(item.complete === true)
-            return <Ticket item={item} className={className} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
+            return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
          })}
       </div>
         

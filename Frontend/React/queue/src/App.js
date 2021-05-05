@@ -70,7 +70,7 @@ function App() {
             <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect}/>
           </div>
           
-            <Queue mode={(modeSelect)} sort={sortChange} urgentfilter={(urgentFilterChange)} 
+            <Queue mode={(modeSelect)} sort={(sortChange)} urgentfilter={(urgentFilterChange)} 
                     topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded} isLoaded={(isLoaded)}/>
 
           
