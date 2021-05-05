@@ -6,5 +6,5 @@ var_length=${#clusterExist}
 
 if (( ${var_length}==0 )); then
 echo 'launching cluster'
-eksctl create cluster -f scripts/cluster.yaml
+eksctl create cluster -f cluster.yaml
 fi
