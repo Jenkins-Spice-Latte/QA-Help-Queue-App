@@ -86,7 +86,7 @@ pipeline {
                                         ])
                                     }
                                 }
-                            }
+                            
                             // builds jar files by running the command mvn clean install.
                             stage("Build JAR Files") {
                                 steps {
@@ -132,6 +132,7 @@ pipeline {
                                 }
                             }
                         }
+                    }
                     }
                 }
                 // push test results directory to github repo.
