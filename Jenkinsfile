@@ -56,7 +56,7 @@ pipeline {
                         //DATASOURCE.URL => ENVIRONMENT
                         //DATASOURCE.USERNAME => ENVIRONMENT
                         //DATASOURCE.PASSWORD => ENVIRONMENT
-                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb'
+                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://terraform-20210502225019209100000001.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb'
                         PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jdbc.Driver"
                         
                         JPA_DATABASE_PLATFORM = "--spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect"
@@ -89,7 +89,7 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "DeleteTicket"//,
+                                values "CreateTicket"//,
                                         // "ReadTicket",
                                         // "UpdateTicket",
                                         // "DeleteTicket"
@@ -102,7 +102,7 @@ pipeline {
                                     dir("backend/${MICROSERVICE_NAME}") {
                                         // gets the test database username and password from jenkins secrets .
                                         withCredentials([usernamePassword(
-                                                credentialsId: 'SONNY_DB_CREDS', //TODO: change??
+                                                credentialsId: 'TEST_RDS_CREDENTIALS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
                                                 passwordVariable: 'TEST_RDS_PWD' //TODO: change??
                                         )]) {
