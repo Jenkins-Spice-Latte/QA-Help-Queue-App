@@ -104,28 +104,28 @@ pipeline {
                                     dir("backend/${MICROSERVICE_NAME}") {
                                         //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
-                                        sh "mkdir src/main/resources"
-                                        withCredentials([usernamePassword(
-                                                credentialsId: 'SONNY_DB_CREDS', //TODO: change??
-                                                usernameVariable: 'SONNY_RDS_U', //TODO: change??
-                                                passwordVariable: 'SONNY_RDS_P' //TODO: change??
-                                        )]) {
-                                            sh 'echo "spring.profiles.active=test" > src/main/resources/application.properties'
-                                            sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
-                                                    'spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb\n' +
-                                                    'spring.datasource.username=root\n' +
-                                                    'spring.datasource.password=wokewoke\n' +
-                                                    'spring.datasource.driverClassName=com.mysql.jdbc.Driver\n' +
-                                                    'spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect\n' +
-                                                    'spring.jpa.generate-ddl=true\n' +
-                                                    'spring.jpa.hibernate.ddl-auto=create-drop\n' +
-                                                    'server.port=8901\n' +
-                                                    'spring.jpa.show-sql=true\n' +
-                                                    'spring.data.rest.base-path=/api'
-                                        }
-                                        sh "cat src/main/resources/application-test.properties"
-                                        sh "cat src/main/resources/application.properties"
-                                        sh "ls -la src/main/resources"
+//                                        sh "mkdir src/main/resources"
+//                                        withCredentials([usernamePassword(
+//                                                credentialsId: 'SONNY_DB_CREDS', //TODO: change??
+//                                                usernameVariable: 'SONNY_RDS_U', //TODO: change??
+//                                                passwordVariable: 'SONNY_RDS_P' //TODO: change??
+//                                        )]) {
+//                                            sh 'echo "spring.profiles.active=test" > src/main/resources/application.properties'
+//                                            sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
+//                                                    'spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb\n' +
+//                                                    'spring.datasource.username=root\n' +
+//                                                    'spring.datasource.password=wokewoke\n' +
+//                                                    'spring.datasource.driverClassName=com.mysql.jdbc.Driver\n' +
+//                                                    'spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect\n' +
+//                                                    'spring.jpa.generate-ddl=true\n' +
+//                                                    'spring.jpa.hibernate.ddl-auto=create-drop\n' +
+//                                                    'server.port=8901\n' +
+//                                                    'spring.jpa.show-sql=true\n' +
+//                                                    'spring.data.rest.base-path=/api'
+//                                        }
+//                                        sh "cat src/main/resources/application-test.properties"
+//                                        sh "cat src/main/resources/application.properties"
+//                                        sh "ls -la src/main/resources"
                                         /*withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
