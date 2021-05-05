@@ -3,13 +3,13 @@ kind: Pod
 metadata:
   name: svc_delete_backend
   labels:
-    app: svc_help_queue_delete_backend
+    app: svc_delete_backend
 spec:
   containers:
   - name: deleteticket
     image: jenkinsspicelatte/hq-backend-deleteticket:latest
     ports:
-    - containerPort: 5002
+    - containerPort: 5004
 
 apiVersion: v1
 kind: Service
@@ -22,6 +22,6 @@ spec:
     app: svc_delete_backend
   ports: 
   - protocol: TCP
-    port: 5002
-    targetPort: 5002
+    port: 5004
+    targetPort: 5004
   type: ClusterIP

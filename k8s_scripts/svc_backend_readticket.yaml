@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: svc_read_backend
   labels:
-    app: svc_help_queue_read_backend
+    app: svc_read_backend
 spec:
   containers:
   - name: readticket

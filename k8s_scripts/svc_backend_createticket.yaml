@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: svc_create_backend
   labels:
-    app: svc_help_queue_create_backend
+    app: svc_create_backend
 spec:
   containers:
   - name: createticket
