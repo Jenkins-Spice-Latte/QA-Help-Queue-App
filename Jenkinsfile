@@ -7,10 +7,12 @@ pipeline {
     }
     agent any
     stages {
+
         stage("Agent: Test VM") {
             // sets to run on the testvm node.
             agent { label "testvm" }
             stages {
+
                 stage("Clean Workspace") {
                     steps {
                         // cleans workspace before starting.
@@ -19,6 +21,7 @@ pipeline {
                         sh "docker system prune --force --all --volumes"
                     }
                 }
+
                 stage("Code Checkout") {
                     steps {
                         // gets the source code of the branch & repo where the Jenkinsfile is located.
@@ -29,6 +32,7 @@ pipeline {
                         ])
                     }
                 }
+
                 stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
@@ -134,7 +138,9 @@ pipeline {
                         }
                     }
                     }
-                }
+                
+
+
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
@@ -172,6 +178,9 @@ pipeline {
                     }
                 }
             }
+
+
+            
             post {
                 always {
                     // clean workspace even after a failure.
@@ -192,3 +201,4 @@ pipeline {
         //TODO: change node to kubernetes cluster (or maybe just run kubectl commands using the endpoint?)
         //TODO: use kubernetes yaml files to run containers (where does dockercompose come into this?)
     }
+}
