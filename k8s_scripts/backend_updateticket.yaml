@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: updateticket
-        image: jenkinsspicelatte/hq-backend-updateticket
+        image: jenkinsspicelatte/hq-backend-updateticket:1.0.5PROD
         ports:
         - containerPort: 5003
   strategy:
