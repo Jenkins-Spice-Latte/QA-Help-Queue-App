@@ -105,8 +105,9 @@ pipeline {
                                         //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
                                         sh "mkdir src/main/resources"
+                                        sh 'echo "spring.profiles.active=test" > src/main/resources/application.properties'
                                         sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
-                                                ' spring.datasource.url=\n' +
+                                                'spring.datasource.url=\n' +
                                                 'spring.datasource.username=\n' +
                                                 'spring.datasource.password=\n' +
                                                 'spring.datasource.driver-class-name=com.mysql.jdbc.Driver\n' +
