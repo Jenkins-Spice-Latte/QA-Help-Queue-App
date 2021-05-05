@@ -47,7 +47,9 @@ pipeline {
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                     }
 
+                    
                     // matrix used to parallelize stages for each microservice.
+                script{
                     for(MICROSERVICE_NAME in MICROSERVICE_LIST) {
                         stages {
                             stage("Deposit application.properties"){
@@ -132,6 +134,7 @@ pipeline {
                                 }
                             }
                         }
+                    }
                     }
                     }
                 
