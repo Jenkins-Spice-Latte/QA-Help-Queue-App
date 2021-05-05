@@ -33,7 +33,7 @@ pipeline {
                     // only runs if branch is backend, main, or dev.
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
-                        // sets the artifact (.jar) version to increment according to build number.
+                        // sets the artifact (.jar) version to increment according to build number .
                         BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
                         SET_ARTIFACT_VER = "mvn versions:set -DnewVersion=${BUILD_VERSION_ID}"
                         // clean install command that lets us test first, and then skip test during build.
