@@ -84,6 +84,7 @@ pipeline {
                                 // "${PROPERTIES_TEST_DATASOURCE_URL} " +
                                 // "${JPA_HIBERNATE_DDL} " +
                                 // "${JPA_SHOW_SQL_BOOL}'"
+                        APP_PROP_TEST_CREATETICKET = credentials('APPLICATION_PROPERTIES_TEST_8901')
                     }
                     // matrix used to parallelize stages for each microservice.
                     matrix {
@@ -104,7 +105,6 @@ pipeline {
                                         //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
                                         sh "mkdir /src/main/resources"
-                                        APP_PROP_TEST_CREATETICKET = credentials('APPLICATION_PROPERTIES_TEST_8901')
                                         sh 'echo $APP_PROP_TEST_CREATETICKET >> /src/main/resources/application.properties'
                                         /*withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
