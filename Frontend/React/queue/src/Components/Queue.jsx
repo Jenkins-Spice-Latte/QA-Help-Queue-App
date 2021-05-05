@@ -104,7 +104,7 @@ const Queue = (props) => {
         
       <div className= "queue_div">
         <p>Completed Tickets</p>
-        {result.sort((a, b) => a.time_created > b.time_created ? 1 : -1).map((item) => {
+        {result.map((item) => {
           if(item.complete === true)
             return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
          })}
