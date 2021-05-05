@@ -39,6 +39,7 @@ pipeline {
                         // clean install command that lets us test first, and then skip test during build.
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
+                    }
 
                     // matrix used to parallelize stages for each microservice.
                     matrix {
