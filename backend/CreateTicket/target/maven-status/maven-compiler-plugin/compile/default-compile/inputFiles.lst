@@ -1,5 +1,0 @@
-/Users/mani/Documents/Jenkins_Branch/QA-Help-Queue-App/backend/CreateTicket/src/main/java/com/qa/createTicket/CreateTicketApplication.java
-/Users/mani/Documents/Jenkins_Branch/QA-Help-Queue-App/backend/CreateTicket/src/main/java/com/qa/createTicket/persistance/domain/Tickets.java
-/Users/mani/Documents/Jenkins_Branch/QA-Help-Queue-App/backend/CreateTicket/src/main/java/com/qa/createTicket/persistance/repository/hqRepository.java
-/Users/mani/Documents/Jenkins_Branch/QA-Help-Queue-App/backend/CreateTicket/src/main/java/com/qa/createTicket/rest/controller/CreateController.java
-/Users/mani/Documents/Jenkins_Branch/QA-Help-Queue-App/backend/CreateTicket/src/main/java/com/qa/createTicket/service/CreateService.java
