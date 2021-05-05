@@ -131,7 +131,7 @@ pipeline {
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
                                                 passwordVariable: 'TEST_RDS_PSWD' //TODO: change??
                                         )]) { */
-                                            // runs maven test
+                                            // runs maven  test
                                             sh "mvn clean test"
 
                                             /*sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
