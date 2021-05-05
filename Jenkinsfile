@@ -63,7 +63,7 @@ pipeline {
                         JPA_GENERATE_DDL = "--spring.jpa.generate-ddl=true"
                         JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=create-drop" //should be create-delete?
 
-                        SERVER_PORT = "--server.port=8901"
+                        SERVER_PORT = "server.port=8901"
                         
 
                         // combines all into one argument.
@@ -73,8 +73,8 @@ pipeline {
                                 "${PROPERTIES_DRIVER_CLASS} " +
                                 "${JPA_DATABASE_PLATFORM} " +
                                 "${JPA_GENERATE_DDL} " +
-                                "${JPA_HIBERNATE_DDL} " +
-                                "${SERVER_PORT}'"
+                                "${JPA_HIBERNATE_DDL}'"
+                                //"${SERVER_PORT}'"
 
 
                                 // "${PROPERTIES_DATA_REST_BASE} " +
@@ -89,10 +89,10 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket",
-                                        "ReadTicket",
-                                        "UpdateTicket",
-                                        "DeleteTicket"
+                                values "CreateTicket" //,
+                                        // "ReadTicket",
+                                        // "UpdateTicket",
+                                        // "DeleteTicket"
                             }
                         }
                         stages {
