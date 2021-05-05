@@ -13,6 +13,7 @@ function App() {
   const [urgentFilterChange, setUrgentFilter] = useState([1,2,3,4,5]);
   const [topicFilterChange, setTopicFilter] = useState(["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]);
   const [authorFilter, setAuthorFilter] = useState("");
+  const [titleFilter, setTitleFilter] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
 
 
@@ -58,7 +59,7 @@ function App() {
             <Create mode={(modeSelect)} switchLoaded={switchLoaded}/>
           </div>
           <div  className= "sort_div">
-            <Sort onSortBtnClick={onSortBtnClick}/>
+            <Sort setTitleFilter={setTitleFilter}/>
           </div>
           <div  className= "filter_div">  
             <Filter urgencyCheck={onFilterUrgentCheckboxClick} setAuthorFilter={setAuthorFilter} urgent={(urgentFilterChange)} 
@@ -70,7 +71,7 @@ function App() {
             <Toggle onCheckboxBtnClick={onCheckboxBtnClick} mode={modeSelect}/>
           </div>
           
-            <Queue mode={(modeSelect)} sort={(sortChange)} urgentfilter={(urgentFilterChange)} 
+            <Queue mode={(modeSelect)} sort={(sortChange)} urgentfilter={(urgentFilterChange)} titleFilter = {titleFilter}
                     topicfilter={(topicFilterChange)} authorfilter={(authorFilter)} switchLoaded={switchLoaded} isLoaded={(isLoaded)}/>
 
           

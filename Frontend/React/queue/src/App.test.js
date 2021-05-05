@@ -1,4 +1,3 @@
-import './App.css';
 import renderer from 'react-test-renderer';
 import Sort from './Components/Sort';
 import Filter from './Components/Filter';

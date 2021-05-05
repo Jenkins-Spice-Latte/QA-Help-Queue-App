@@ -74,88 +74,14 @@ const Queue = (props) => {
 
   let urgencydata = urgency1data.concat(urgency2data, urgency3data, urgency4data, urgency5data);
 
-  const result = urgencydata.filter(item => 
+  const result2 = urgencydata.filter(item => 
     item.author.toLowerCase().includes(props.authorfilter.toLowerCase())
   );
 
-  const result2 = result.sort(
-      function (a, b) {
-        if(props.sort === "oldest"){
-          result.sort(function(a, b) {
-            console.log(props.sort);
-          if(a.time_created > b.time_created){ 
-            return 1;
-          } else{ 
-            return -1;
-          }
-        });
-    
-        } else if(props.sort === "newest"){
-          result.sort(function(a, b) {
-            console.log(props.sort);
-            if(a.time_created < b.time_created){ 
-              return 1;
-            } else{ 
-              return -1;
-            }
-          });
-        
-        } else{
-          result.sort(function(a, b) {
-            console.log(props.sort);
-              var nameA = a.title.toUpperCase();
-              var nameB = b.title.toUpperCase();
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-    
-              return 0;
-          });
-    
-        }
-      });
+  const result = result2.filter(item => 
+    item.title.toLowerCase().includes(props.titleFilter.toLowerCase())
+  );
 
-  function compareTo() {
-    if(props.sort === "oldest"){
-      result.sort(function(a, b) {
-        console.log(props.sort);
-      if(a.time_created > b.time_created){ 
-        return 1;
-      } else{ 
-        return -1;
-      }
-    });
-
-    } else if(props.sort === "newest"){
-      result.sort(function(a, b) {
-        console.log(props.sort);
-        if(a.time_created < b.time_created){ 
-          return 1;
-        } else{ 
-          return -1;
-        }
-      });
-    
-    } else{
-      result.sort(function(a, b) {
-        console.log(props.sort);
-          var nameA = a.title.toUpperCase();
-          var nameB = b.title.toUpperCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-
-          return 0;
-    });
-    }
-  }  
-  
 
 
     return (
@@ -163,7 +89,7 @@ const Queue = (props) => {
       <div className= "queue_div">
         <p>Pending Tickets</p>
         
-        {result2.map((item) => {
+        {result.map((item) => {
             if(item.complete === false)
               return <Ticket item={item} className={className} sort={(props.sort)} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
           })}
