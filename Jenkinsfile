@@ -1,5 +1,3 @@
-String[] MICRO_SERVICES = ["CreateTicket", "ReadTicket", "UpdateTicket", "DeleteTicket",]
-
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
@@ -31,8 +29,7 @@ pipeline {
                         ])
                     }
                 }
-                steps {
-                    stage("Backend Microservices") {
+                stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
@@ -43,90 +40,49 @@ pipeline {
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
                         // overrides application.properties file data.
-//                        SPRING_PROFILES_ACTIVE = "" //TODO: change this
-//                        // MANNYS CODE
-//                        // PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
-//                        // PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
-//                        // PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
-//                        // PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' //TODO: change this
-//                        // JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
-//                        // JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true "
-//                        //SONNYS CODE
-//                        //DATASOURCE.URL => ENVIRONMENT
-//                        //DATASOURCE.USERNAME => ENVIRONMENT
-//                        //DATASOURCE.PASSWORD => ENVIRONMENT
-//                        PROPERTIES_TEST_DATASOURCE_URL = ''
-//                        PROPERTIES_DRIVER_CLASS = ""
-//                        JPA_DATABASE_PLATFORM = ""
-//                        JPA_GENERATE_DDL = ""
-//                        JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=create-drop" //should be create-delete?
-//                        SERVER_PORT = 8901
-//                        // combines all into one argument.
-//                        TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments=' " +
-//                                "${SPRING_PROFILES_ACTIVE} " +
-//                                "${PROPERTIES_TEST_DATASOURCE_URL} " +
-//                                "${PROPERTIES_DRIVER_CLASS} " +
-//                                "${JPA_DATABASE_PLATFORM} " +
-//                                "${JPA_GENERATE_DDL} " +
-//                                "${JPA_HIBERNATE_DDL}'"
-//                        //"${SERVER_PORT}'"
-//                        // "${PROPERTIES_DATA_REST_BASE} " +
-//                        // "${PROPERTIES_INITIALIZATION_MODE} " +
-//                        // "${PROPERTIES_DRIVER_CLASS} " +
-//                        // "${PROPERTIES_TEST_DATASOURCE_URL} " +
-//                        // "${JPA_HIBERNATE_DDL} " +
-//                        // "${JPA_SHOW_SQL_BOOL}'"
 
-                    }
-                    stage("Testing") {
-                        steps {
-                            script {
-                                for (MICROSERVICE_NAME in MICRO_SERVICES) {
-                                    stage("Microservice Testing"){
-                                        echo "${MICROSERVICE_NAME}"
-                                        dir("backend/${MICROSERVICE_NAME}") {
-                                            // gets the test database username and password from jenkins secrets .
-                                            withCredentials([usernamePassword(
-                                                    credentialsId: 'SONNY_DB_CREDS', //TODO: change??
-                                                    usernameVariable: 'TEST_RDS_USR', //TODO: change??
-                                                    passwordVariable: 'TEST_RDS_PWD' //TODO: change??
-                                            )]) {
-                                                // runs maven test
-                                                sh "mvn clean test -Dspring-boot.run.arguments=' " +
-                                                        "--spring.profiles.active=dev " +
-                                                        "--spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb " +
-                                                        "--spring.datasource.driver-class-name=com.mysql.jdbc.Driver " +
-                                                        "--spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect " +
-                                                        "--spring.jpa.generate-ddl=true " +
-                                                        "--spring.jpa.hibernate.ddl-auto=create-drop " +
-                                                        "--spring.datasource.initialization-mode=always " +
-                                                        "--server.port=8901 " +
-                                                        "-Dspring.datasource.username=${TEST_RDS_USR} " +
-                                                        "-Dspring.datasource.password=${TEST_RDS_PWD}'"
-                                            }
-                                            // generates test coverage.
-                                            jacoco(
-                                                    execPattern: "**/target/*.exec",
-                                                    classPattern: "**/target/classes",
-                                                    sourcePattern: "/src/main/java",
-                                                    exclusionPattern: "/src/test*"
-                                            )
-                                            sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
-                                            sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
-                                            //exports test results back to jenkins for devs.
-                                            publishHTML([allowMissing         : true,
-                                                         alwaysLinkToLastBuild: false,
-                                                         keepAll              : false,
-                                                         reportDir            : "./target/site/jacoco/",
-                                                         reportFiles          : "index.html",
-                                                         reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                         reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                            ])
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        
+                        SPRING_PROFILES_ACTIVE = "--spring.profiles.active=dev" //TODO: change this
+
+                        // MANNYS CODE
+                        // PROPERTIES_DATA_REST_BASE = "--spring.data.rest.base-path=/api"
+                        // PROPERTIES_INITIALIZATION_MODE = "--spring.datasource.initialization-mode=always"
+                        // PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
+                        // PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' //TODO: change this
+                        // JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
+                        // JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true "
+
+                        //SONNYS CODE
+                        //DATASOURCE.URL => ENVIRONMENT
+                        //DATASOURCE.USERNAME => ENVIRONMENT
+                        //DATASOURCE.PASSWORD => ENVIRONMENT
+                        PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb'
+                        PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.jdbc.Driver"
+                        
+                        JPA_DATABASE_PLATFORM = "--spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect"
+                        JPA_GENERATE_DDL = "--spring.jpa.generate-ddl=true"
+                        JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=create-drop" //should be create-delete?
+
+                        SERVER_PORT = 8901
+                        
+
+                        // combines all into one argument.
+                        TEST_APPLICATION_PROPERTIES = "-Dspring-boot.run.arguments=' " +
+                                "${SPRING_PROFILES_ACTIVE} " +
+                                "${PROPERTIES_TEST_DATASOURCE_URL} " +
+                                "${PROPERTIES_DRIVER_CLASS} " +
+                                "${JPA_DATABASE_PLATFORM} " +
+                                "${JPA_GENERATE_DDL} " +
+                                "${JPA_HIBERNATE_DDL}'"
+                                //"${SERVER_PORT}'"
+
+
+                                // "${PROPERTIES_DATA_REST_BASE} " +
+                                // "${PROPERTIES_INITIALIZATION_MODE} " +
+                                // "${PROPERTIES_DRIVER_CLASS} " +
+                                // "${PROPERTIES_TEST_DATASOURCE_URL} " +
+                                // "${JPA_HIBERNATE_DDL} " +
+                                // "${JPA_SHOW_SQL_BOOL}'"
                     }
                     // matrix used to parallelize stages for each microservice.
                     matrix {
@@ -134,12 +90,48 @@ pipeline {
                             axis {
                                 name "MICROSERVICE_NAME"
                                 values "ReadTicket"//,
-                                // "ReadTicket",
-                                // "UpdateTicket",
-                                // "DeleteTicket"
+                                        // "ReadTicket",
+                                        // "UpdateTicket",
+                                        // "DeleteTicket"
                             }
                         }
                         stages {
+                            stage("Testing") {
+                                steps {
+                                    echo "${MICROSERVICE_NAME}"
+                                    dir("backend/${MICROSERVICE_NAME}") {
+                                        // gets the test database username and password from jenkins secrets .
+                                        withCredentials([usernamePassword(
+                                                credentialsId: 'SONNY_DB_CREDS', //TODO: change??
+                                                usernameVariable: 'TEST_RDS_USR', //TODO: change??
+                                                passwordVariable: 'TEST_RDS_PWD' //TODO: change??
+                                        )]) {
+                                            // runs maven test
+                                            sh "mvn clean test ${TEST_APPLICATION_PROPERTIES} " +
+                                                    "-Dspring.datasource.username=${TEST_RDS_USR} " +
+                                                    "-Dspring.datasource.password=${TEST_RDS_PWD}"
+                                        }
+                                        // generates test coverage.
+                                        jacoco(
+                                                execPattern: "**/target/*.exec",
+                                                classPattern: "**/target/classes",
+                                                sourcePattern: "/src/main/java",
+                                                exclusionPattern: "/src/test*"
+                                        )
+                                        sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
+                                        sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
+                                        //exports test results back to jenkins for devs.
+                                        publishHTML([allowMissing         : true,
+                                                     alwaysLinkToLastBuild: false,
+                                                     keepAll              : false,
+                                                     reportDir            : "./target/site/jacoco/",
+                                                     reportFiles          : "index.html",
+                                                     reportName           : "${MICROSERVICE_NAME} Results Report",
+                                                     reportTitles         : "${MICROSERVICE_NAME} Test Results"
+                                        ])
+                                    }
+                                }
+                            }
                             // builds jar files by running the command mvn clean install.
                             stage("Build JAR Files") {
                                 steps {
@@ -186,7 +178,7 @@ pipeline {
                             }
                         }
                     }
-                }}
+                }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
