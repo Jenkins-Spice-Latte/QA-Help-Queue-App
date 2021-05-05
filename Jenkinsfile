@@ -50,7 +50,7 @@ pipeline {
                         // PROPERTIES_DRIVER_CLASS = "--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
                         // PROPERTIES_TEST_DATASOURCE_URL = '--spring.datasource.url=jdbc:mysql://$TEST_RDS_ENDPOINT/testdb' //TODO: change this
                         // JPA_HIBERNATE_DDL = "--spring.jpa.hibernate.ddl-auto=update"
-                        // JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true"
+                        // JPA_SHOW_SQL_BOOL = "--spring.jpa.show-sql=true "
 
                         //SONNYS CODE
                         //DATASOURCE.URL => ENVIRONMENT
