@@ -115,7 +115,7 @@ pipeline {
                                                     'spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb\n' +
                                                     'spring.datasource.username=root\n' +
                                                     'spring.datasource.password=wokewoke\n' +
-                                                    'spring.datasource.driver-class-name=com.mysql.jdbc.Driver\n' +
+                                                    'spring.datasource.driverClassName=com.mysql.jdbc.Driver\n' +
                                                     'spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect\n' +
                                                     'spring.jpa.generate-ddl=true\n' +
                                                     'spring.jpa.hibernate.ddl-auto=create-drop\n' +
