@@ -30,7 +30,7 @@ pipeline {
                     sh "kubectl rollout restart deployment update-backend-deploy"
                     sh "kubectl rollout restart deployment delete-backend-deploy"
 
-                    sh "sleep 3"
+                    sh "sleep 30"
 
                     sh "kubectl get services"
                     sh "kubectl get pods"
