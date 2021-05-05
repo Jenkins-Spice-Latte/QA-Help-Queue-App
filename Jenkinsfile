@@ -89,10 +89,10 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket",
-                                        //"DeleteTicket",
-                                        //"UpdateTicket",
-                                        //"ReadTicket"
+                                values "CreateTicket" //,
+                                        // "ReadTicket",
+                                        // "UpdateTicket",
+                                        // "DeleteTicket"
                             }
                         }
                         stages {
