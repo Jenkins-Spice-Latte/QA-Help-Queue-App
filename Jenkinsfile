@@ -35,7 +35,7 @@ pipeline {
 
                 stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
-                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
