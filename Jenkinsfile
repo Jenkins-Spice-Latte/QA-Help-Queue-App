@@ -102,7 +102,7 @@ pipeline {
                                     dir("backend/${MICROSERVICE_NAME}") {
                                         // gets the test database username and password from jenkins secrets .
                                         withCredentials([usernamePassword(
-                                                credentialsId: 'TEST_RDS_CREDENTIALS', //TODO: change??
+                                                credentialsId: 'TEST_RDS_CREDENTIALS', //TODO: change ??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
                                                 passwordVariable: 'TEST_RDS_PWD' //TODO: change??
                                         )]) {
