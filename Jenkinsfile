@@ -105,7 +105,7 @@ pipeline {
                                         //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
                                         sh "mkdir src/main/resources"
-                                        sh "ls -la src/main/resources"
+
                                         sh 'echo "spring.profiles.active=test" > src/main/resources/application.properties'
                                         sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
                                                 'spring.datasource.url=\n' +
@@ -119,6 +119,7 @@ pipeline {
                                                 'spring.jpa.show-sql=true\n' +
                                                 'spring.data.rest.base-path=/api'
                                         sh "cat src/main/resources/application-test.properties"
+                                        sh "ls -la src/main/resources"
                                         /*withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
