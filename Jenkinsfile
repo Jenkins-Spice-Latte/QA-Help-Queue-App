@@ -5,8 +5,14 @@ pipeline {
         //fail the pipeline after 30 min
         timeout(time: 30, unit: 'MINUTES')
     }
-    agent any
     stages {
+        stage("Create EKS Cluster"){
+            steps{
+                dir("k8s_scripts"){
+                    sh "bash createCluster.sh"
+                }
+            }
+        }
 
         stage("Apply Kubernetes files"){
             steps{

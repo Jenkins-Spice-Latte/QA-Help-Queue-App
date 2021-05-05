@@ -1,0 +1,27 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ticket-cluster
+  region: eu-west-2
+
+vpc:
+  id: "vpc-0d61e7ea64f5beaef"
+  cidr: "10.0.0.0/16"
+  subnets:
+    public:
+      eu-west-2a:
+        id: "hq_eks_public_subnet_a"
+        cidr: "10.0.22.0/24"
+
+      eu-west-2b:
+        id: "hq_eks_public_subnet_b"
+        cidr: "11.0.44.0/24"
+
+nodeGroups:
+  - name: ng-1
+    instanceType: t3.medium
+    desiredCapacity: 3
+    ssh:
+      publicKeyName: i_dont_give_a_ssh
+      allow: true
