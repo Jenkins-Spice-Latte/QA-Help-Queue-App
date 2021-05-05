@@ -20,3 +20,7 @@ spec:
         image: jenkinsspicelatte/hq-backend-updateticket
         ports:
         - containerPort: 5003
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2

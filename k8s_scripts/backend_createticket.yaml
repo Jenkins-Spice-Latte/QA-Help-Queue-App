@@ -20,3 +20,7 @@ spec:
         image: jenkinsspicelatte/hq-backend-createticket:1.0.5PROD
         ports:
         - containerPort: 5001
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2

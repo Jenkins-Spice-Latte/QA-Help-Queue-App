@@ -20,3 +20,7 @@ spec:
         image: jenkinsspicelatte/hq-backend-deleteticket
         ports:
         - containerPort: 5004
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2

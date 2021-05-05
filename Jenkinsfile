@@ -25,6 +25,16 @@ pipeline {
                     sh "kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml"
                     sh "kubectl apply -f backend_createticket.yaml -f backend_readticket.yaml -f backend_updateticket.yaml -f backend_deleteticket.yaml"
 
+                    sh "kubectl rollout restart deployment create-backend-deploy"
+                    sh "kubectl rollout restart deployment read-backend-deploy"
+                    sh "kubectl rollout restart deployment update-backend-deploy"
+                    sh "kubectl rollout restart deployment delete-backend-deploy"
+
+                    sh "sleep 3"
+
+                    sh "kubectl get services"
+                    sh "kubectl get pods"
+
                     //sh "kubectl set env deployment/create_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
                     // sh "kubectl set env deployment/create_backend_deploy RDS_USERNAME=$RDS_USERNAME"
                     // sh "kubectl set env deployment/create_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
