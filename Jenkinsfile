@@ -100,7 +100,7 @@ pipeline {
                                 steps {
                                     echo "${MICROSERVICE_NAME}"
                                     dir("backend/${MICROSERVICE_NAME}") {
-                                        // gets the test database username and password from jenkins secrets.
+                                        // gets the test database username and password from jenkins secrets .
                                         withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
