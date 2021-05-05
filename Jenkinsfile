@@ -57,7 +57,7 @@ pipeline {
                             stage("Deposit application.properties"){
                                 steps{
                                     withCredentials([file(credentialsId: 'APP_PROP_CREATE_TICKET', variable: 'application_properties')]){
-                                        sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application.properties"
+                                        sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                     }
                                 }
                             }
