@@ -29,6 +29,7 @@ pipeline {
                     sh "kubectl rollout restart deployment read-backend-deploy"
                     sh "kubectl rollout restart deployment update-backend-deploy"
                     sh "kubectl rollout restart deployment delete-backend-deploy"
+                    sh "kubectl rollout restart deployment nginx"
 
                     sh "sleep 30"
 
