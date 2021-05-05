@@ -31,7 +31,8 @@ pipeline {
                         ])
                     }
                 }
-                stage("Backend Microservices") {
+                steps {
+                    stage("Backend Microservices") {
                     // only runs if branch is backend, main, or dev.
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
@@ -81,7 +82,7 @@ pipeline {
                         steps {
                             script {
                                 for (MICROSERVICE_NAME in MICRO_SERVICES) {
-                                    //stage("Microservice Testing"){
+                                    stage("Microservice Testing"){
                                         echo "${MICROSERVICE_NAME}"
                                         dir("backend/${MICROSERVICE_NAME}") {
                                             // gets the test database username and password from jenkins secrets .
@@ -122,7 +123,7 @@ pipeline {
                                                          reportTitles         : "${MICROSERVICE_NAME} Test Results"
                                             ])
                                         }
-                                    //}
+                                    }
                                 }
                             }
                         }
@@ -185,7 +186,7 @@ pipeline {
                             }
                         }
                     }
-                }
+                }}
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
