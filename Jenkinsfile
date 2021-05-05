@@ -113,8 +113,8 @@ pipeline {
                                             sh 'echo "spring.profiles.active=test" > src/main/resources/application.properties'
                                             sh 'cat >> src/main/resources/application-test.properties << \'END\'\n' +
                                                     'spring.datasource.url=jdbc:mysql://sonnys-database.cbkgwkakiiip.eu-west-2.rds.amazonaws.com:3306/testdb\n' +
-                                                    'spring.datasource.username=${SONNY_RDS_U}\n' +
-                                                    'spring.datasource.password=${SONNY_RDS_P}\n' +
+                                                    'spring.datasource.username=root\n' +
+                                                    'spring.datasource.password=wokewoke\n' +
                                                     'spring.datasource.driver-class-name=com.mysql.jdbc.Driver\n' +
                                                     'spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect\n' +
                                                     'spring.jpa.generate-ddl=true\n' +
