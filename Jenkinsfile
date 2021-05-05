@@ -81,7 +81,7 @@ pipeline {
                         steps {
                             script {
                                 for (MICROSERVICE_NAME in MICRO_SERVICES) {
-                                    stage("Microservice Testing"){
+                                    //stage("Microservice Testing"){
                                         echo "${MICROSERVICE_NAME}"
                                         dir("backend/${MICROSERVICE_NAME}") {
                                             // gets the test database username and password from jenkins secrets .
@@ -122,7 +122,7 @@ pipeline {
                                                          reportTitles         : "${MICROSERVICE_NAME} Test Results"
                                             ])
                                         }
-                                    }
+                                    //}
                                 }
                             }
                         }
