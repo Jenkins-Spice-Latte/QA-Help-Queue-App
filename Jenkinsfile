@@ -19,7 +19,7 @@ pipeline {
         stage("Apply Kubernetes files"){
             steps{
                 dir("k8s_scripts"){
-                    sh "kubectl apply -f nginx_config.yaml"
+                    //sh "kubectl apply -f nginx_config.yaml"
                     sh "kubectl apply -f svc_nginx_lb.yaml -f nginx.yaml"
 
                     sh "kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml"

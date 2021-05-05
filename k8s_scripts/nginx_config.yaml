@@ -6,7 +6,7 @@ data:
   default.conf:
     server {
         listen 80;
-        # location / {
-        #     proxy_pass http://spring-app:5000;
-        # }
+        location / {
+            proxy_pass http://spring-app:5000;
+        }
     }
