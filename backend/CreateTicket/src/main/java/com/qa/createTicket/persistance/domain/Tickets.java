@@ -12,7 +12,7 @@ public class Tickets {
 	@Id //Primary Key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
 	@Column
-	private Long ticketID;
+	private Long ticketid;
 	
 	@Column
 	private String title;
@@ -36,10 +36,10 @@ public class Tickets {
 	private boolean complete;
 
 
-	public Tickets(Long ticketID, String title, String author, String description, Long time_created, String topic,
-			Long urgency, boolean complete) {
+	public Tickets(Long ticketid, String title, String author, String description, Long time_created, String topic,
+				   Long urgency, boolean complete) {
 		super();
-		this.ticketID = ticketID;
+		this.ticketid = ticketid;
 		this.title = title;
 		this.author = author;
 		this.description = description;
@@ -52,12 +52,12 @@ public class Tickets {
 	public Tickets(){
 	}
 
-	public Long getTicketID() {
-		return ticketID;
+	public Long getTicketid() {
+		return ticketid;
 	}
 
-	public void setTicketID(Long ticketID) {
-		this.ticketID = ticketID;
+	public void setTicketid(Long ticketid) {
+		this.ticketid = ticketid;
 	}
 
 	public String getTitle() {
