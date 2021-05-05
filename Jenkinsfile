@@ -104,8 +104,8 @@ pipeline {
                                     dir("backend/${MICROSERVICE_NAME}") {
                                         //backend/CreateTicket/src/main/resources
                                         // gets the test database username and password from jenkins secrets.
-                                        sh "mkdir /src/main/resources"
-                                        sh 'echo $APP_PROP_TEST_CREATETICKET >> /src/main/resources/application.properties'
+                                        sh "mkdir src/main/resources"
+                                        sh 'echo $APP_PROP_TEST_CREATETICKET >> src/main/resources/application.properties'
                                         /*withCredentials([usernamePassword(
                                                 credentialsId: 'SONNY_DB_CREDS', //TODO: change??
                                                 usernameVariable: 'TEST_RDS_USR', //TODO: change??
