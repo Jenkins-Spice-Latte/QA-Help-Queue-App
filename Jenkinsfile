@@ -50,7 +50,7 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "ReadTicket"
+                                values "UpdateTicket"
                                         //"ReadTicket"
                                         //"UpdateTicket",
                                         //"DeleteTicket"
