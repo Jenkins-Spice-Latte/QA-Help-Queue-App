@@ -49,101 +49,104 @@ pipeline {
 
                     
                     // matrix used to parallelize stages for each microservice.
-                    steps{
-                        script{
-                            for(MICROSERVICE_NAME in MICROSERVICE_LIST) {
-                                stages {
-                                    stage("Deposit application.properties"){
-                                        steps{
-                                            withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]){
-                                                sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
-                                            }
+                    script{
+                        for(MICROSERVICE_NAME in MICROSERVICE_LIST) {
+                            stages {
+                                stage("Deposit application.properties"){
+                                    steps{
+                                        withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]){
+                                            sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                         }
                                     }
+                                }
 
 
-                                    stage("Testing") {
-                                        steps {
-                                            echo "${MICROSERVICE_NAME}"
-                                            dir("backend/${MICROSERVICE_NAME}") {
-                                                // runs maven test
-                                                sh "mvn clean test"
+                                stage("Testing") {
+                                    steps {
+                                        echo "${MICROSERVICE_NAME}"
+                                        dir("backend/${MICROSERVICE_NAME}") {
+                                            // runs maven test
+                                            sh "mvn clean test"
 
-                                                // generates test coverage.
-                                                jacoco(
-                                                    execPattern: "**/target/*.exec",
-                                                    classPattern: "**/target/classes",
-                                                    sourcePattern: "/src/main/java",
-                                                    exclusionPattern: "/src/test*"
-                                                )
-
-
-                                                sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
-                                                sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
+                                            // generates test coverage.
+                                            jacoco(
+                                                execPattern: "**/target/*.exec",
+                                                classPattern: "**/target/classes",
+                                                sourcePattern: "/src/main/java",
+                                                exclusionPattern: "/src/test*"
+                                            )
 
 
-                                                //exports test results back to jenkins for devs.
-                                                publishHTML([allowMissing         : true,
-                                                    alwaysLinkToLastBuild: false,
-                                                    keepAll              : false,
-                                                    reportDir            : "./target/site/jacoco/",
-                                                    reportFiles          : "index.html",
-                                                    reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                    reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                                ])
-                                            }
+                                            sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
+                                            sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
+
+
+                                            //exports test results back to jenkins for devs.
+                                            publishHTML([allowMissing         : true,
+                                                alwaysLinkToLastBuild: false,
+                                                keepAll              : false,
+                                                reportDir            : "./target/site/jacoco/",
+                                                reportFiles          : "index.html",
+                                                reportName           : "${MICROSERVICE_NAME} Results Report",
+                                                reportTitles         : "${MICROSERVICE_NAME} Test Results"
+                                            ])
                                         }
                                     }
-                            
-                                    // builds jar files by running the command mvn clean install.
-                                    stage("Build JAR Files") {
-                                        steps {
-                                            echo "${MICROSERVICE_NAME}"
-                                            dir("backend/${MICROSERVICE_NAME}") {
-                                                sh "${RUN_BUILD}"
-                                            }
+                                }
+                        
+                                // builds jar files by running the command mvn clean install.
+                                stage("Build JAR Files") {
+                                    steps {
+                                        echo "${MICROSERVICE_NAME}"
+                                        dir("backend/${MICROSERVICE_NAME}") {
+                                            sh "${RUN_BUILD}"
                                         }
                                     }
-                                    stage("Create & Push Container Images") {
-                                        environment {
-                                            // conditionals to set variable depending on microservice name (a very hacky way - jenkins declarative pipeline limitation).
-                                            DOCKERIZED_NAME = "${MICROSERVICE_NAME == "CreateTicket" ? "createticket" : MICROSERVICE_NAME == "ReadTicket" ? "readticket" : MICROSERVICE_NAME == "UpdateTicket" ? "updateticket" : MICROSERVICE_NAME == "DeleteTicket" ? "deleteticket" : null}"
-                                            MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" : MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
-                                            EXPOSED_PORT = "${MICROSERVICE_NAME == "CreateTicket" ? "8901" : MICROSERVICE_NAME == "ReadTicket" ? "8902" : MICROSERVICE_NAME == "UpdateTicket" ? "8903" : MICROSERVICE_NAME == "DeleteTicket" ? "8904" : null}"
-                                            // docker image information.
-                                            ORG_NAME = "jenkinsspicelatte"
-                                            IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
-                                            JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
-                                        }
-                                        steps {
-                                            echo "${MICROSERVICE_NAME} -> ${IMAGE_IDENTIFIER}"
-                                            script {
-                                                dir("backend/") {
-                                                    // builds image - sends args to Dockerfile.
-                                                    sh "docker build -t " +
-                                                            "${IMAGE_IDENTIFIER} " +
-                                                            "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " +
-                                                            "-f ../docker/Dockerfile.backend ."
-                                                    // all the other arguments (ENV) in dockerfile are input at runtime.
-                                                    withCredentials([usernamePassword(
-                                                            credentialsId: 'DOCKERHUB_LOGIN',
-                                                            usernameVariable: 'DOCKERHUB_USER',
-                                                            passwordVariable: 'DOCKERHUB_PASS'
-                                                    )]) {
-                                                        // pushes to dockerhub
-                                                        sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
-                                                        sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                                                        sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
-                                                    }
+                                }
+
+
+                                stage("Create & Push Container Images") {
+                                    environment {
+                                        // conditionals to set variable depending on microservice name (a very hacky way - jenkins declarative pipeline limitation).
+                                        DOCKERIZED_NAME = "${MICROSERVICE_NAME == "CreateTicket" ? "createticket" : MICROSERVICE_NAME == "ReadTicket" ? "readticket" : MICROSERVICE_NAME == "UpdateTicket" ? "updateticket" : MICROSERVICE_NAME == "DeleteTicket" ? "deleteticket" : null}"
+                                        MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" : MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
+                                        EXPOSED_PORT = "${MICROSERVICE_NAME == "CreateTicket" ? "8901" : MICROSERVICE_NAME == "ReadTicket" ? "8902" : MICROSERVICE_NAME == "UpdateTicket" ? "8903" : MICROSERVICE_NAME == "DeleteTicket" ? "8904" : null}"
+                                        // docker image information.
+                                        ORG_NAME = "jenkinsspicelatte"
+                                        IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
+                                        JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
+                                    }
+                                    steps {
+                                        echo "${MICROSERVICE_NAME} -> ${IMAGE_IDENTIFIER}"
+                                        script {
+                                            dir("backend/") {
+                                                // builds image - sends args to Dockerfile.
+                                                sh "docker build -t " +
+                                                        "${IMAGE_IDENTIFIER} " +
+                                                        "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " +
+                                                        "-f ../docker/Dockerfile.backend ."
+                                                // all the other arguments (ENV) in dockerfile are input at runtime.
+                                                withCredentials([usernamePassword(
+                                                        credentialsId: 'DOCKERHUB_LOGIN',
+                                                        usernameVariable: 'DOCKERHUB_USER',
+                                                        passwordVariable: 'DOCKERHUB_PASS'
+                                                )]) {
+                                                    // pushes to dockerhub
+                                                    sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
+                                                    sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
+                                                    sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                                 }
                                             }
                                         }
                                     }
-                        }
+                                }
+
+
+                            }
+                            }
                     }
-                    }
+                
                 }
-                    }
                 
 
 
