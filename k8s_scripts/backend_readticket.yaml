@@ -20,8 +20,3 @@ spec:
         image: jenkinsspicelatte/hq-backend-readticket
         ports:
         - containerPort: 5002
-        env:
-        - name: DATABASE_URI
-          value: -----ENVIRONMENT VARIABLE -----------
-        - name: SECRET_KEY
-          value: -----ENVIRONMENT VARIALBE -----------

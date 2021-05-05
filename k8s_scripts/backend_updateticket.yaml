@@ -20,8 +20,3 @@ spec:
         image: jenkinsspicelatte/hq-backend-updateticket
         ports:
         - containerPort: 5003
-        env:
-        - name: DATABASE_URI
-          value: -----ENVIRONMENT VARIABLE -----------
-        - name: SECRET_KEY
-          value: -----ENVIRONMENT VARIALBE -----------

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: create_backend
+  name: create_backend_deploy
   labels:
     app: help_queue_create_backend
 spec:
@@ -20,8 +20,3 @@ spec:
         image: jenkinsspicelatte/hq-backend-createticket:latest
         ports:
         - containerPort: 5001
-        env:
-        - name: DATABASE_URI
-          value: -----ENVIRONMENT VARIABLE -----------
-        - name: SECRET_KEY
-          value: -----ENVIRONMENT VARIALBE -----------
