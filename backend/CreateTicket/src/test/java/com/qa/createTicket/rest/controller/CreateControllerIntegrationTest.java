@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,8 @@ import com.qa.createTicket.persistance.domain.Tickets;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = {"classpath:schema.sql" , "classpath:data.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD) 
 @ActiveProfiles(profiles = "test")
+@Sql(scripts = {"classpath:schema.sql" , "classpath:data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class CreateControllerIntegrationTest {
 
 	@Autowired

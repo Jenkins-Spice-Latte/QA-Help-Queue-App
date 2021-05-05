@@ -16,6 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 import com.qa.createTicket.persistance.domain.Tickets;
 import com.qa.createTicket.persistance.repository.hqRepository;
 
+import javax.persistence.Column;
+
 @SpringBootTest
 @ActiveProfiles(profiles = "test")
 public class CreateServiceUnitTest {
