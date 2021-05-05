@@ -10,6 +10,7 @@ pipeline {
         stage("Create EKS Cluster"){
             steps{
                 dir("k8s_scripts"){
+                    sh "bash install-eksctl.sh"
                     sh "bash createCluster.sh"
                 }
             }
