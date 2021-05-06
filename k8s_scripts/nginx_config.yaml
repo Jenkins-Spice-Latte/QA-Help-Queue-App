@@ -13,30 +13,14 @@ data:
 
         location /api/createTicket {
             proxy_pass http://create-ip:8901;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            #proxy_set_header Host $host;
         }
         location /api/readTicket {
             proxy_pass http://read-ip:8902;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            #proxy_set_header Host $host;
         }
         location /api/updateTicket {
             proxy_pass http://update-ip:8903;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            #proxy_set_header Host $host;
         }
         location /api/deleteTicket {
             proxy_pass http://delete-ip:8904;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            #proxy_set_header Host $host;
         }
     }
