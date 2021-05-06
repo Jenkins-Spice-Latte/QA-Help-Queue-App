@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: readticket
-        image: jenkinsspicelatte/hq-backend-readticket:1.0.5PROD
+        image: jenkinsspicelatte/hq-backend-readticket:latest
         ports:
         - containerPort: 5002
   strategy:

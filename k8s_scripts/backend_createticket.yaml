@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: createticket
-        image: jenkinsspicelatte/hq-backend-createticket:1.0.9PROD
+        image: jenkinsspicelatte/hq-backend-createticket:latest
         ports:
         - containerPort: 5001
   strategy:
