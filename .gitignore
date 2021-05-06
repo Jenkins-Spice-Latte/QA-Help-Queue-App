@@ -1,0 +1,17 @@
+
+terraform/.terraform/modules/modules.json
+terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/3.37.0/darwin_amd64/terraform-provider-aws_v3.37.0_x5
+terraform/main_backup.tfvars
+terraform/terraform.code-workspace
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+terraform/variables_backup.tfvars
+terraform_local_manager/.terraform/modules/modules.json
+terraform_local_manager/.terraform/providers/registry.terraform.io/hashicorp/aws/3.37.0/darwin_amd64/terraform-provider-aws_v3.37.0_x5
+terraform_local_manager/terraform.tfstate
+terraform_local_manager/terraform.tfstate.backup
+terraform_local_manager/terraform.tfvars
+
+**/.idea/*
+.idea/vcs.xml
