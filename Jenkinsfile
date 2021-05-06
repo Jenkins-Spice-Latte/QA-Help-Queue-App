@@ -207,6 +207,8 @@ pipeline {
                     //sh "kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml"
                     sh "kubectl apply -f backend_createticket.yaml -f backend_readticket.yaml -f backend_updateticket.yaml -f backend_deleteticket.yaml"
 
+                    sh "kubectl apply -f frontend.yaml"
+
                     sh "kubectl rollout restart deployment create"
                     sh "kubectl rollout restart deployment read"
                     sh "kubectl rollout restart deployment update"
