@@ -51,8 +51,7 @@ pipeline {
                     // matrix used to parallelize stages for each microservice.
                 steps{
                     script{
-                        for(MICROSERVICE_NAME in MICROSERVICE_LIST) {
-                            stages {
+                        MICROSERVICE_LIST.each { MICROSERVICE_NAME -> 
                                 stage("Deposit application.properties"){
                                     steps{
                                         withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]){
@@ -141,9 +140,6 @@ pipeline {
                                         }
                                     }
                                 }
-
-
-                            }
                             }
                     }
                 }
