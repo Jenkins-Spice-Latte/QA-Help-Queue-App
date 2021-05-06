@@ -10,8 +10,6 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  imagePullSecrets:
-  - name: ticketkey
   template:
     metadata:
       labels:
@@ -25,6 +23,8 @@ spec:
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d
+      imagePullSecrets:
+      - name: ticketkey
       volumes:
       - name: nginx-config
         configMap:
