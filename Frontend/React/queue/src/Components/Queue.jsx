@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import Ticket from './Ticket'
+import Ticket from './Ticket';
 
 const Queue = (props) => {
   const {className} = props;
