@@ -96,7 +96,7 @@ const Queue = (props) => {
       <div className= "queue_div">
         <p>Pending Tickets</p>
         
-        {result.map((item) => {
+        {uniqueresult.map((item) => {
             if(item.complete === false)
               return <Ticket item={item} className={className} sort={(props.sort)} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
           })}
@@ -104,7 +104,7 @@ const Queue = (props) => {
         
       <div className= "queue_div">
         <p>Completed Tickets</p>
-        {result.map((item) => {
+        {uniqueresult.map((item) => {
           if(item.complete === true)
             return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  
          })}

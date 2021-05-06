@@ -183,7 +183,7 @@ const Ticket = (props) => {
                     <p><strong>Description:</strong></p>
                     <p>{item.description}</p>
                     <br />
-                    <p><strong>Urgency:</strong> {item.urgency} {Urgencylevel}</p>
+                    <p><strong>Urgency:</strong> {Urgencylevel}</p>
                     <br />
                     <p><strong>Date created:</strong> {hours} : {mins}</p>
 
