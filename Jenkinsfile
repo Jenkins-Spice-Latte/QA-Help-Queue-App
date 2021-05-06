@@ -189,17 +189,17 @@ pipeline {
         }
 
         stage("Build Frontend, Push to Dockerhub"){
-            //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
-            // build frontend image
-            sh "docker build Frontend/React/queue -t manishreddy1/hq-frontend:latest"
+            steps{
+                //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
+                // build frontend image
+                sh "docker build Frontend/React/queue -t manishreddy1/hq-frontend:latest"
 
-            withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
-                // login and push to dockerhub
-                sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                sh "docker image push manishreddy1/hq-frontend:latest"
+                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    // login and push to dockerhub
+                    sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
+                    sh "docker image push manishreddy1/hq-frontend:latest"
+                }
             }
-
-
         }
 
 
