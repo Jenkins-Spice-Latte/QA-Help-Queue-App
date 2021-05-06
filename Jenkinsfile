@@ -53,16 +53,13 @@ pipeline {
                     script{
                         MICROSERVICE_LIST.each { MICROSERVICE_NAME -> 
                                 stage("Deposit application.properties"){
-                                    steps{
                                         withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]){
                                             sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                         }
-                                    }
                                 }
 
 
                                 stage("Testing") {
-                                    steps {
                                         echo "${MICROSERVICE_NAME}"
                                         dir("backend/${MICROSERVICE_NAME}") {
                                             // runs maven test
@@ -91,17 +88,14 @@ pipeline {
                                                 reportTitles         : "${MICROSERVICE_NAME} Test Results"
                                             ])
                                         }
-                                    }
                                 }
                         
                                 // builds jar files by running the command mvn clean install.
                                 stage("Build JAR Files") {
-                                    steps {
                                         echo "${MICROSERVICE_NAME}"
                                         dir("backend/${MICROSERVICE_NAME}") {
                                             sh "${RUN_BUILD}"
                                         }
-                                    }
                                 }
 
 
@@ -116,7 +110,6 @@ pipeline {
                                         IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                         JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
                                     }
-                                    steps {
                                         echo "${MICROSERVICE_NAME} -> ${IMAGE_IDENTIFIER}"
                                         script {
                                             dir("backend/") {
@@ -138,7 +131,6 @@ pipeline {
                                                 }
                                             }
                                         }
-                                    }
                                 }
                             }
                     }
