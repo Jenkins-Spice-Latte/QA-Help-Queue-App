@@ -49,53 +49,53 @@ pipeline {
 
                     
                     // matrix used to parallelize stages for each microservice.
-                steps{
-                    script{
-                        MICROSERVICE_LIST.each { MICROSERVICE_NAME -> 
+                    steps{
+                        script{
+                            MICROSERVICE_LIST.each { MICROSERVICE_NAME -> 
                                 stage("Deposit application.properties"){
-                                        withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]){
-                                            sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
-                                        }
+                                    withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]){
+                                        sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
+                                    }
                                 }
 
 
                                 stage("Testing") {
-                                        echo "${MICROSERVICE_NAME}"
-                                        dir("backend/${MICROSERVICE_NAME}") {
-                                            // runs maven test
-                                            sh "mvn clean test"
+                                    echo "${MICROSERVICE_NAME}"
+                                    dir("backend/${MICROSERVICE_NAME}") {
+                                        // runs maven test
+                                        sh "mvn clean test"
 
-                                            // generates test coverage.
-                                            jacoco(
-                                                execPattern: "**/target/*.exec",
-                                                classPattern: "**/target/classes",
-                                                sourcePattern: "/src/main/java",
-                                                exclusionPattern: "/src/test*"
-                                            )
-
-
-                                            sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
-                                            sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
+                                        // generates test coverage.
+                                        jacoco(
+                                            execPattern: "**/target/*.exec",
+                                            classPattern: "**/target/classes",
+                                            sourcePattern: "/src/main/java",
+                                            exclusionPattern: "/src/test*"
+                                        )
 
 
-                                            //exports test results back to jenkins for devs.
-                                            publishHTML([allowMissing         : true,
-                                                alwaysLinkToLastBuild: false,
-                                                keepAll              : false,
-                                                reportDir            : "./target/site/jacoco/",
-                                                reportFiles          : "index.html",
-                                                reportName           : "${MICROSERVICE_NAME} Results Report",
-                                                reportTitles         : "${MICROSERVICE_NAME} Test Results"
-                                            ])
-                                        }
+                                        sh "mkdir -p ../allTestCov/${MICROSERVICE_NAME}"
+                                        sh "cp -a target/site/jacoco/ ../allTestCov/${MICROSERVICE_NAME}"
+
+
+                                        //exports test results back to jenkins for devs.
+                                        publishHTML([allowMissing         : true,
+                                            alwaysLinkToLastBuild: false,
+                                            keepAll              : false,
+                                            reportDir            : "./target/site/jacoco/",
+                                            reportFiles          : "index.html",
+                                            reportName           : "${MICROSERVICE_NAME} Results Report",
+                                            reportTitles         : "${MICROSERVICE_NAME} Test Results"
+                                        ])
+                                    }
                                 }
                         
                                 // builds jar files by running the command mvn clean install.
                                 stage("Build JAR Files") {
-                                        echo "${MICROSERVICE_NAME}"
-                                        dir("backend/${MICROSERVICE_NAME}") {
-                                            sh "${RUN_BUILD}"
-                                        }
+                                    echo "${MICROSERVICE_NAME}"
+                                    dir("backend/${MICROSERVICE_NAME}") {
+                                        sh "${RUN_BUILD}"
+                                    }
                                 }
 
 
@@ -110,35 +110,24 @@ pipeline {
                                         IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                         JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
                                     }
-                                        echo "${MICROSERVICE_NAME} -> ${IMAGE_IDENTIFIER}"
-                                        script {
-                                            dir("backend/") {
-                                                // builds image - sends args to Dockerfile.
-                                                sh "docker build -t " +
-                                                        "${IMAGE_IDENTIFIER} " +
-                                                        "--build-arg JAR_FILE='/${MICROSERVICE_NAME}/target/${JAR_NAME}.jar' " +
-                                                        "-f ../docker/Dockerfile.backend ."
-                                                // all the other arguments (ENV) in dockerfile are input at runtime.
-                                                withCredentials([usernamePassword(
-                                                        credentialsId: 'DOCKERHUB_LOGIN',
-                                                        usernameVariable: 'DOCKERHUB_USER',
-                                                        passwordVariable: 'DOCKERHUB_PASS'
-                                                )]) {
-                                                    // pushes to dockerhub
-                                                    sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
-                                                    sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                                                    sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
-                                                }
-                                            }
+                                    dir("backend/") {
+                                        // builds image - sends args to Dockerfile.
+                                        sh "docker build ${MICROSERVICE_NAME} -t ${ORG_NAME}/hq-backend${DOCKERIZED_NAME}:latest"
+                                            
+                                        withCredentials([usernamePassword( credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]){
+                                            // pushes to dockerhub
+                                            sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
+                                            sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
+                                            sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
                                         }
+                                    }
+                                        
                                 }
                             }
+                        }
                     }
                 }
-                }
                 
-
-
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
                     when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
