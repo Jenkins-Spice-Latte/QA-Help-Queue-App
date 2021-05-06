@@ -1,4 +1,4 @@
-String[] MICROSERVICE_LIST = ['ReadTicket', 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
+String[] MICROSERVICE_LIST = ['CreateTicket', 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
