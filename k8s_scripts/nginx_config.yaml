@@ -11,15 +11,15 @@ data:
         }
 
         location /api/createTicket {
-            proxy_pass http://backend:8901;
+            proxy_pass http://create-ip:8901;
         }
         location /api/readTicket {
-            proxy_pass http://backend:8902;
+            proxy_pass http://read-ip:8902;
         }
         location /api/updateTicket {
-            proxy_pass http://backend:8903;
+            proxy_pass http://update-ip:8903;
         }
         location /api/deleteTicket {
-            proxy_pass http://backend:8904;
+            proxy_pass http://delete-ip:8904;
         }
     }
