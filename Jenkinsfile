@@ -85,10 +85,10 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket"/*,
-                                "ReadTicket",
-                                "UpdateTicket",
-                                "DeleteTicket"*/
+                                values "CreateTicket",
+                                        "ReadTicket",
+                                        "UpdateTicket",
+                                        "DeleteTicket"
                             }
                         }
                         stages {
@@ -120,7 +120,7 @@ pipeline {
                                 steps {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
-                                        sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
+                                        sh "docker build ${MICROSERVICE_NAME} -t manishreddy1/hq-backend-${DOCKERIZED_NAME}:latest"
                                         //sh "docker build ${MICROSERVICE_NAME} -t hq-backend-${DOCKERIZED_NAME}"
 
                                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
@@ -128,7 +128,7 @@ pipeline {
                                             //sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
 
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                                            sh "docker image push jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
+                                            sh "docker image push manishreddy1/hq-backend-${DOCKERIZED_NAME}:latest"
 
 
                                             //sh "docker tag hq-backend-createticket:latest public.ecr.aws/x2g1u6y5/hq-backend-${DOCKERIZED_NAME}:latest"

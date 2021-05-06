@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: readticket
-    image: jenkinsspicelatte/hq-backend-readticket:latest
+    image: manishreddy1/hq-backend-readticket:latest
     ports:
     - containerPort: 5002
 

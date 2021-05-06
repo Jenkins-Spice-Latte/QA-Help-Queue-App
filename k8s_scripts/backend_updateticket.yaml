@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: updateticket
-        image: jenkinsspicelatte/hq-backend-updateticket:latest
+        image: manishreddy1/hq-backend-updateticket:latest
         ports:
         - containerPort: 5003
         imagePullPolicy: Always

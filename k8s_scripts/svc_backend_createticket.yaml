@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: createticket
-    image: jenkinsspicelatte/hq-backend-createticket:latest
+    image: manishreddy1/hq-backend-createticket:latest
     ports:
     - containerPort: 5001
 

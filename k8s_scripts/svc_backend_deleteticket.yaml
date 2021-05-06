@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: deleteticket
-    image: jenkinsspicelatte/hq-backend-deleteticket:latest
+    image: manishreddy1/hq-backend-deleteticket:latest
     ports:
     - containerPort: 5004
 
