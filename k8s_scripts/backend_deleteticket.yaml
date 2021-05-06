@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: delete-backend-deploy
+  name: delete
   labels:
-    app: help-queue-delete
+    app: delete
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help-queue-delete
+      app: delete
 
   template:
     metadata:
       labels:
-        app: help-queue-delete
+        app: delete
     spec:
       containers:
-      - name: deleteticket
+      - name: deleteticket_cont
         image: manishreddy1/hq-backend-deleteticket:latest
         ports:
-        - containerPort: 5004
+        - containerPort: 8904
         imagePullPolicy: Always
       imagePullSecrets:
       - name: ticketkey
@@ -27,3 +27,18 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: delete-ip
+  labels:
+    app : delete-ip
+spec:
+  selector:
+    app: delete
+  ports: 
+  - protocol: TCP
+    port: 8904
+    targetPort: 8904
+  type: ClusterIP

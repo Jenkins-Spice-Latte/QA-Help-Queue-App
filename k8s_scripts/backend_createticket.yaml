@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: create-backend-deploy
+  name: create
   labels:
-    app: help-queue-create
+    app: create
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help-queue-create
+      app: create
 
   template:
     metadata:
       labels:
-        app: help-queue-create
+        app: create
     spec:
       containers:
-      - name: createticket
+      - name: createticket_cont
         image: manishreddy1/hq-backend-createticket:latest
         ports:
-        - containerPort: 5001
+        - containerPort: 8901
         imagePullPolicy: Always
       imagePullSecrets:
       - name: ticketkey
@@ -27,5 +27,20 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: create-ip
+  labels:
+    app : create-ip
+spec:
+  selector:
+    app: create
+  ports: 
+  - protocol: TCP
+    port: 8901
+    targetPort: 8901
+  type: ClusterIP
 
       

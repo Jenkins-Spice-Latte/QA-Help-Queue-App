@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: read-backend-deploy
+  name: read
   labels:
-    app: help-queue-read
+    app: help
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help-queue-read
+      app: help
 
   template:
     metadata:
       labels:
-        app: help-queue-read
+        app: help
     spec:
       containers:
-      - name: readticket
+      - name: readticket_cont
         image: manishreddy1/hq-backend-readticket:latest
         ports:
-        - containerPort: 5002
+        - containerPort: 8902
         imagePullPolicy: Always
       imagePullSecrets:
       - name: ticketkey
@@ -27,3 +27,18 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: read-ip
+  labels:
+    app : read-ip
+spec:
+  selector:
+    app: read
+  ports: 
+  - protocol: TCP
+    port: 8902
+    targetPort: 8902
+  type: ClusterIP

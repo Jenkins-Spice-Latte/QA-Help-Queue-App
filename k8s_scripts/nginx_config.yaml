@@ -3,10 +3,23 @@ kind: ConfigMap
 metadata:
   name: nginx-config
 data:
-  default.conf:
+  default.conf: |
     server {
         listen 80;
         location / {
-            proxy_pass http://spring-app:5000;
+            proxy_pass http://frontend:3000;
+        }
+
+        location /api/createTicket {
+            proxy_pass http://backend:8901;
+        }
+        location /api/readTicket {
+            proxy_pass http://backend:8902;
+        }
+        location /api/updateTicket {
+            proxy_pass http://backend:8903;
+        }
+        location /api/deleteTicket {
+            proxy_pass http://backend:8904;
         }
     }

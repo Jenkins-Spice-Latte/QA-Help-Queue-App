@@ -4,9 +4,7 @@ metadata:
   name: nginx
   labels:
     app: nginx
-
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: nginx
@@ -29,3 +27,19 @@ spec:
       - name: nginx-config
         configMap:
           name: nginx-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-lb
+  labels:
+    app: nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
