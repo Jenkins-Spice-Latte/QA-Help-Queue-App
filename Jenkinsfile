@@ -106,19 +106,18 @@ pipeline {
                                         MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" : MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
                                         EXPOSED_PORT = "${MICROSERVICE_NAME == "CreateTicket" ? "8901" : MICROSERVICE_NAME == "ReadTicket" ? "8902" : MICROSERVICE_NAME == "UpdateTicket" ? "8903" : MICROSERVICE_NAME == "DeleteTicket" ? "8904" : null}"
                                         // docker image information.
-                                        ORG_NAME = "jenkinsspicelatte"
                                         IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                         JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
                                     }
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
-                                        sh "docker build ${MICROSERVICE_NAME} -t ${ORG_NAME}/hq-backend${DOCKERIZED_NAME}:latest"
+                                        sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
                                             
                                         withCredentials([usernamePassword( credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]){
                                             // pushes to dockerhub
-                                            sh "docker tag hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID} ${ORG_NAME}/${IMAGE_IDENTIFIER}"
+                                            sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                                            sh "docker image push ${ORG_NAME}/${IMAGE_IDENTIFIER}"
+                                            sh "docker image push jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
                                         }
                                     }
                                         
