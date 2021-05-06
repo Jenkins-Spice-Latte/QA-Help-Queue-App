@@ -1,4 +1,4 @@
-String[] MICROSERVICE_LIST = ['CreateTicket']//, 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
+String[] MICROSERVICE_LIST = ['CreateTicket', 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
@@ -84,10 +84,10 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket"//,
-                                //"ReadTicket",
-                                //"UpdateTicket",
-                                //"DeleteTicket"
+                                values "CreateTicket",
+                                "ReadTicket",
+                                "UpdateTicket",
+                                "DeleteTicket"
                             }
                         }
                         stages {
@@ -163,7 +163,7 @@ pipeline {
                 }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
-                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
