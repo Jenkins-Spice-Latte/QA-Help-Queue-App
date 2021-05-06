@@ -42,4 +42,4 @@ spec:
     port: 8903
     targetPort: 8903
     nodePort: 30003
-  type: ClusterIP
+  type: NodePort

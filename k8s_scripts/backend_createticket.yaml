@@ -42,6 +42,6 @@ spec:
     port: 8901
     targetPort: 8901
     nodePort: 30001
-  type: ClusterIP
+  type: NodePort
 
       
