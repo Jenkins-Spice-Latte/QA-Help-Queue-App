@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'reactstrap';
 import { BsToggleOff,  BsToggleOn} from "react-icons/bs";
 
 const Toggle = (props) => {
-  var modeBtn;
+  let modeBtn;
 
 
 

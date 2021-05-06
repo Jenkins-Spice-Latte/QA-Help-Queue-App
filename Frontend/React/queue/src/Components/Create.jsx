@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { BsClockFill } from "react-icons/bs";
-import { CustomInput, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, InputGroupText, InputGroupAddon, Input } from 'reactstrap';
+import { CustomInput, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, InputGroup, Input } from 'reactstrap';
 
 const Create = (props) => {
   const [modal, setModal] = useState(false);
@@ -16,11 +15,11 @@ const Create = (props) => {
   const [urgencySt, setUrgency] = useState('');
   const date = +new Date;
   let disabled;
-  var checkAuth;
-  var checkTitle;
-  var checkDesc;
-  var urgencyCheck;
-  var topicCheck;
+  let checkAuth;
+  let checkTitle;
+  let checkDesc;
+  let urgencyCheck;
+  let topicCheck;
 
   if(props.mode === "Trainer mode"){
     disabled = false;

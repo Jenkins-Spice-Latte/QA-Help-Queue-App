@@ -1,7 +1,7 @@
 import '../App.css';
 
 import React from 'react';
-import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Form, FormGroup, Label, Input} from 'reactstrap';
 
 const Sort = (props) => {
   return (

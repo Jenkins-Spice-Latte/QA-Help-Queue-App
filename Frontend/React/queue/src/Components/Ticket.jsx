@@ -36,13 +36,13 @@ const Ticket = (props) => {
     const [urgencySt, setUrgency] = useState(item.urgency);
 
     
-    var date = new Date(item.time_created);
-    var hours = date.getHours();
-    var mins = "" + date.getMinutes();
+    let date = new Date(item.time_created);
+    let hours = date.getHours();
+    let mins = "" + date.getMinutes();
 
-    var btn;
-    var tickBtn;
-    var priorityBtn;
+    let btn;
+    let tickBtn;
+    let priorityBtn;
     let disabled;
     
     if(props.mode === "Trainer mode"){

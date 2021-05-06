@@ -1,13 +1,12 @@
-// users.test.js
 const axios = require("axios");
-const users = require("./Components/users");
+const queue = require("./Components/Queue");
 
 jest.mock("axios");
 
 test("should fetch tickets", () => {
-  const tickets = [{ ticket_id: "1" }];
+  const tickets = [{  }];
   const resp = { data: tickets };
   axios.get.mockResolvedValue(resp);
 
-  return Queue.test().then((data) => expect(data).toEqual(tickets));
+  return Queue.axios.get("http://localhost:8902/readAll").then((data) => expect(data).toEqual(tickets));
 });
