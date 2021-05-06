@@ -97,7 +97,10 @@ pipeline {
                         axes{
                             axis{
                                 name "MICROSERVICE_NAME"
-                                values ${MICROSERVICE_LIST}
+                                values "CreateTicket",
+                                        "ReadTicket",
+                                        "UpdateTicket",
+                                        "DeleteTicket"
                             }
                         }
                         stage("Build JAR Files") {
