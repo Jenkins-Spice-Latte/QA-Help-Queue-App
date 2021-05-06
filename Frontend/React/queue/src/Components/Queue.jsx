@@ -94,7 +94,7 @@ const Queue = (props) => {
     return (
       <> 
       <div className= "queue_div">
-        <p>Pending Tickets</p>
+        <p class="ticket_title" id="pending_title">Pending Tickets</p>
         
         {uniqueresult.map((item) => {
             if(item.complete === false)
@@ -103,7 +103,7 @@ const Queue = (props) => {
       </div>
         
       <div className= "queue_div">
-        <p>Completed Tickets</p>
+        <p class="ticket_title" id="completed_title">Completed Tickets</p>
         {uniqueresult.map((item) => {
           if(item.complete === true)
             return <Ticket item={item} className={className} mode={(props.mode)} switchLoaded={props.switchLoaded} isLoaded={props.isLoaded}/>  

@@ -72,7 +72,7 @@
 }
 
 .completedIc{
-  color: green;
+  color: rgb(7, 115, 20);
   margin-left: 10px;
   margin-right: 10px;
   float: right;
@@ -88,11 +88,14 @@
 .column_one{
   float: left;
   display: grid;
+  max-width: 18%;
+  padding-right: 10px;
 }
 
 .column_two{
-  float: right;
+  max-width: 78%;
   display: grid;
+  padding-left: 15px;
 }
 
 .expandQueueIc{
@@ -123,8 +126,7 @@
 
 .ticket_comp{
   display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 5%;
 }
 
 #createUrgencyCheck{
@@ -180,9 +182,10 @@
   border-radius: 15px;
 }
 
+
 .queue_div{
   float: right;
-  margin-top: 50px;
+  margin-top: 20px;
   padding-top: 30px;
   padding-bottom: 30px;
   padding-left: 30px;
@@ -195,4 +198,18 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.ticket_title{
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#pending_title{
+  color: crimson;
+}
+
+#completed_title{
+  color: rgb(7, 115, 20);
 }
