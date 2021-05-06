@@ -44,6 +44,10 @@ variable "apply_immediately" {
   description = "Specifies whether any database modifications are applied immediately."
 }
 
+variable "identifier" {
+  description = "DB identifier."
+}
+
 variable "name_tag" {
   description = "Name tag to assign to the resource"
   type        = string

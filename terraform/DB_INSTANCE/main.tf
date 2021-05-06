@@ -12,6 +12,7 @@ resource "aws_db_instance" "db_instance" {
   password               = var.password
   skip_final_snapshot    = var.skip_final_snapshot
   apply_immediately      = var.apply_immediately
+  identifier = var.identifier
 
   tags = {
     "Name" = var.name_tag
