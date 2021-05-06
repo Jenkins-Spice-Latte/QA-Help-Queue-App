@@ -36,10 +36,9 @@ metadata:
     app : update-ip
 spec:
   selector:
-    app: update
+    app: update-ip
   ports: 
   - protocol: TCP
     port: 8903
     targetPort: 8903
-    nodePort: 30003
-  type: NodePort
+  type: ClusterIP

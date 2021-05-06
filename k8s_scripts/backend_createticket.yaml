@@ -36,12 +36,11 @@ metadata:
     app : create-ip
 spec:
   selector:
-    app: create
+    app: create-ip
   ports: 
   - protocol: TCP
     port: 8901
     targetPort: 8901
-    nodePort: 30001
-  type: NodePort
+  type: ClusterIP
 
       

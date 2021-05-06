@@ -36,10 +36,9 @@ metadata:
     app : read-ip
 spec:
   selector:
-    app: read
+    app: read-ip
   ports: 
   - protocol: TCP
     port: 8902
     targetPort: 8902
-    nodePort: 30002
-  type: NodePort
+  type: ClusterIP

@@ -36,10 +36,9 @@ metadata:
     app : delete-ip
 spec:
   selector:
-    app: delete
+    app: delete-ip
   ports: 
   - protocol: TCP
     port: 8904
     targetPort: 8904
-    nodePort: 30004
-  type: NodePort
+  type: ClusterIP
