@@ -33,19 +33,10 @@ pipeline {
                 stage("Backend Microservices Testing") {
                     // only runs if branch is backend, main, or dev.
                     //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
-                    environment {
-                        // sets the artifact (.jar) version to increment according to build number.
-                        BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
-                        SET_ARTIFACT_VER = "mvn versions:set -DnewVersion=${BUILD_VERSION_ID}"
-                        // clean install command that lets us test first, and then skip test during build.
-                        MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
-                        RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
-                    }
-                    // matrix used to parallelize stages for each microservice.
                     steps {
                         script {
                             MICROSERVICE_LIST.each { MICROSERVICE_NAME ->
-                                stage("Deposit application.properties") {
+                                stage("Inject application.properties") {
                                     withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]) {
                                         sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                     }
@@ -82,6 +73,14 @@ pipeline {
                 }
 
                 stage("Building artefacts"){
+                    environment {
+                        // sets the artifact (.jar) version to increment according to build number.
+                        BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
+                        SET_ARTIFACT_VER = "mvn versions:set -DnewVersion=${BUILD_VERSION_ID}"
+                        // clean install command that lets us test first, and then skip test during build.
+                        MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
+                        RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
+                    }
                     matrix {
                         axes {
                             axis {
