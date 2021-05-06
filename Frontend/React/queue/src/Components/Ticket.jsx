@@ -45,6 +45,7 @@ const Ticket = (props) => {
     let tickBtn;
     let priorityBtn;
     let disabled;
+    let markasdoneDisabled;
     
     if(props.mode === "Trainer mode"){
       disabled = false;
@@ -54,6 +55,14 @@ const Ticket = (props) => {
 
 
     const isEnabled = item.complete;
+
+    if(isEnabled){
+      markasdoneDisabled = true;
+    } else if(props.mode === "Trainee mode") {
+      markasdoneDisabled = true;
+    } else{
+      markasdoneDisabled = false;
+    }
 
 
     const expand = () => setIsOpen(!isOpen);
@@ -187,9 +196,9 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Date created:</strong> {hours} : {mins}</p>
 
-                    <Button disabled={isEnabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
-                    <Button color="warning" className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
-                    <Button color="danger" className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
+                    <Button disabled={markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
+                    <Button color="warning" disabled={disabled} className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
+                    <Button color="danger" disabled={disabled} className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
 
 
                     {/* UPDATE MODAL */}
