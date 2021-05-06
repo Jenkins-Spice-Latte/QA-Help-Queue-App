@@ -83,10 +83,10 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket",
-                                        "ReadTicket",
-                                        "UpdateTicket",
-                                        "DeleteTicket"
+                                values "CreateTicket"//,
+                                        // "ReadTicket",
+                                        // "UpdateTicket",
+                                        // "DeleteTicket"
                             }
                         }
                         stages {
@@ -110,7 +110,7 @@ pipeline {
                                 steps {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
-                                        sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
+                                        sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
                                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                                             // pushes to dockerhub
                                             sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
