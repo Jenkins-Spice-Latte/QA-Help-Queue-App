@@ -31,9 +31,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: update-up
+  name: update-ip
   labels:
-    app : update-up
+    app : update-ip
 spec:
   selector:
     app: update
