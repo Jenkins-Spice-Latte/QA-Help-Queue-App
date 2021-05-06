@@ -41,10 +41,6 @@ function App() {
     setTopicFilter([...topicFilterChange]);
   }
 
-  const onSortBtnClick = (selected) => {
-    setsortChange(selected);
-  }
-  
   const switchLoaded = () => {
     setIsLoaded(!isLoaded);
   }

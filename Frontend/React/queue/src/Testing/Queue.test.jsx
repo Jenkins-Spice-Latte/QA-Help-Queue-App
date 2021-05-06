@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Queue from '../Components/Queue';
 import renderer from 'react-test-renderer';
 import Ticket from '../Components/Ticket';

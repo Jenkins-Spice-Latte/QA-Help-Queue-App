@@ -88,7 +88,7 @@ const Queue = (props) => {
 
   let result = result4.concat(result3);
 
-
+  let uniqueresult = result.filter((x, i, a) => a.indexOf(x) == i);
 
 
     return (

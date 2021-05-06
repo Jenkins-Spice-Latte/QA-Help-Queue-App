@@ -33,3 +33,4 @@ test('tests to see if Queue renders properly', () => {
   topicfilter={["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]} authorfilter={""} switchLoaded={false} isLoaded={false}/>).toJSON();
   expect(QueueComp).toMatchSnapshot();
 });
+
