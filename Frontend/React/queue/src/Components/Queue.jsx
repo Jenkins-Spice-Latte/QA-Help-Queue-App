@@ -30,24 +30,24 @@ const Queue = (props) => {
     });
   }
 
-  if(props.topicfilter.includes("Topic1")) {
-    topic1data = data.filter(item => item.topic === "Topic1");
+  if(props.topicfilter.includes("Dev Ops")) {
+    topic1data = data.filter(item => item.topic === "Dev Ops");
   }
 
-  if(props.topicfilter.includes("Topic2")) {
-    topic2data = data.filter(item => item.topic === "Topic2");
+  if(props.topicfilter.includes("General")) {
+    topic2data = data.filter(item => item.topic === "General");
   }
 
-  if(props.topicfilter.includes("Topic3")) {
-    topic3data = data.filter(item => item.topic === "Topic3");
+  if(props.topicfilter.includes("Back-end")) {
+    topic3data = data.filter(item => item.topic === "Back-end");
   }
 
-  if(props.topicfilter.includes("Topic4")) {
-    topic4data = data.filter(item => item.topic === "Topic4");
+  if(props.topicfilter.includes("Front-end")) {
+    topic4data = data.filter(item => item.topic === "Front-end");
   }
 
-  if(props.topicfilter.includes("Topic5")) {
-    topic5data = data.filter(item => item.topic === "Topic5");
+  if(props.topicfilter.includes("Software")) {
+    topic5data = data.filter(item => item.topic === "Software");
   }
   
   let topicdata = topic1data.concat(topic2data, topic3data, topic4data, topic5data);

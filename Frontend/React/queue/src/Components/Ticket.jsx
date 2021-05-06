@@ -153,15 +153,15 @@ const Ticket = (props) => {
         Urgencylevel = "Least urgent";
       }
 
-      if(decidedTopic === "Topic1"){
+      if(decidedTopic === "Dev Ops"){
         TopicCheck1 = true;
-      } else if(decidedTopic === "Topic2"){
+      } else if(decidedTopic === "General"){
         TopicCheck2 = true;
-      }else if(decidedTopic === "Topic3"){
+      }else if(decidedTopic === "Back-end"){
         TopicCheck3 = true;
-      }else if(decidedTopic === "Topic4"){
+      }else if(decidedTopic === "Front-end"){
         TopicCheck4 = true;
-      }else if(decidedTopic === "Topic5"){
+      }else if(decidedTopic === "Software"){
         TopicCheck5 = true;
       }
 
@@ -222,11 +222,11 @@ const Ticket = (props) => {
                             <FormGroup>
                               <Label for="radioLabel">Topic</Label>
                               <div>
-                                <CustomInput type="radio" id="topic1" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic1" label="Topic 1" defaultChecked={TopicCheck1}/>
-                                <CustomInput type="radio" id="topic2" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic2" label="Topic 2" defaultChecked={TopicCheck2}/>
-                                <CustomInput type="radio" id="topic3" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic3" label="Topic 3" defaultChecked={TopicCheck3}/>
-                                <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" defaultChecked={TopicCheck4}/>
-                                <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" defaultChecked={TopicCheck5}/>
+                                <CustomInput type="radio" id="Dev Ops" name="topic" onChange={(e) => setTopic(e.target.value)} value="Dev Ops" label="Dev Ops" defaultChecked={TopicCheck1}/>
+                                <CustomInput type="radio" id="General" name="topic" onChange={(e) => setTopic(e.target.value)} value="General" label="General" defaultChecked={TopicCheck2}/>
+                                <CustomInput type="radio" id="Back-end" name="topic" onChange={(e) => setTopic(e.target.value)} value="Back-end" label="Back-end" defaultChecked={TopicCheck3}/>
+                                <CustomInput type="radio" id="Front-end" name="topic" onChange={(e) => setTopic(e.target.value)} value="Front-end" label="Front-end" defaultChecked={TopicCheck4}/>
+                                <CustomInput type="radio" id="Software" name="topic" onChange={(e) => setTopic(e.target.value)} value="Software" label="Software" defaultChecked={TopicCheck5}/>
                               </div>
                             </FormGroup>
                             <FormGroup>

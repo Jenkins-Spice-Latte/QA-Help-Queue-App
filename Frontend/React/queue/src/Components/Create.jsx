@@ -105,11 +105,11 @@ const Create = (props) => {
           <FormGroup>
             <Label for="radioLabel">Topic</Label>
             <div>
-              <CustomInput type="radio" id="topic1" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic1" label="Topic 1" />
-              <CustomInput type="radio" id="topic2" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic2" label="Topic 2" />
-              <CustomInput type="radio" id="topic3" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic3" label="Topic 3" />
-              <CustomInput type="radio" id="topic4" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic4" label="Topic 4" />
-              <CustomInput type="radio" id="topic5" name="topic" onChange={(e) => setTopic(e.target.value)} value="Topic5" label="Topic 5" />
+              <CustomInput type="radio" id="Dev Ops" name="topic" onChange={(e) => setTopic(e.target.value)} value="Dev Ops" label="Dev Ops" />
+              <CustomInput type="radio" id="General" name="topic" onChange={(e) => setTopic(e.target.value)} value="General" label="General" />
+              <CustomInput type="radio" id="Back-end" name="topic" onChange={(e) => setTopic(e.target.value)} value="Back-end" label="Back-end" />
+              <CustomInput type="radio" id="Front-end" name="topic" onChange={(e) => setTopic(e.target.value)} value="Front-end" label="Front-end" />
+              <CustomInput type="radio" id="Software" name="topic" onChange={(e) => setTopic(e.target.value)} value="Software" label="Software" />
             </div>
             {topicCheck}
           </FormGroup>
