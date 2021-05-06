@@ -59,7 +59,7 @@ pipeline {
                                 }
 
 
-                                stage("Testing") {
+                                stage("Testing ${MICROSERVICE_NAME}") {
                                     echo "${MICROSERVICE_NAME}"
                                     dir("backend/${MICROSERVICE_NAME}") {
                                         // runs maven test
@@ -89,15 +89,28 @@ pipeline {
                                         ])
                                     }
                                 }
-                        
-                                // builds jar files by running the command mvn clean install.
-                                stage("Build JAR Files") {
-                                    echo "${MICROSERVICE_NAME}"
-                                    dir("backend/${MICROSERVICE_NAME}") {
-                                        sh "${RUN_BUILD}"
-                                    }
-                                }
+                            }
+                        }
+                    }
 
+                    matrix{
+                        axes{
+                            axis{
+                                name "MICROSERVICE_NAME"
+                                values ${MICROSERVICE_LIST}
+                            }
+                        }
+                        stage("Build JAR Files") {
+                            echo "${MICROSERVICE_NAME}"
+                            dir("backend/${MICROSERVICE_NAME}") {
+                                sh "${RUN_BUILD}"
+                            }
+                        }
+                    }
+
+                                // builds jar files by running the command mvn clean install.
+
+                            
 
                                 // stage("Create & Push Container Images") {
                                 //     environment {
@@ -124,9 +137,9 @@ pipeline {
                                 //     }
                                         
                                 // }
-                            }
-                        }
-                    }
+                            
+                        
+                    
                 }
                 
                 // push test results directory to github repo.
