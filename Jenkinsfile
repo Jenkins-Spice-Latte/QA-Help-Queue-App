@@ -105,10 +105,13 @@ pipeline {
                         }
                         stages{
                           stage("Build JAR Files") {
-                            echo "${MICROSERVICE_NAME}"
-                            dir("backend/${MICROSERVICE_NAME}") {
+                              steps{
+                                echo "${MICROSERVICE_NAME}"
+                                dir("backend/${MICROSERVICE_NAME}") {
                                 sh "${RUN_BUILD}"
                             }
+                              }
+                            
                         }  
                         }
                     }
