@@ -121,7 +121,7 @@ pipeline {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
                                         //sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
-                                        sh "docker build ${MICROSERVICE_NAME} -t hq-backend-${DOCKERIZED_NAME} ."
+                                        sh "docker build ${MICROSERVICE_NAME} -t hq-backend-${DOCKERIZED_NAME}"
 
                                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                                             // pushes to dockerhub
