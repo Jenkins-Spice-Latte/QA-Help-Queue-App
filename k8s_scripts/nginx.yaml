@@ -10,6 +10,8 @@ spec:
   selector:
     matchLabels:
       app: nginx
+  imagePullSecrets:
+  - name: ticketkey
   template:
     metadata:
       labels:
