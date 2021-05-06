@@ -134,7 +134,7 @@ module "INSTANCE_JENKINS" {
   ami                    = var.ec2_ami
   instance_type          = var.ec2_instance_type
   subnet_id              = module.PUBLIC_SUBNET.id
-  volume_size            = 8
+  volume_size            = 100
   vpc_security_group_ids = module.SSH_SG_PUBLIC.id
   key_name               = module.MAJOR_KEY.key_pair_id
   name_tag               = "hq_jenkins_vm"
@@ -170,7 +170,7 @@ module "INSTANCE_TEST" {
   instance_type          = var.ec2_instance_type
   key_name               = module.MAJOR_KEY.key_pair_id
   subnet_id              = module.TEST_PRIVATE_SUBNET.id
-  volume_size            = 8
+  volume_size            = 50
   vpc_security_group_ids = module.SSH_SG_PRIVATE.id
   name_tag               = "Testing VM"
 }
@@ -262,6 +262,7 @@ module "TEST_RDS" {
  password = var.test_db_password
  skip_final_snapshot = true
  vpc_security_group_ids = [module.RDS_SG_PRIVATE.id]
+  identifier             = "hqtestrds"
  name_tag = "hq_test_rds"
 }
 
@@ -278,6 +279,7 @@ module "PROD_RDS" {
  password = var.prod_db_password
  skip_final_snapshot = true
  vpc_security_group_ids = [module.RDS_SG_PRIVATE.id]
+  identifier             = "hqprodrds"
  name_tag = "hq_prod_rds"
 }
 
@@ -321,6 +323,28 @@ module "EKS_RT_ASSOCIATION_B" {
   source         = "./RT_A"
   subnet_id      = module.EKS_PUBLIC_SUBNET_B.id
   route_table_id = module.PUBLIC_RT.id
+}
+
+module "EKS_INGRESS_PUBLIC_SG_RULE" {
+  source            = "./SG_RULE"
+  cidr_blocks       = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = module.SSH_SG_PUBLIC.id
+  name_tag          = "eks_ingress_public_sg_rule"
+}
+
+module "EKS_WEB_INGRESS_PUBLIC_SG_RULE" {
+  source            = "./SG_RULE"
+  cidr_blocks       = ["0.0.0.0/0"]
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  security_group_id = module.SSH_SG_PUBLIC.id
+  name_tag          = "eks_web_ingress_public_sg_rule"
 }
 
 # Roles and policies for eks cluster and eks node group
