@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   name: read
   labels:
-    app: help
+    app: read
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: help
+      app: read
 
   template:
     metadata:
       labels:
-        app: help
+        app: read
     spec:
       containers:
       - name: readticket-cont
