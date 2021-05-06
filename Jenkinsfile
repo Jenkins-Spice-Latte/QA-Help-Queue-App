@@ -1,4 +1,4 @@
-String[] MICROSERVICE_LIST = ['CreateTicket'] //, 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
+String[] MICROSERVICE_LIST = ['ReadTicket'] //, 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
@@ -83,10 +83,10 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket",
-                                        "ReadTicket",
-                                        "UpdateTicket",
-                                        "DeleteTicket"
+                                values "ReadTicket"//,
+                                        // "ReadTicket",
+                                        // "UpdateTicket",
+                                        // "DeleteTicket"
                             }
                         }
                         stages {
@@ -115,7 +115,7 @@ pipeline {
                                             // pushes to dockerhub
                                             //sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                                            sh "docker image push jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
+                                            sh "docker image push jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
                                         }
                                     }
                                 }
