@@ -73,7 +73,7 @@ const Ticket = (props) => {
       };
 
 
-      axios.put("http://localhost:8903/update/"+item.ticketID, ticket)
+      axios.put("api/updateTicket/update/"+item.ticketID, ticket)
       .then(response => {
         console.log(response.data);
         props.switchLoaded()
@@ -81,7 +81,7 @@ const Ticket = (props) => {
     }
 
     const deleteT = () => {
-      axios.delete("http://localhost:8904/delete/"+item.ticketID)
+      axios.delete("api/deleteTicket/delete/"+item.ticketID)
       .then(response => {
         console.log(response.data);
         props.switchLoaded()
@@ -101,7 +101,7 @@ const Ticket = (props) => {
         urgency: urgencySt
       };
       
-      axios.put("http://localhost:8903/update/"+item.ticketID,  ticket)
+      axios.put("api/updateTicket/update/"+item.ticketID,  ticket)
         .then(res => {
           console.log(res);
           console.log(res.data);

@@ -188,6 +188,20 @@ pipeline {
             }
         }
 
+        stage("Build Frontend, Push to Dockerhub"){
+            //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
+            // build frontend image
+            sh "docker build Frontend/React/queue -t manishreddy1/hq-frontend:latest"
+
+            withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                // login and push to dockerhub
+                sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
+                sh "docker image push manishreddy1/hq-frontend:latest"
+            }
+
+
+        }
+
 
         stage("Create EKS Cluster"){
             steps{
@@ -214,22 +228,6 @@ pipeline {
                     sh "kubectl rollout restart deployment update"
                     sh "kubectl rollout restart deployment delete"
                     sh "kubectl rollout restart deployment nginx"
-
-                    //sh "kubectl set env deployment/create_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    // sh "kubectl set env deployment/create_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    // sh "kubectl set env deployment/create_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
-
-                    // sh "kubectl set env deployment/read_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    // sh "kubectl set env deployment/read_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    // sh "kubectl set env deployment/read_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
-
-                    // sh "kubectl set env deployment/update_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    // sh "kubectl set env deployment/update_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    // sh "kubectl set env deployment/update_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"
-
-                    // sh "kubectl set env deployment/delete_backend_deploy RDS_ENDPOINT=$RDS_ENDPOINT"
-                    // sh "kubectl set env deployment/delete_backend_deploy RDS_USERNAME=$RDS_USERNAME"
-                    // sh "kubectl set env deployment/delete_backend_deploy RDS_PASSWORD=$RDS_PASSWORD"            
                 }
             }
         }

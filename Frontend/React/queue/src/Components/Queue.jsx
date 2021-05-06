@@ -22,7 +22,7 @@ const Queue = (props) => {
   let urgency5data = [];
   
   if(props.isLoaded === false){
-    axios.get("http://localhost:8902/readAll")
+    axios.get("api/readTicket/readAll")
     .then(response => {
         console.log(response.data)
         setData(response.data);
