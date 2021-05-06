@@ -20,7 +20,7 @@ spec:
         image: jenkinsspicelatte/hq-backend-updateticket:latest
         ports:
         - containerPort: 5003
-      imagePullPolicy: Always
+        imagePullPolicy: Always
   strategy:
     type: RollingUpdate
     rollingUpdate:
