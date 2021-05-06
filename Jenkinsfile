@@ -38,6 +38,7 @@ pipeline {
                             MICROSERVICE_LIST.each { MICROSERVICE_NAME ->
                                 stage("Inject testing application.properties") {
                                     withCredentials([file(credentialsId: "${MICROSERVICE_NAME}_test", variable: 'application_properties')]) {
+                                        sh "rm -f backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                         sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                     }
                                 }
@@ -84,19 +85,19 @@ pipeline {
                             axis {
                                 name "MICROSERVICE_NAME"
                                 values "CreateTicket"//,
-                                        //"ReadTicket",
-                                        //"UpdateTicket",
-                                        //"DeleteTicket"
+                                //"ReadTicket",
+                                //"UpdateTicket",
+                                //"DeleteTicket"
                             }
                         }
                         stages {
                             stage("Inject production application.properties") {
-                                steps{
+                                steps {
                                     withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]) {
+                                        sh "rm -f backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                         sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
-                                    }   
+                                    }
                                 }
-                                
                             }
                             stage("Build JAR Files") {
                                 steps {
