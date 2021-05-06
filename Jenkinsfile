@@ -9,7 +9,7 @@ pipeline {
     agent any
     stages {
         stage("Agent: Test VM") {
-
+            when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
             // sets to run on the testvm node.
             agent { label "testvm" }
             stages {
@@ -33,7 +33,7 @@ pipeline {
                 }
                 stage("Backend Microservices Testing") {
                     // only runs if branch is backend, main, or dev.
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         script {
                             MICROSERVICE_LIST.each { MICROSERVICE_NAME ->
@@ -180,7 +180,7 @@ pipeline {
             }
         }
 
-        
+
         stage("Create EKS Cluster"){
             steps{
                 dir("k8s_scripts"){
