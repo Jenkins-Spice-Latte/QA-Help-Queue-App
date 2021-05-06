@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: create-backend
+  name: create-backend-deploy
   labels:
     app: help-queue-create
 spec:
