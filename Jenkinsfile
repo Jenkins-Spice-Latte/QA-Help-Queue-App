@@ -1,4 +1,4 @@
-String[] MICROSERVICE_LIST = ['CreateTicket', 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
+String[] MICROSERVICE_LIST = ['CreateTicket']//, 'ReadTicket', 'UpdateTicket', 'DeleteTicket']
 pipeline {
     options {
         // only allowing 1 build at a time for each branch.
@@ -36,8 +36,8 @@ pipeline {
                     steps {
                         script {
                             MICROSERVICE_LIST.each { MICROSERVICE_NAME ->
-                                stage("Inject application.properties") {
-                                    withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]) {
+                                stage("Inject testing application.properties") {
+                                    withCredentials([file(credentialsId: "${MICROSERVICE_NAME}_test", variable: 'application_properties')]) {
                                         sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
                                     }
                                 }
@@ -83,13 +83,18 @@ pipeline {
                         axes {
                             axis {
                                 name "MICROSERVICE_NAME"
-                                values "CreateTicket",
-                                        "ReadTicket",
-                                        "UpdateTicket",
-                                        "DeleteTicket"
+                                values "CreateTicket"//,
+                                        //"ReadTicket",
+                                        //"UpdateTicket",
+                                        //"DeleteTicket"
                             }
                         }
                         stages {
+                            stage("Inject production application.properties") {
+                                withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]) {
+                                    sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
+                                }
+                            }
                             stage("Build JAR Files") {
                                 steps {
                                     echo "${MICROSERVICE_NAME}"
