@@ -45,8 +45,6 @@ pipeline {
                         // clean install command that lets us test first, and then skip test during build.
                         MVN_INSTALL = "mvn clean install -Dmaven.test.skip=true"
                         RUN_BUILD = "${SET_ARTIFACT_VER} && ${MVN_INSTALL}"
-                        DOCKERIZED_NAME = "${MICROSERVICE_NAME == "CreateTicket" ? "createticket" : MICROSERVICE_NAME == "ReadTicket" ? "readticket" : MICROSERVICE_NAME == "UpdateTicket" ? "updateticket" : MICROSERVICE_NAME == "DeleteTicket" ? "deleteticket" : null}"
-                        MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" : MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
                     }
 
                     
@@ -104,12 +102,14 @@ pipeline {
                                 stage("Create & Push Container Images") {
                                     environment {
                                         // conditionals to set variable depending on microservice name (a very hacky way - jenkins declarative pipeline limitation).
-                                        
+                                        DOCKERIZED_NAME = "${MICROSERVICE_NAME == "CreateTicket" ? "createticket" : MICROSERVICE_NAME == "ReadTicket" ? "readticket" : MICROSERVICE_NAME == "UpdateTicket" ? "updateticket" : MICROSERVICE_NAME == "DeleteTicket" ? "deleteticket" : null}"
+                                        MICROSERVICE_NAME_WITH_DASH = "${MICROSERVICE_NAME == "CreateTicket" ? "create-ticket" : MICROSERVICE_NAME == "ReadTicket" ? "read-ticket" : MICROSERVICE_NAME == "UpdateTicket" ? "update-ticket" : MICROSERVICE_NAME == "DeleteTicket" ? "delete-ticket" : null}"
                                         //EXPOSED_PORT = "${MICROSERVICE_NAME == "CreateTicket" ? "8901" : MICROSERVICE_NAME == "ReadTicket" ? "8902" : MICROSERVICE_NAME == "UpdateTicket" ? "8903" : MICROSERVICE_NAME == "DeleteTicket" ? "8904" : null}"
                                         // docker image information.
                                        //IMAGE_IDENTIFIER  = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                         //JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
                                     }
+                                    script {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
                                         sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
@@ -120,6 +120,7 @@ pipeline {
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
                                             sh "docker image push jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
                                         }
+                                    }
                                     }
                                         
                                 }
