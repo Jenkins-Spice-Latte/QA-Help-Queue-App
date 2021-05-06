@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: jonathanjhunt/sfia3-frontend:latest   #manishreddy1/hq-frontend:trying2
+        image: mustaphaa/frontend #jonathanjhunt/sfia3-frontend:latest   #manishreddy1/hq-frontend:trying2
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
