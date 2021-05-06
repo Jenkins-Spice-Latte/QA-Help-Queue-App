@@ -25,6 +25,11 @@ const Ticket = (props) => {
     const  decidedTopic = item.topic;
     const  decidedUrgency = item.urgency;
     let Urgencylevel;
+    let checkAuth;
+    let checkTitle;
+    let checkDesc;
+    let urgencyCheck;
+    let topicCheck;
     
     const [modal, setModal] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -52,6 +57,8 @@ const Ticket = (props) => {
     } else{
       disabled = true;
     }
+
+    const isUpdateEnabled = authorSt.length > 0 && titleSt.length > 0 && descriptionSt.length > 0 && topicSt.length > 0 && urgencySt.length > 0;
 
 
     const isEnabled = item.complete;
@@ -174,6 +181,35 @@ const Ticket = (props) => {
         TopicCheck5 = true;
       }
 
+      if(urgencySt !== ""){
+        urgencyCheck = <p id="createUrgencyCheck">Urgency selected</p> 
+      }
+    
+      if(topicSt !== ""){
+        topicCheck = <p id="createTopicCheck">Topic selected</p> 
+      }
+      
+      if(authorSt === ""){
+        checkAuth = <Input type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Author name"/>
+        
+      } else{
+        checkAuth = <Input valid type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Author name"/>
+      }
+    
+      if(titleSt === ""){
+        checkTitle = <Input type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Ticket title"/>
+        
+      } else{
+        checkTitle = <Input valid type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Ticket title"/>
+      }
+    
+      if(descriptionSt === ""){
+        checkDesc = <Input type="textarea" name="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Description" />
+        
+      } else{
+        checkDesc = <Input valid type="textarea" name="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Description" />
+      }
+
 
     return (
         <div className="ticket_div" key={item.id}>
@@ -205,27 +241,18 @@ const Ticket = (props) => {
                     <div>
                       <Modal isOpen={modal} toggle={toggle} className={className}>
                         <ModalHeader toggle={toggle}>Update ticket</ModalHeader>
-                        <ModalBody>
-                          <Form onSubmit={handleSubmit}>
-                          <InputGroup>
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>Author</InputGroupText>
-                              </InputGroupAddon>
-                              <Input type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Enter author name"/>
+                        <Form onSubmit={handleSubmit}>
+                          <ModalBody>  
+                            <InputGroup>
+                              {checkAuth}                
                             </InputGroup>
                             <br />
                             <InputGroup>
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>Title</InputGroupText>
-                              </InputGroupAddon>
-                              <Input type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Enter title"/>
+                              {checkTitle}
                             </InputGroup>
                             <br />
                             <InputGroup>
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>Description</InputGroupText>
-                              </InputGroupAddon>
-                              <Input type="textarea" name="description" id="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} placeholder="Enter description" />
+                              {checkDesc}
                             </InputGroup>
                             <br />
                             <FormGroup>
@@ -237,6 +264,7 @@ const Ticket = (props) => {
                                 <CustomInput type="radio" id="Front-end" name="topic" onChange={(e) => setTopic(e.target.value)} value="Front-end" label="Front-end" defaultChecked={TopicCheck4}/>
                                 <CustomInput type="radio" id="Software" name="topic" onChange={(e) => setTopic(e.target.value)} value="Software" label="Software" defaultChecked={TopicCheck5}/>
                               </div>
+                              {topicCheck}
                             </FormGroup>
                             <FormGroup>
                               <Label for="radioLabel">Urgency</Label>
@@ -247,15 +275,16 @@ const Ticket = (props) => {
                                 <CustomInput type="radio" id="exampleCustomRadio4" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="4" label="Less urgent" defaultChecked={UrgencyCheck4}/>
                                 <CustomInput type="radio" id="exampleCustomRadio5" onChange={(e) => setUrgency(e.target.value)} name="urgency" value="5" label="Least urgent" defaultChecked={UrgencyCheck5}/>
                               </div>
+                              {urgencyCheck}
                             </FormGroup>
-                            <br />
                             <Input type="hidden" name="completed" id="completed" value="false"/>
-
-                            <br />
-                            <Button type="submit" color="primary" onClick={toggle}>Update ticket</Button>
+                            </ModalBody>
+                            <ModalFooter>
+                            <Button type="submit" disabled={!isUpdateEnabled} color="primary" onClick={toggle}>Update ticket</Button>
                             <Button color="secondary" onClick={toggle}>Cancel</Button>
-                          </Form>
-                          </ModalBody>
+                            </ModalFooter>
+                        </Form>
+                          
                       </Modal>
                     </div>
 
