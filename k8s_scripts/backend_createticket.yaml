@@ -16,7 +16,7 @@ spec:
         app: create
     spec:
       containers:
-      - name: createticket_cont
+      - name: createticket-cont
         image: manishreddy1/hq-backend-createticket:latest
         ports:
         - containerPort: 8901

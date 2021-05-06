@@ -16,7 +16,7 @@ spec:
         app: update
     spec:
       containers:
-      - name: updateticket_cont
+      - name: updateticket-cont
         image: manishreddy1/hq-backend-updateticket:latest
         ports:
         - containerPort: 8903

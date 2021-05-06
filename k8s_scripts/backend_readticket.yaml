@@ -16,7 +16,7 @@ spec:
         app: help
     spec:
       containers:
-      - name: readticket_cont
+      - name: readticket-cont
         image: manishreddy1/hq-backend-readticket:latest
         ports:
         - containerPort: 8902

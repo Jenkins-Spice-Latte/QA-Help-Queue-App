@@ -16,7 +16,7 @@ spec:
         app: delete
     spec:
       containers:
-      - name: deleteticket_cont
+      - name: deleteticket-cont
         image: manishreddy1/hq-backend-deleteticket:latest
         ports:
         - containerPort: 8904
