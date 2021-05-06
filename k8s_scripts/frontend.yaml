@@ -21,6 +21,8 @@ spec:
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
+      imagePullSecrets:
+      - name: ticketkey
 ---
 apiVersion: v1
 kind: Service
