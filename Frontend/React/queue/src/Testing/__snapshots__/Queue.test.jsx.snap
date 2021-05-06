@@ -115,8 +115,6 @@ exports[`tests to see if Ticket renders properly 1`] = `
             Urgency:
           </strong>
            
-          1
-           
           Most urgent
         </p>
         <br />
@@ -140,7 +138,8 @@ exports[`tests to see if Ticket renders properly 1`] = `
         </button>
         <button
           aria-label={null}
-          className="queueBtnBlock btn btn-warning"
+          className="queueBtnBlock btn btn-warning disabled"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
@@ -148,7 +147,8 @@ exports[`tests to see if Ticket renders properly 1`] = `
         </button>
         <button
           aria-label={null}
-          className="queueBtnBlock btn btn-danger"
+          className="queueBtnBlock btn btn-danger disabled"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >

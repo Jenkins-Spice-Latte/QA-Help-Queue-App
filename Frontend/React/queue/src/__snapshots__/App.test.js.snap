@@ -170,13 +170,13 @@ Array [
             id="CustomCheckbox13"
             onClick={[Function]}
             type="checkbox"
-            value="Topic1"
+            value="Dev Ops"
           />
           <label
             className="custom-control-label"
             htmlFor="CustomCheckbox13"
           >
-            Topic 1
+            Dev Ops
           </label>
         </div>
         <div
@@ -189,13 +189,13 @@ Array [
             id="CustomCheckbox14"
             onClick={[Function]}
             type="checkbox"
-            value="Topic2"
+            value="General"
           />
           <label
             className="custom-control-label"
             htmlFor="CustomCheckbox14"
           >
-            Topic 2
+            General
           </label>
         </div>
         <div
@@ -208,13 +208,13 @@ Array [
             id="CustomCheckbox15"
             onClick={[Function]}
             type="checkbox"
-            value="Topic3"
+            value="Back-end"
           />
           <label
             className="custom-control-label"
             htmlFor="CustomCheckbox15"
           >
-            Topic 3
+            Back-end
           </label>
         </div>
         <div
@@ -227,13 +227,13 @@ Array [
             id="CustomCheckbox16"
             onClick={[Function]}
             type="checkbox"
-            value="Topic4"
+            value="Front-end"
           />
           <label
             className="custom-control-label"
             htmlFor="CustomCheckbox16"
           >
-            Topic 4
+            Front-end
           </label>
         </div>
         <div
@@ -246,13 +246,13 @@ Array [
             id="CustomCheckbox17"
             onClick={[Function]}
             type="checkbox"
-            value="Topic5"
+            value="Software"
           />
           <label
             className="custom-control-label"
             htmlFor="CustomCheckbox17"
           >
-            Topic 5
+            Software
           </label>
         </div>
       </div>
@@ -266,14 +266,20 @@ Array [
   <div
     className="queue_div"
   >
-    <p>
+    <p
+      class="ticket_title"
+      id="pending_title"
+    >
       Pending Tickets
     </p>
   </div>,
   <div
     className="queue_div"
   >
-    <p>
+    <p
+      class="ticket_title"
+      id="completed_title"
+    >
       Completed Tickets
     </p>
   </div>,
