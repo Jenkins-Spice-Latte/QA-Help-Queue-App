@@ -25,9 +25,6 @@ const Ticket = (props) => {
     const  decidedTopic = item.topic;
     const  decidedUrgency = item.urgency;
     let Urgencylevel;
-    let checkAuth;
-    let checkTitle;
-    let checkDesc;
     let urgencyCheck;
     let topicCheck;
     
@@ -188,27 +185,7 @@ const Ticket = (props) => {
       if(topicSt !== ""){
         topicCheck = <p id="createTopicCheck">Topic selected</p> 
       }
-      
-      if(authorSt === ""){
-        checkAuth = <Input type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Author name"/>
-        
-      } else{
-        checkAuth = <Input valid type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Author name"/>
-      }
-    
-      if(titleSt === ""){
-        checkTitle = <Input type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Ticket title"/>
-        
-      } else{
-        checkTitle = <Input valid type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Ticket title"/>
-      }
-    
-      if(descriptionSt === ""){
-        checkDesc = <Input type="textarea" name="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Description" />
-        
-      } else{
-        checkDesc = <Input valid type="textarea" name="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} id="description" placeholder="Description" />
-      }
+
 
 
     return (
@@ -244,15 +221,24 @@ const Ticket = (props) => {
                         <Form onSubmit={handleSubmit}>
                           <ModalBody>  
                             <InputGroup>
-                              {checkAuth}                
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>Author</InputGroupText>
+                              </InputGroupAddon>
+                              <Input type="text" name="author" id="author" value={authorSt} onChange={(e) => setAuthor(e.target.value)} placeholder="Enter author name"/>
                             </InputGroup>
                             <br />
                             <InputGroup>
-                              {checkTitle}
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>Title</InputGroupText>
+                              </InputGroupAddon>
+                              <Input type="text" name="title" id="title" value={titleSt} onChange={(e) => setTitle(e.target.value)} placeholder="Enter title"/>
                             </InputGroup>
                             <br />
                             <InputGroup>
-                              {checkDesc}
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>Description</InputGroupText>
+                              </InputGroupAddon>
+                              <Input type="textarea" name="description" id="description" value={descriptionSt} onChange={(e) => setDescription(e.target.value)} placeholder="Enter description" />
                             </InputGroup>
                             <br />
                             <FormGroup>
@@ -280,7 +266,7 @@ const Ticket = (props) => {
                             <Input type="hidden" name="completed" id="completed" value="false"/>
                             </ModalBody>
                             <ModalFooter>
-                            <Button type="submit" disabled={!isUpdateEnabled} color="primary" onClick={toggle}>Update ticket</Button>
+                            <Button type="submit" color="primary" onClick={toggle}>Update ticket</Button>
                             <Button color="secondary" onClick={toggle}>Cancel</Button>
                             </ModalFooter>
                         </Form>
