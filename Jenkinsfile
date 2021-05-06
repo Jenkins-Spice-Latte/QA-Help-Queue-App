@@ -49,6 +49,7 @@ pipeline {
 
                     
                     // matrix used to parallelize stages for each microservice.
+                steps{
                     script{
                         for(MICROSERVICE_NAME in MICROSERVICE_LIST) {
                             stages {
@@ -145,7 +146,7 @@ pipeline {
                             }
                             }
                     }
-                
+                }
                 }
                 
 
