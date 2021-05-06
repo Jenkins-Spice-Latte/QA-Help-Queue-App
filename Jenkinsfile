@@ -131,7 +131,7 @@ pipeline {
                 
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
-                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
