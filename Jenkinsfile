@@ -107,7 +107,7 @@ pipeline {
                                     IMAGE_IDENTIFIER = "hq-backend-${DOCKERIZED_NAME}:${BUILD_VERSION_ID}"
                                     JAR_NAME = "${MICROSERVICE_NAME_WITH_DASH}-${BUILD_VERSION_ID}"
                                 }
-                                script {
+                                steps {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
                                         sh "docker build ${MICROSERVICE_NAME} -t jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
