@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc-create-backend
+  labels:
+    app: svc-create-backend
+spec:
+  containers:
+  - name: createticket
+    image: manishreddy1/hq-backend-createticket:latest
+    ports:
+    - containerPort: 5001
+  imagePullSecrets:
+      - name: ticketkey
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-create-backend
+  labels:
+    app : svc-create-backend
+spec:
+  selector:
+    app: svc-create-backend
+  ports: 
+  - protocol: TCP
+    port: 5001
+    targetPort: 5001
+  type: ClusterIP

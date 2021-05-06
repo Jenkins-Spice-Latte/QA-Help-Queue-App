@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: create
+  labels:
+    app: create
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: create
+
+  template:
+    metadata:
+      labels:
+        app: create
+    spec:
+      containers:
+      - name: createticket-cont
+        image: manishreddy1/hq-backend-createticket:latest
+        ports:
+        - containerPort: 8901
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: ticketkey
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: create-ip
+  labels:
+    app : create-ip
+spec:
+  selector:
+    app: create
+  ports: 
+  - protocol: TCP
+    port: 8901
+    targetPort: 8901
+  type: ClusterIP
+
+      
