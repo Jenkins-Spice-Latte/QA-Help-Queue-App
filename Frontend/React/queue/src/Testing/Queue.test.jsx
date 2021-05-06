@@ -1,5 +1,5 @@
-const axios = require("axios");
-const queue = require("./Components/Queue");
+import axios from 'axios';
+import Queue from './Components/Queue';
 
 jest.mock("axios");
 
