@@ -115,7 +115,7 @@ pipeline {
                                             // pushes to dockerhub
                                             //sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
-                                            sh "docker image push jenkinsspicelatte/hq-backend${DOCKERIZED_NAME}:latest"
+                                            sh "docker image push jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
                                         }
                                     }
                                 }
