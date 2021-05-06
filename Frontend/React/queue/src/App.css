@@ -1,0 +1,198 @@
+.App {
+  text-align: center;
+}
+
+.all_columns{
+  background-color: #E8E8E8;
+  display: inline-block;
+  width: 100%;
+}
+
+#newestBtn{
+  display: grid;
+  margin-top: 10px;
+  margin-right: auto;
+}
+
+#oldestBtn{
+  display: grid;
+  margin-top: 10px;
+  margin-right: auto;
+}
+
+#ascBtn{
+  display: grid;
+  margin-top: 10px;
+  margin-right: auto;
+}
+
+.mostUrgIc{
+  color: crimson;
+}
+
+.secMostUrgIc{
+  color: darkorange;
+}
+
+.middleUrgIc{
+  color: gold;
+}
+
+.secLeastUrgIc{
+  color: greenyellow;
+}
+
+.leastUrgIc{
+  color: darkgreen;
+}
+
+.mostUrgIcQ{
+  color: crimson;
+  float: right;
+}
+
+.secMostUrgIcQ{
+  color: darkorange;
+  float: right;
+}
+
+.middleUrgIcQ{
+  color: gold;
+  float: right;
+}
+
+.secLeastUrgIcQ{
+  color: greenyellow;
+  float: right;
+}
+
+.leastUrgIcQ{
+  color: darkgreen;
+  float: right;
+}
+
+.completedIc{
+  color: green;
+  margin-left: 10px;
+  margin-right: 10px;
+  float: right;
+}
+
+.uncompletedIc{
+  color: crimson;
+  margin-left: 10px;
+  margin-right: 10px;
+  float: right;
+}
+
+.column_one{
+  float: left;
+  display: grid;
+}
+
+.column_two{
+  float: right;
+  display: grid;
+}
+
+.expandQueueIc{
+  float: right;
+}
+
+.contractQueueIc{
+  float: right;
+}
+
+.trainerBtn{
+  font-size: 22px
+}
+
+.traineeBtn{
+  font-size: 22px
+}
+
+#cueCard{
+  background-color: lightgray;
+  text-align: left;
+}
+
+.queueBtnBlock{
+  margin-left: 15px;
+  float: right;
+}
+
+.ticket_comp{
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#createUrgencyCheck{
+  color:forestgreen;
+}
+
+#createTopicCheck{
+  color:forestgreen;
+}
+
+.create_ticket_div{
+  float: left;
+  margin-top: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 35px;
+  padding-right: 25px;
+}
+
+.toggle_div{
+  float: right;
+  margin-top: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: auto;
+}
+
+.sort_div{
+  text-align: left;
+  float: left;
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: #ffffff;
+  margin-left: 20px;
+  border-radius: 15px;
+}
+
+.filter_div{
+  float: left;
+  text-align: left;
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: #ffffff;
+  margin-left: 20px;
+  border-radius: 15px;
+}
+
+.queue_div{
+  float: right;
+  margin-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-width: 1200px;
+  background-color: #ffffff;
+  margin-right: 25px;
+  border-radius: 10px;
+}
+
+.App-link {
+  color: #61dafb;
+}

@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests to see if Ticket renders properly 1`] = `
+<div
+  className="ticket_div"
+>
+  <p
+    className="ticket_comp title_comp"
+  >
+    title
+     (
+    Topic1
+    ) 
+  </p>
+  <svg
+    className="expandQueueIc"
+    fill="currentColor"
+    height="1em"
+    onClick={[Function]}
+    stroke="currentColor"
+    strokeWidth="0"
+    style={
+      Object {
+        "color": undefined,
+      }
+    }
+    viewBox="0 0 16 16"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      clipRule="evenodd"
+      d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z"
+      fillRule="evenodd"
+    />
+  </svg>
+  <svg
+    className="completedIc"
+    fill="currentColor"
+    height="1em"
+    stroke="currentColor"
+    strokeWidth="0"
+    style={
+      Object {
+        "color": undefined,
+      }
+    }
+    viewBox="0 0 512 512"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+    />
+  </svg>
+  <svg
+    className="mostUrgIcQ"
+    fill="currentColor"
+    height="1em"
+    stroke="currentColor"
+    strokeWidth="0"
+    style={
+      Object {
+        "color": undefined,
+      }
+    }
+    viewBox="0 0 16 16"
+    width="1em"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      clipRule="evenodd"
+      d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8 3.5a.5.5 0 00-1 0V9a.5.5 0 00.252.434l3.5 2a.5.5 0 00.496-.868L8 8.71V3.5z"
+      fillRule="evenodd"
+    />
+  </svg>
+  <div
+    className="collapse"
+    style={Object {}}
+  >
+    <div
+      className="card"
+      id="cueCard"
+    >
+      <div
+        className="card-body"
+      >
+        <p>
+          <strong>
+            Author:
+          </strong>
+           
+          auth
+        </p>
+        <br />
+        <p>
+          <strong>
+            Topic:
+          </strong>
+           
+          Topic1
+        </p>
+        <br />
+        <p>
+          <strong>
+            Description:
+          </strong>
+        </p>
+        <p>
+          description
+        </p>
+        <br />
+        <p>
+          <strong>
+            Urgency:
+          </strong>
+           
+          1
+           
+          Most urgent
+        </p>
+        <br />
+        <p>
+          <strong>
+            Date created:
+          </strong>
+           
+          5
+           : 
+          12
+        </p>
+        <button
+          aria-label={null}
+          className="queueBtnBlock btn btn-success disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Mark as done
+        </button>
+        <button
+          aria-label={null}
+          className="queueBtnBlock btn btn-warning"
+          onClick={[Function]}
+          type="button"
+        >
+          Update ticket
+        </button>
+        <button
+          aria-label={null}
+          className="queueBtnBlock btn btn-danger"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete ticket
+        </button>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;
