@@ -91,9 +91,12 @@ pipeline {
                         }
                         stages {
                             stage("Inject production application.properties") {
-                                withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]) {
-                                    sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
+                                steps{
+                                    withCredentials([file(credentialsId: "${MICROSERVICE_NAME}", variable: 'application_properties')]) {
+                                        sh "cp \$application_properties backend/${MICROSERVICE_NAME}/src/main/resources/application-prod.properties"
+                                    }   
                                 }
+                                
                             }
                             stage("Build JAR Files") {
                                 steps {
