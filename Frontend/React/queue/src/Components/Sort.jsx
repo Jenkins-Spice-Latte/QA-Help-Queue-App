@@ -1,5 +1,3 @@
-import '../App.css';
-
 import React from 'react';
 import {Form, FormGroup, Label, Input} from 'reactstrap';
 

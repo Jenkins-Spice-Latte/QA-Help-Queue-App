@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Create from './Components/Create';
+import Create from '../Components/Create';
 
 jest.mock("axios");
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Queue from './Components/Queue';
+import Queue from '../Components/Queue';
 
 jest.mock("axios");
 

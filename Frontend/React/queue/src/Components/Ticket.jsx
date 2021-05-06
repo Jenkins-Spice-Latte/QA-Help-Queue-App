@@ -24,6 +24,7 @@ const Ticket = (props) => {
     const decidedComp = item.complete;
     const  decidedTopic = item.topic;
     const  decidedUrgency = item.urgency;
+    let Urgencylevel;
     
     const [modal, setModal] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -137,14 +138,19 @@ const Ticket = (props) => {
 
       if(decidedUrgency === 1){
         UrgencyCheck1 = true;
+        Urgencylevel = "Most urgent";
       } else if(decidedUrgency === 2){
         UrgencyCheck2 = true;
+        Urgencylevel = "Very urgent";
       }else if(decidedUrgency === 3){
         UrgencyCheck3 = true;
+        Urgencylevel = "Slightly urgent";
       }else if(decidedUrgency === 4){
         UrgencyCheck4 = true;
+        Urgencylevel = "Less urgent";
       }else if(decidedUrgency === 5){
         UrgencyCheck5 = true;
+        Urgencylevel = "Least urgent";
       }
 
       if(decidedTopic === "Topic1"){
@@ -177,7 +183,7 @@ const Ticket = (props) => {
                     <p><strong>Description:</strong></p>
                     <p>{item.description}</p>
                     <br />
-                    <p><strong>Urgency:</strong> {item.urgency}</p>
+                    <p><strong>Urgency:</strong> {item.urgency} {Urgencylevel}</p>
                     <br />
                     <p><strong>Date created:</strong> {hours} : {mins}</p>
 

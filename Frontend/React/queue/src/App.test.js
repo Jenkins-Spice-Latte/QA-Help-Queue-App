@@ -1,12 +1,14 @@
+import React from 'react';
 import renderer from 'react-test-renderer';
 import Sort from './Components/Sort';
 import Filter from './Components/Filter';
 import Create from './Components/Create';
 import Queue from './Components/Queue';
 import Toggle from './Components/Toggle';
+import App from './App';
 
 test('Check if modeSelect, sortChange and authorFilter are valid', () => {
-  expect(modeSelect).toBeDefined();
+  expect(App.modeSelect).toBeDefined();
   expect(modeSelect).toBeNaN();
   expect(modeSelect).toContain("mode");
 
