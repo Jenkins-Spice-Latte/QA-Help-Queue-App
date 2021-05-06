@@ -21,6 +21,8 @@ spec:
         ports:
         - containerPort: 5003
         imagePullPolicy: Always
+      imagePullSecrets:
+      - name: ticketkey
   strategy:
     type: RollingUpdate
     rollingUpdate:

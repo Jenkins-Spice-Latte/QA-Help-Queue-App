@@ -10,6 +10,8 @@ spec:
     image: manishreddy1/hq-backend-deleteticket:latest
     ports:
     - containerPort: 5004
+  imagePullSecrets:
+      - name: ticketkey
 
 apiVersion: v1
 kind: Service

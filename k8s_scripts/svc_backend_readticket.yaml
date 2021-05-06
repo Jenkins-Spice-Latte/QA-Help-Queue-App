@@ -10,6 +10,8 @@ spec:
     image: manishreddy1/hq-backend-readticket:latest
     ports:
     - containerPort: 5002
+  imagePullSecrets:
+      - name: ticketkey
 
 apiVersion: v1
 kind: Service

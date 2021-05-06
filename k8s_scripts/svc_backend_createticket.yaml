@@ -10,6 +10,8 @@ spec:
     image: manishreddy1/hq-backend-createticket:latest
     ports:
     - containerPort: 5001
+  imagePullSecrets:
+      - name: ticketkey
 
 apiVersion: v1
 kind: Service
