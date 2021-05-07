@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: read
+  labels:
+    app: read
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: read
+
+  template:
+    metadata:
+      labels:
+        app: read
+    spec:
+      containers:
+      - name: readticket-cont
+        image: manishreddy1/hq-backend-readticket:latest
+        ports:
+        - containerPort: 8902
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: ticketkey
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: read-ip
+  labels:
+    app : read-ip
+spec:
+  selector:
+    app: read
+  ports: 
+  - protocol: TCP
+    port: 8902
+    targetPort: 8902
+  type: ClusterIP

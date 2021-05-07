@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc-read-backend
+  labels:
+    app: svc-read-backend
+spec:
+  containers:
+  - name: readticket
+    image: manishreddy1/hq-backend-readticket:latest
+    ports:
+    - containerPort: 5002
+  imagePullSecrets:
+      - name: ticketkey
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-read-backend
+  labels:
+    app : svc-read-backend
+spec:
+  selector:
+    app: svc-read-backend
+  ports: 
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002
+  type: ClusterIP
