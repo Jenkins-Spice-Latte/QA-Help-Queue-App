@@ -8,12 +8,10 @@ A functional Spring Boot help queue web application deployed using a continuous 
 * [Requirements](#Requirements)
 * [Constraints](#Constraints)
 * [Planning](#Planning)
-* [Finalised Frontend](#Finalised-Frontend)
 * [Backend UML](#Backend-UML)
 * [Manual and Automated Processes](#Manual-and-Automated-Processes)
 * [CI Pipeline](#CI-Pipeline)
 * [Testing](#Testing)
-* [Detailed analysis](#Detailed-analysis)
 * [Possible future extensions](#Possible-future-extensions)
 * [Frameworks used](#Frameworks-used)
 * [Acknowledgements and contributors](#Acknowledgements-and-contributors)
@@ -36,6 +34,7 @@ As an extension, we implemented a trainer and a trainee mode which lets trainers
 * The infrastructure for the project should be configured using an infrastructure management tool
 * The project must use an Anisible Playbook that provisions the environment for the CI server.
 * The project must make use of a reverse proxy to make your application accessible to the user.
+* 
 
 ## **Constraints**
 These are the technologies that were used:
@@ -81,9 +80,6 @@ Below are the inital wireframes for our frontend:\
 ![createticket](images/Create_Ticket.jpg)
 ![createticket](images/Update_Ticket.jpg)
 
-## **Finalised Frontend**
-IMAGES HERE OF FINAL FRONTEND
-
 ## **Backend UML**
 ![uml](images/UML.png)
 
@@ -106,10 +102,9 @@ Coverage for each service in the backend is over 90%.
 Below is a screenshot of our frontend testing results carried out by JEST:\
 ![frontendtests](images/Test_coverage.jpg)
 
-
-## **Detailed Analysis**
-
 ## Possible future extensions
+In the future, this web application can be extended in numerous ways. One way is to implement a login system that allows users to login as trainers or trainees. The trainees can then update only their own ticket. This also prevents the misuse of the trainee/trainer toggle button. Additionally, the web application can also be extended to be sorted by time and title and can also include cohorts. The application can be designed in a way that lets trainers see all cohorts but lets trainees only see theirs.
+
 ## **Frameworks used**
 For this project, we made use of several icons within React. We used [React icons](https://react-icons.github.io/react-icons/) for this. In particular, we used icons from [Font Awesome](https://fontawesome.com/) and [Bootstrap](https://github.com/twbs/icons). We adapted the icons we used to suit our preferences.
 
