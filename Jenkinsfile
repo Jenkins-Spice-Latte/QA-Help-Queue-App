@@ -198,7 +198,7 @@ pipeline {
 
                     sh "npm install"
                     //sh "npm run test"
-                    sh "npm test --coverage -a"
+                    sh "npm test -- --coverage --watchAll=false"
                 }
             }
         }
