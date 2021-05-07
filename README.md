@@ -10,6 +10,8 @@ A functional Spring Boot help queue web application deployed using a continuous 
 * [Planning](#Planning)
 * [Finalised Frontend](#Finalised-Frontend)
 * [Backend UML](#Backend-UML)
+* [CI Pipeline](#CI-Pipeline)
+* [Testing](#Testing)
 * [Detailed analysis](#Detailed-analysis)
 * [Possible future extensions](#Possible-future-extensions)
 * [Frameworks used](#Frameworks-used)
@@ -53,7 +55,7 @@ These are the technologies that were used:
 Below are the planning steps undertaken before development of our application:
 
 ### Entity Relationship Diagram
-![arch-diagram](images/hq_architecture.png) 
+![erd-image](images/ERD.jpg) 
 ### Architecture
 Diagram used to develop our CI Pipeline:
 ![arch-diagram](images/hq_architecture.png) 
@@ -82,7 +84,17 @@ Below are the inital wireframes for our frontend:
 IMAGES HERE OF FINAL FRONTEND
 
 ## **Backend UML**
+![uml](images/UML.jpg)
 
+
+
+
+
+
+
+
+## **CI Pipeline**
+![CI_pipeline](images/CI_Pipeline.png)
 
 ## **Testing**
 The testing for our Frontend and Backend was carried out by JEST and JUNIT respectively.
@@ -94,6 +106,9 @@ Below is a screenshot of our frontend testing results carried out by JEST:
 ![frontendtests](images/Test_coverage.jpg)
 
 
+## **Detailed Analysis**
+
+## Possible future extensions
 ## **Frameworks used**
 For this project, we made use of several icons within React. We used [React icons](https://react-icons.github.io/react-icons/) for this. In particular, we used icons from [Font Awesome](https://fontawesome.com/) and [Bootstrap](https://github.com/twbs/icons). We adapted the icons we used to suit our preferences.
 
