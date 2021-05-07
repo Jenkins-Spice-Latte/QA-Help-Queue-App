@@ -9,7 +9,7 @@ pipeline {
     agent any
     stages {
         stage("Agent: Test VM") {
-            //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+            when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
             // sets to run on the testvm node.
             agent { label "testvm" }
             stages {
@@ -73,7 +73,7 @@ pipeline {
                     }
                 }
                 stage("Build Artifact, Push to Dockerhub") {
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
@@ -143,7 +143,7 @@ pipeline {
                 }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
@@ -184,6 +184,16 @@ pipeline {
                     sh "docker system prune --force --all --volumes"
                     sh "docker logout"
                     cleanWs()
+                }
+            }
+        }
+
+        stage("Test Frontend"){
+            steps{
+                dir("Frontend/React/queue"){
+
+                    sh "npm run test"
+                    sh "npm test --coverage"
                 }
             }
         }
