@@ -209,7 +209,7 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Time created:</strong> {hours} : {mins}</p>
 
-                    <Button disabled={markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
+                    <Button disabled={!markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
                     <Button color="warning" disabled={disabled} className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
                     <Button color="danger" disabled={disabled} className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
 

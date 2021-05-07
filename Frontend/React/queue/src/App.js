@@ -5,6 +5,7 @@ import Filter from './Components/Filter';
 import Create from './Components/Create';
 import Queue from './Components/Queue';
 import Toggle from './Components/Toggle';
+import logo from './qahq-title.png';
 
 
 function App() {
@@ -48,7 +49,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <img className="img" src={logo} alt="cannot display"/>
       </header>
+     
       <div className="all_columns">
         <div className="column_one">
           <div className= "create_ticket_div">  
