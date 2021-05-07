@@ -195,7 +195,7 @@ pipeline {
 
         stage("Build Frontend, Push to Dockerhub"){
             steps{
-                when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
+                //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
                 // build frontend image
                 sh "docker build Frontend/React/queue -t manishreddy1/hq-frontend:latest"
 
