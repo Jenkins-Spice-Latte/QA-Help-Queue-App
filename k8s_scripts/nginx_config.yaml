@@ -10,7 +10,9 @@ data:
         location / {
             proxy_pass http://frontend:3000;
         }
-
+    }
+    server {
+        listen 9999;
         location /api/createTicket {
             proxy_pass http://create-ip:8901;
         }
