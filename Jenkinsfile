@@ -9,7 +9,7 @@ pipeline {
     agent any
     stages {
         stage("Agent: Test VM") {
-            //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+            when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
             // sets to run on the testvm node.
             agent { label "testvm" }
             stages {
@@ -33,7 +33,7 @@ pipeline {
                 }
                 stage("Backend Microservices Testing") {
                     // only runs if branch is backend, main, or dev.
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         script {
                             MICROSERVICE_LIST.each { MICROSERVICE_NAME ->
@@ -73,7 +73,7 @@ pipeline {
                     }
                 }
                 stage("Build Artifact, Push to Dockerhub") {
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
@@ -136,7 +136,7 @@ pipeline {
                 }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
@@ -165,7 +165,7 @@ pipeline {
                 }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
@@ -195,7 +195,7 @@ pipeline {
 
         stage("Build Frontend, Push to Dockerhub"){
             steps{
-                //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
+                when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*frontend*", comparator: "GLOB" } }
                 // build frontend image
                 sh "docker build Frontend/React/queue -t manishreddy1/hq-frontend:latest"
 

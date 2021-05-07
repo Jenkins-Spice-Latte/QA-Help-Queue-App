@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: manishreddy1/hq-frontend:trying2
+        image: manishreddy1/hq-frontend:lastest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
