@@ -1,0 +1,20 @@
+---
+
+- name: "install jenkins"
+  script: ../../../ansible_scripts/install_jenkins.sh
+
+
+- name: Install awscli
+  apt:
+    name:         "{{ item }}"
+    update_cache: yes
+    state:        present
+  with_items:
+    - 'awscli'
+
+- name: "install kubectl"
+  script: ../../../ansible_scripts/install_kubectl.sh
+
+- name: Add jenkins to docker group
+  become: yes
+  shell: "usermod -aG docker jenkins && sudo systemctl restart jenkins"
