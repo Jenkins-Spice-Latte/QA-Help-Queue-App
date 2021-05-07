@@ -33,7 +33,7 @@ pipeline {
                 }
                 stage("Backend Microservices Testing") {
                     // only runs if branch is backend, main, or dev.
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         script {
                             MICROSERVICE_LIST.each { MICROSERVICE_NAME ->
@@ -122,18 +122,11 @@ pipeline {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
                                         sh "docker build ${MICROSERVICE_NAME} -t manishreddy1/hq-backend-${DOCKERIZED_NAME}:latest"
-                                        //sh "docker build ${MICROSERVICE_NAME} -t hq-backend-${DOCKERIZED_NAME}"
 
                                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                                             // pushes to dockerhub
-                                            //sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
-
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
                                             sh "docker image push manishreddy1/hq-backend-${DOCKERIZED_NAME}:latest"
-
-
-                                            //sh "docker tag hq-backend-createticket:latest public.ecr.aws/x2g1u6y5/hq-backend-${DOCKERIZED_NAME}:latest"
-                                            //sh "docker push public.ecr.aws/x2g1u6y5/hq-backend-${DOCKERIZED_NAME}:latest"
                                         }
                                     }
                                 }
@@ -172,7 +165,7 @@ pipeline {
                 }
                 // saves .jar files as jenkins artifacts.
                 stage("Archive JAR Artifacts") {
-                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         archiveArtifacts artifacts: 'backend/**/target/*.jar', fingerprint: true
                     }
@@ -230,7 +223,6 @@ pipeline {
                     sh "kubectl apply -f nginx_config.yaml"
                     sh "kubectl apply -f nginx.yaml"
 
-                    //sh "kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml"
                     sh "kubectl apply -f backend_createticket.yaml -f backend_readticket.yaml -f backend_updateticket.yaml -f backend_deleteticket.yaml"
 
                     sh "kubectl apply -f frontend.yaml"
@@ -240,6 +232,7 @@ pipeline {
                     sh "kubectl rollout restart deployment update"
                     sh "kubectl rollout restart deployment delete"
                     sh "kubectl rollout restart deployment nginx"
+                    sh "kubectl rollout restart deployment frontend"
                 }
             }
         }

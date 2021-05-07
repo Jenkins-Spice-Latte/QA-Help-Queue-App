@@ -5,7 +5,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: frontend
@@ -16,12 +16,16 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: manishreddy1/hq-frontend:trying2
+        image: manishreddy1/hq-frontend:latest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
       imagePullSecrets:
       - name: ticketkey
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
 ---
 apiVersion: v1
 kind: Service

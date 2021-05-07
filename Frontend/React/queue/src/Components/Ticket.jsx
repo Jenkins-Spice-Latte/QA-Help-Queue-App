@@ -86,7 +86,7 @@ const Ticket = (props) => {
       };
 
 
-      axios.put("api/updateTicket/update/"+item.ticketID, ticket)
+      axios.put("http://18.168.234.42:8903/update/"+item.ticketID, ticket)
       .then(response => {
         console.log(response.data);
         props.switchLoaded()
@@ -94,7 +94,7 @@ const Ticket = (props) => {
     }
 
     const deleteT = () => {
-      axios.delete("api/deleteTicket/delete/"+item.ticketID)
+      axios.delete("http://18.168.234.42:8904/delete/"+item.ticketID)
       .then(response => {
         console.log(response.data);
         props.switchLoaded()
@@ -114,7 +114,7 @@ const Ticket = (props) => {
         urgency: urgencySt
       };
       
-      axios.put("api/updateTicket/update/"+item.ticketID,  ticket)
+      axios.put("http://18.168.234.42:8903/update/"+item.ticketID,  ticket)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -207,7 +207,7 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Urgency:</strong> {Urgencylevel}</p>
                     <br />
-                    <p><strong>Date created:</strong> {hours} : {mins}</p>
+                    <p><strong>Time created:</strong> {hours} : {mins}</p>
 
                     <Button disabled={markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
                     <Button color="warning" disabled={disabled} className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
