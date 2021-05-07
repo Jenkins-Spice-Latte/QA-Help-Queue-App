@@ -36,7 +36,7 @@ metadata:
     app : create-ip
 spec:
   selector:
-    app: create-ip
+    app: create
   ports: 
   - protocol: TCP
     port: 8901
