@@ -52,30 +52,30 @@ These are the technologies that were used:
 * Frontend UI: React
 
 ## **Planning**
-Below are the planning steps undertaken before development of our application:
+Below are the planning steps undertaken before development of our application:\
 
 ### Entity Relationship Diagram
 ![erd-image](images/ERD.jpg) 
 ### Architecture
-Diagram used to develop our CI Pipeline:
+Diagram used to develop our CI Pipeline:\
 ![arch-diagram](images/hq_architecture.png) 
 
-AWS Network architecture:
+AWS Network architecture:\
 ![aws-diagram](images/hq_aws_network.png) 
 ### Risk Assessment
-Below is our risk assessment:
-![risk-assess](images/risk-assessment.png)
+Below is our risk assessment:\
+![risk-assess](images/risk_assessment.png)
 
 
 ### Jira Board
 
-Below are screenshots of our Jira board:
+Below are screenshots of our Jira board:\
 ![backlog](images/backlog.png)
 ![sp2-backlog](images/sp2-backlog.png)
 ![sp2-board](images/sp2-board.png)
 
 ### Wireframes
-Below are the inital wireframes for our frontend:
+Below are the inital wireframes for our frontend:\
 ![queue_main](images/Queue_Main.jpg)
 ![createticket](images/Create_Ticket.jpg)
 ![createticket](images/Update_Ticket.jpg)
@@ -84,7 +84,7 @@ Below are the inital wireframes for our frontend:
 IMAGES HERE OF FINAL FRONTEND
 
 ## **Backend UML**
-![uml](images/UML.jpg)
+![uml](images/UML.png)
 
 
 
@@ -102,7 +102,7 @@ The testing for our Frontend and Backend was carried out by JEST and JUNIT respe
 Our CI pipeline generates test coverage reports for the backend that can be found here: https://jenkins-spice-latte.github.io/QA-Help-Queue-App/
 Coverage for each service in the backend is over 90%.
 
-Below is a screenshot of our frontend testing results carried out by JEST:
+Below is a screenshot of our frontend testing results carried out by JEST:\
 ![frontendtests](images/Test_coverage.jpg)
 
 
@@ -113,7 +113,7 @@ Below is a screenshot of our frontend testing results carried out by JEST:
 For this project, we made use of several icons within React. We used [React icons](https://react-icons.github.io/react-icons/) for this. In particular, we used icons from [Font Awesome](https://fontawesome.com/) and [Bootstrap](https://github.com/twbs/icons). We adapted the icons we used to suit our preferences.
 
 ## **Acknowledgements and contributors**
-Throughout this project, we were guided by the trainers at the QA academy. This project was a team project and was contributed to and completed by solely by our team members:
+Throughout this project, we were guided by the trainers at the QA academy. This project was a team project and was contributed to and completed by solely by our team members:\
 * [Manish Reddy](https://github.com/mani-sh-reddy)
 * [Moksh Pandya](https://github.com/MP-Prime)
 * [Sonny Milbourn](https://github.com/SonnyRLM)
