@@ -27,7 +27,6 @@ spec:
       - name: nginx-config
         configMap:
           name: nginx-config
-
 ---
 apiVersion: v1
 kind: Service
