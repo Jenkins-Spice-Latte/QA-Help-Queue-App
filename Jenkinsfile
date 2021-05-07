@@ -232,6 +232,7 @@ pipeline {
                     sh "kubectl rollout restart deployment update"
                     sh "kubectl rollout restart deployment delete"
                     sh "kubectl rollout restart deployment nginx"
+                    sh "kubectl rollout restart deploymest frontend"
                 }
             }
         }
