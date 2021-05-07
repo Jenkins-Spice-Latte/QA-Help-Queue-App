@@ -36,7 +36,7 @@ metadata:
     app : delete-ip
 spec:
   selector:
-    app: delete-ip
+    app: delete
   ports: 
   - protocol: TCP
     port: 8904

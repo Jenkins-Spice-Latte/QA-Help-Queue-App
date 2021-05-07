@@ -36,7 +36,7 @@ metadata:
     app : read-ip
 spec:
   selector:
-    app: read-ip
+    app: read
   ports: 
   - protocol: TCP
     port: 8902

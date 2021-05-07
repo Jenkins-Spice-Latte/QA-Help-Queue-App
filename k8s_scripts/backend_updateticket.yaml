@@ -36,7 +36,7 @@ metadata:
     app : update-ip
 spec:
   selector:
-    app: update-ip
+    app: update
   ports: 
   - protocol: TCP
     port: 8903
