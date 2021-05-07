@@ -197,8 +197,8 @@ pipeline {
                     sh "sudo apt install nodejs"
 
                     sh "npm install"
-                    sh "npm run test"
-                    sh "npm test --coverage"
+                    //sh "npm run test"
+                    sh "npm test --coverage -a"
                 }
             }
         }
