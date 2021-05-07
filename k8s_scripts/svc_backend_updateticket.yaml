@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc-update-backend
+  labels:
+    app: svc-update-backend
+spec:
+  containers:
+  - name: updateticket
+    image: manishreddy1/hq-backend-updateticket:latest
+    ports:
+    - containerPort: 5003
+  imagePullSecrets:
+      - name: ticketkey
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-update-backend
+  labels:
+    app : svc-update-backend
+spec:
+  selector:
+    app: svc-update-backend
+  ports: 
+  - protocol: TCP
+    port: 5003
+    targetPort: 5003
+  type: ClusterIP

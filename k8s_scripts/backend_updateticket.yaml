@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: update
+  labels:
+    app: update
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: update
+
+  template:
+    metadata:
+      labels:
+        app: update
+    spec:
+      containers:
+      - name: updateticket-cont
+        image: manishreddy1/hq-backend-updateticket:latest
+        ports:
+        - containerPort: 8903
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: ticketkey
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: update-ip
+  labels:
+    app : update-ip
+spec:
+  selector:
+    app: update
+  ports: 
+  - protocol: TCP
+    port: 8903
+    targetPort: 8903
+  type: ClusterIP
