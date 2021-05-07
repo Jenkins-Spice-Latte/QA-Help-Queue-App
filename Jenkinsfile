@@ -9,7 +9,7 @@ pipeline {
     agent any
     stages {
         stage("Agent: Test VM") {
-            when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+            //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
             // sets to run on the testvm node.
             agent { label "testvm" }
             stages {
@@ -73,7 +73,7 @@ pipeline {
                     }
                 }
                 stage("Build Artifact, Push to Dockerhub") {
-                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     environment {
                         // sets the artifact (.jar) version to increment according to build number.
                         BUILD_VERSION_ID = "1.0.${BUILD_NUMBER}PROD"
@@ -122,18 +122,11 @@ pipeline {
                                     dir("backend/") {
                                         // builds image - sends args to Dockerfile.
                                         sh "docker build ${MICROSERVICE_NAME} -t manishreddy1/hq-backend-${DOCKERIZED_NAME}:latest"
-                                        //sh "docker build ${MICROSERVICE_NAME} -t hq-backend-${DOCKERIZED_NAME}"
 
                                         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_LOGIN', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                                             // pushes to dockerhub
-                                            //sh "docker tag hq-backend-${DOCKERIZED_NAME}:latest jenkinsspicelatte/hq-backend-${DOCKERIZED_NAME}:latest"
-
                                             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS'
                                             sh "docker image push manishreddy1/hq-backend-${DOCKERIZED_NAME}:latest"
-
-
-                                            //sh "docker tag hq-backend-createticket:latest public.ecr.aws/x2g1u6y5/hq-backend-${DOCKERIZED_NAME}:latest"
-                                            //sh "docker push public.ecr.aws/x2g1u6y5/hq-backend-${DOCKERIZED_NAME}:latest"
                                         }
                                     }
                                 }
@@ -143,7 +136,7 @@ pipeline {
                 }
                 // push test results directory to github repo.
                 stage("Push Test Results to Github") {
-                    when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
+                    //when { anyOf { branch 'main'; branch 'dev'; branch pattern: "*backend*", comparator: "GLOB" } }
                     steps {
                         dir("backend/allTestCov/") {
                             // creating main index file so developer can access the other coverage reports
@@ -230,7 +223,6 @@ pipeline {
                     sh "kubectl apply -f nginx_config.yaml"
                     sh "kubectl apply -f nginx.yaml"
 
-                    //sh "kubectl apply -f svc_backend_createticket.yaml -f svc_backend_readticket.yaml -f svc_backend_updateticket.yaml -f svc_backend_deleteticket.yaml"
                     sh "kubectl apply -f backend_createticket.yaml -f backend_readticket.yaml -f backend_updateticket.yaml -f backend_deleteticket.yaml"
 
                     sh "kubectl apply -f frontend.yaml"
