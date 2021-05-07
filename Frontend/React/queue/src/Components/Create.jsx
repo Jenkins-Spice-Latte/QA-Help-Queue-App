@@ -21,7 +21,7 @@ const Create = (props) => {
   let urgencyCheck;
   let topicCheck;
 
-  if(props.mode === "Trainer mode"){
+  if(props.mode === "Trainee mode"){
     disabled = false;
   } else{
     disabled = true;
