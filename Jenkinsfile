@@ -188,20 +188,17 @@ pipeline {
             }
         }
 
-        stage("Test Frontend"){
-            steps{
-                dir("Frontend/React/queue"){
+        // stage("Test Frontend"){
+        //     steps{
+        //         dir("Frontend/React/queue"){
 
-                    sh "curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -"
-
-                    sh "sudo apt install nodejs"
-
-                    sh "npm install"
-                    //sh "npm run test"
-                    sh "npm test -- --coverage --watchAll=false"
-                }
-            }
-        }
+        //             sh "curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -"
+        //             sh "sudo apt install nodejs"
+        //             sh "npm install"
+        //             sh "npm test -- --coverage --watchAll=false"
+        //         }
+        //     }
+        // }
 
         stage("Build Frontend, Push to Dockerhub"){
             steps{
@@ -249,13 +246,3 @@ pipeline {
     }
             
 }
-        //TODO: add conditional to check if branch name contains frontend, main, or dev.
-        //TODO: frontend testing.
-        //TODO: frontend build package (npm?).
-        //TODO: create frontend image using dockerfile.
-        //TODO: push frontend container image to dockerhub.
-        //TODO: push frontend test results to github.
-        //TODO: archive frontend npm package.
-        //TODO: clean workspace.
-        //TODO: change node to kubernetes cluster (or maybe just run kubectl commands using the endpoint?)
-        //TODO: use kubernetes yaml files to run containers (where does dockercompose come into this?)
