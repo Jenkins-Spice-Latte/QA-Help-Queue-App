@@ -49,7 +49,7 @@ const Ticket = (props) => {
     let disabled;
     let markasdoneDisabled;
     
-    if(props.mode === "Trainer mode"){
+    if(props.mode === "Trainee mode"){
       disabled = false;
     } else{
       disabled = true;
@@ -62,7 +62,7 @@ const Ticket = (props) => {
 
     if(isEnabled){
       markasdoneDisabled = true;
-    } else if(props.mode === "Trainee mode") {
+    } else if(props.mode === "Trainer mode") {
       markasdoneDisabled = true;
     } else{
       markasdoneDisabled = false;
@@ -209,8 +209,8 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Time created:</strong> {hours} : {mins}</p>
 
-                    <Button disabled={!markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
-                    <Button color="warning" disabled={disabled} className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
+                    <Button disabled={markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
+                    <Button color="warning" disabled={!disabled} className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
                     <Button color="danger" disabled={disabled} className="queueBtnBlock" onClick={() => deleteT()}>Delete ticket</Button>
 
 
