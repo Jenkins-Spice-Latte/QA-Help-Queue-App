@@ -10,6 +10,7 @@ A functional Spring Boot help queue web application deployed using a continuous 
 * [Planning](#Planning)
 * [Finalised Frontend](#Finalised-Frontend)
 * [Backend UML](#Backend-UML)
+* [Manual and Automated Processes](#Manual-and-Automated-Processes)
 * [CI Pipeline](#CI-Pipeline)
 * [Testing](#Testing)
 * [Detailed analysis](#Detailed-analysis)
@@ -89,8 +90,8 @@ IMAGES HERE OF FINAL FRONTEND
 
 
 
-
-
+## **Manual and Automated Processes**
+![manual_auto](images/manual_process.png)
 
 
 ## **CI Pipeline**
