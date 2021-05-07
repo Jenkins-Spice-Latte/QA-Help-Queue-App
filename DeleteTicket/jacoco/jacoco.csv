@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+delete-ticket,com.qa.deleteTicket.rest.controller,DeleteController,0,21,0,2,0,6,0,3,0,2
+delete-ticket,com.qa.deleteTicket.persistance.domain,Tickets,0,54,0,0,0,20,0,10,0,10
+delete-ticket,com.qa.deleteTicket.exception,TicketNotFoundException,3,0,0,0,1,0,1,0,1,0
+delete-ticket,com.qa.deleteTicket.service,DeleteService,1,18,1,1,0,5,1,2,0,2
+delete-ticket,com.qa.deleteTicket,DeleteTicketApplication,5,3,0,0,2,1,1,1,1,1
