@@ -207,7 +207,7 @@ const Ticket = (props) => {
                     <br />
                     <p><strong>Urgency:</strong> {Urgencylevel}</p>
                     <br />
-                    <p><strong>Date created:</strong> {hours} : {mins}</p>
+                    <p><strong>Time created:</strong> {hours} : {mins}</p>
 
                     <Button disabled={markasdoneDisabled} color="success" className="queueBtnBlock" onClick={() => mark()}>Mark as done</Button>
                     <Button color="warning" disabled={disabled} className="queueBtnBlock" onClick={toggle}>Update ticket</Button>
