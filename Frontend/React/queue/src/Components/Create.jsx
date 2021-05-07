@@ -73,7 +73,7 @@ const Create = (props) => {
       urgency: urgencySt
     };
 
-    axios.post(`api/createTicket/create`,  ticket)
+    axios.post(`http://18.168.234.42:8901/create`,  ticket)
       .then(res => {
         console.log(res);
         props.switchLoaded();
