@@ -25,11 +25,11 @@ const Filter = (props) => {
           <FormGroup>
             <Label for="exampleCheckbox">Topic</Label>
             <div>
-              <CustomInput type="checkbox" id="CustomCheckbox13" onClick={() => props.topicCheck("Topic1")} checked={props.topic.includes("Topic1")} value="Topic1" label="Topic 1" />
-              <CustomInput type="checkbox" id="CustomCheckbox14" onClick={() => props.topicCheck("Topic2")} checked={props.topic.includes("Topic2")} value="Topic2" label="Topic 2" />
-              <CustomInput type="checkbox" id="CustomCheckbox15" onClick={() => props.topicCheck("Topic3")} checked={props.topic.includes("Topic3")} value="Topic3" label="Topic 3" />
-              <CustomInput type="checkbox" id="CustomCheckbox16" onClick={() => props.topicCheck("Topic4")} checked={props.topic.includes("Topic4")} value="Topic4" label="Topic 4" />
-              <CustomInput type="checkbox" id="CustomCheckbox17" onClick={() => props.topicCheck("Topic5")} checked={props.topic.includes("Topic5")} value="Topic5" label="Topic 5" />
+              <CustomInput type="checkbox" id="CustomCheckbox13" onClick={() => props.topicCheck("Dev Ops")} checked={props.topic.includes("Dev Ops")} value="Dev Ops" label="Dev Ops" />
+              <CustomInput type="checkbox" id="CustomCheckbox14" onClick={() => props.topicCheck("General")} checked={props.topic.includes("General")} value="General" label="General" />
+              <CustomInput type="checkbox" id="CustomCheckbox15" onClick={() => props.topicCheck("Back-end")} checked={props.topic.includes("Back-end")} value="Back-end" label="Back-end" />
+              <CustomInput type="checkbox" id="CustomCheckbox16" onClick={() => props.topicCheck("Front-end")} checked={props.topic.includes("Front-end")} value="Front-end" label="Front-end" />
+              <CustomInput type="checkbox" id="CustomCheckbox17" onClick={() => props.topicCheck("Software")} checked={props.topic.includes("Software")} value="Software" label="Software" />
             </div>
           </FormGroup>
         </Form>

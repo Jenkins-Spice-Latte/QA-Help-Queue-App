@@ -11,7 +11,7 @@ function App() {
   const [modeSelect, setmodeSelect] = useState("Trainee mode");
   const [sortChange, setsortChange] = useState("Oldest");
   const [urgentFilterChange, setUrgentFilter] = useState([1,2,3,4,5]);
-  const [topicFilterChange, setTopicFilter] = useState(["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]);
+  const [topicFilterChange, setTopicFilter] = useState(["Dev Ops", "General", "Back-end", "Front-end", "Software"]);
   const [authorFilter, setAuthorFilter] = useState("");
   const [titleFilter, setTitleFilter] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);

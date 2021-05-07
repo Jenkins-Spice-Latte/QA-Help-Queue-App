@@ -19,7 +19,7 @@ test('tests to see if Sort renders properly', () => {
 
 test('tests to see if Filter renders properly', () => {
   const filterComp = renderer.create(<Filter urgencyCheck={App.onFilterUrgentCheckboxClick} setAuthorFilter={App.setAuthorFilter} urgent={[1,2,3,4,5]} 
-  topicCheck={App.onFilterTopicCheckboxClick} topic={["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]}/>).toJSON();
+  topicCheck={App.onFilterTopicCheckboxClick} topic={["Dev Ops", "General", "Back-end", "Front-end", "Software"]}/>).toJSON();
   expect(filterComp).toMatchSnapshot();
 });
 
@@ -30,7 +30,7 @@ test('tests to see if Toggle renders properly', () => {
 
 test('tests to see if Queue renders properly', () => {
   const QueueComp = renderer.create(<Queue mode={(App.modeSelect)} urgentfilter={[1, 2, 3, 4, 5]} 
-  topicfilter={["Topic1", "Topic2", "Topic3", "Topic4", "Topic5"]} authorfilter={""} switchLoaded={false} isLoaded={false}/>).toJSON();
+  topicfilter={["Dev Ops", "General", "Back-end", "Front-end", "Software"]} authorfilter={""} switchLoaded={false} isLoaded={false}/>).toJSON();
   expect(QueueComp).toMatchSnapshot();
 });
 

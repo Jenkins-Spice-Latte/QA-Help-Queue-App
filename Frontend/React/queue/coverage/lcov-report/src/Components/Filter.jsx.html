@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">15.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>2/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">8.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>1/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">15.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>2/13</span>
             </div>
         
             
@@ -99,8 +99,8 @@
 <a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,8 +138,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { CustomInput, Form, FormGroup, Label, Input } from 'reactstrap';
 &nbsp;
-const Filter = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
+const Filter = (props) =&gt; {
+    return (
       &lt;&gt; 
         &lt;p&gt;Filter&lt;/p&gt;
         &lt;Form&gt;
@@ -162,11 +162,11 @@ const Filter = <span class="cstat-no" title="statement not covered" ><span class
           &lt;FormGroup&gt;
             &lt;Label for="exampleCheckbox"&gt;Topic&lt;/Label&gt;
             &lt;div&gt;
-              &lt;CustomInput type="checkbox" id="CustomCheckbox13" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Topic1")}</span> checked={props.topic.includes("Topic1")} value="Topic1" label="Topic 1" /&gt;
-              &lt;CustomInput type="checkbox" id="CustomCheckbox14" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Topic2")}</span> checked={props.topic.includes("Topic2")} value="Topic2" label="Topic 2" /&gt;
-              &lt;CustomInput type="checkbox" id="CustomCheckbox15" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Topic3")}</span> checked={props.topic.includes("Topic3")} value="Topic3" label="Topic 3" /&gt;
-              &lt;CustomInput type="checkbox" id="CustomCheckbox16" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Topic4")}</span> checked={props.topic.includes("Topic4")} value="Topic4" label="Topic 4" /&gt;
-              &lt;CustomInput type="checkbox" id="CustomCheckbox17" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Topic5")}</span> checked={props.topic.includes("Topic5")} value="Topic5" label="Topic 5" /&gt;
+              &lt;CustomInput type="checkbox" id="CustomCheckbox13" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Dev Ops")}</span> checked={props.topic.includes("Dev Ops")} value="Dev Ops" label="Dev Ops" /&gt;
+              &lt;CustomInput type="checkbox" id="CustomCheckbox14" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("General")}</span> checked={props.topic.includes("General")} value="General" label="General" /&gt;
+              &lt;CustomInput type="checkbox" id="CustomCheckbox15" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Back-end")}</span> checked={props.topic.includes("Back-end")} value="Back-end" label="Back-end" /&gt;
+              &lt;CustomInput type="checkbox" id="CustomCheckbox16" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Front-end")}</span> checked={props.topic.includes("Front-end")} value="Front-end" label="Front-end" /&gt;
+              &lt;CustomInput type="checkbox" id="CustomCheckbox17" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.topicCheck("Software")}</span> checked={props.topic.includes("Software")} value="Software" label="Software" /&gt;
             &lt;/div&gt;
           &lt;/FormGroup&gt;
         &lt;/Form&gt;
@@ -181,7 +181,7 @@ const Filter = <span class="cstat-no" title="statement not covered" ><span class
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 06 2021 14:53:57 GMT+0100 (British Summer Time)
+                at Fri May 07 2021 00:30:44 GMT+0100 (British Summer Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
