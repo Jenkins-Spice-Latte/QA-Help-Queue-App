@@ -192,6 +192,10 @@ pipeline {
             steps{
                 dir("Frontend/React/queue"){
 
+                    sh "curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -"
+
+                    sh "sudo apt install nodejs"
+
                     sh "npm run test"
                     sh "npm test --coverage"
                 }
