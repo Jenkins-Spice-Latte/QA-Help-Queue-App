@@ -22,7 +22,7 @@ const Queue = (props) => {
   let urgency5data = [];
   
   if(props.isLoaded === false){
-    axios.get("18.168.234.42:8902/readAll")
+    axios.get("http://18.168.234.42:8902/readAll")
     .then(response => {
         console.log(response.data)
         setData(response.data);
