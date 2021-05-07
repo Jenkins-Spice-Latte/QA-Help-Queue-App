@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: svc-delete-backend
+  labels:
+    app: svc-delete-backend
+spec:
+  containers:
+  - name: deleteticket
+    image: manishreddy1/hq-backend-deleteticket:latest
+    ports:
+    - containerPort: 5004
+  imagePullSecrets:
+      - name: ticketkey
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-delete-backend
+  labels:
+    app : svc-delete-backend
+spec:
+  selector:
+    app: svc-delete-backend
+  ports: 
+  - protocol: TCP
+    port: 5004
+    targetPort: 5004
+  type: ClusterIP

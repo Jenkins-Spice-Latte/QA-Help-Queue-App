@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.qa</groupId>
-	<artifactId>help-queue</artifactId>
+	<artifactId>read-ticket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>help-queue</name>
+	<name>read-ticket</name>
 	<description>backend for help-queue application</description>
 	<properties>
 		<java.version>11</java.version>
@@ -35,19 +35,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
        </dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -66,6 +58,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+		    <plugin>
+		        <groupId>org.jacoco</groupId>
+		        <artifactId>jacoco-maven-plugin</artifactId>
+		        <version>0.8.6</version>
+		        <executions>
+		            <execution>
+		                <goals>
+		                    <goal>prepare-agent</goal>
+		                </goals>
+		            </execution>
+		            <!-- attached to Maven test phase -->
+		            <execution>
+		                <id>report</id>
+		                <phase>test</phase>
+		                <goals>
+		                    <goal>report</goal>
+		                </goals>
+		            </execution>
+		        </executions>
+		    </plugin>
 		</plugins>
 	</build>
 

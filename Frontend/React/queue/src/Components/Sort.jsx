@@ -1,15 +1,17 @@
-import '../App.css';
-
 import React from 'react';
-import {Button} from 'reactstrap';
+import {Form, FormGroup, Label, Input} from 'reactstrap';
 
-const Sort = () => {
+const Sort = (props) => {
   return (
     <> 
-      <p>Sort</p>
-      <Button id="newestBtn" color="secondary">Sort by newest</Button>
-      <Button id="oldestBtn" color="secondary">Sort by oldest</Button>
-      <Button id="ascBtn" color="secondary">Sort by title</Button>
+      <Form>
+          <FormGroup>
+            <Label for="exampleCheckbox">Search here</Label>
+            <div>
+              <Input type="text" name="keyword" id="keyword" placeholder="Keyword search" onChange={(e) => props.setTitleFilter(e.target.value)}/>
+            </div>
+          </FormGroup>
+      </Form>
     </>
   );
 };
